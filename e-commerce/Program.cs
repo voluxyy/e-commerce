@@ -1,3 +1,7 @@
+using ecommerce.Business.Service;
+using ecommerce.Data;
+using ecommerce.Data.Repositories;
+
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,16 +19,31 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DataContext>();
+
+// Link repositories
+builder.Services.AddTransient<IAdminRepository, AdminRepository>();
+builder.Services.AddTransient<ICommentRepository, CommentRepository>();
+builder.Services.AddTransient<IProductListRepository, ProductListRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IRateRepository, RateRepository>();
+builder.Services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+// Link services
+builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IProductListService, ProductListService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IRateService, RateService>();
+builder.Services.AddTransient<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -33,9 +52,7 @@ app.UseSwaggerUI(c =>
 });
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

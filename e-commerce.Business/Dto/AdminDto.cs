@@ -1,5 +1,5 @@
-namespace ecommerce.Data.Models {
-    public class Admin {
+namespace ecommerce.Business.Dto {
+    public class AdminDto {
         public required string Id { get; set; }
         public required string Pseudo { get; set; }
         public required string Email { get; set; }
