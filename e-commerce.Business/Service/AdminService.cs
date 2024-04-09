@@ -31,12 +31,12 @@ namespace ecommerce.Business.Service
             return adminDto;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(string id)
         {
             return await adminRepository.Delete(id);
         }
 
-        public async Task<AdminDto> Get(int id)
+        public async Task<AdminDto> Get(string id)
         {
             return ModelToDto(await adminRepository.Get(id));
         }

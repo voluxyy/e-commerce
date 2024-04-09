@@ -52,13 +52,8 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<AdminDto>> Get(int id)
+        public async Task<ActionResult<AdminDto>> Get(string id)
         {
-            if (id <= default(int))
-            {
-                return NotFound();
-            }
-
             try
             {
                 return await this.service.Get(id);
@@ -80,13 +75,8 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<AdminDto>> Update(int id, AdminDto dto)
+        public async Task<ActionResult<AdminDto>> Update(string id, AdminDto dto)
         {
-            if (id <= default(int))
-            {
-                return NotFound();
-            }
-
             try
             {
                 return await this.service.Update(dto);
@@ -111,13 +101,8 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id <= default(int))
-            {
-                return NotFound();
-            }
-
             try
             {
                 await this.service.Delete(id);

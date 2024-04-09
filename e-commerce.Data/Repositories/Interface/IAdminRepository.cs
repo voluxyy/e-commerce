@@ -8,9 +8,9 @@ namespace ecommerce.Data.Repositories
 
         Task<Admin> Update(Admin admin);
 
-        Task<int> Delete(int id);
+        Task<int> Delete(string id);
 
-        Task<Admin> Get(int id);
+        Task<Admin> Get(string id);
 
         List<Admin> GetAll();
     }

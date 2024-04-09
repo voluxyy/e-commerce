@@ -8,9 +8,9 @@ namespace ecommerce.Business.Service
 
         Task<AdminDto> Update(AdminDto dto);
 
-        Task<int> Delete(int id);
+        Task<int> Delete(string id);
 
-        Task<AdminDto> Get(int id);
+        Task<AdminDto> Get(string id);
 
         List<AdminDto> GetAll();
     }
