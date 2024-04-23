@@ -1,6 +1,8 @@
 using ecommerce.Business.Service;
+using ecommerce.Business.Service.Interface;
 using ecommerce.Data;
 using ecommerce.Data.Repositories;
+using ecommerce.Data.Repositories.Interface;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -32,6 +34,7 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IRateRepository, RateRepository>();
 builder.Services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IWishlistRepository, WishlistRepository>();
 
 // Link services
 builder.Services.AddTransient<IAdminService, AdminService>();
@@ -41,6 +44,7 @@ builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IRateService, RateService>();
 builder.Services.AddTransient<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IWishlistService, WishlistService>();
 
 var app = builder.Build();
 

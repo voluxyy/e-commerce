@@ -14,6 +14,7 @@ namespace ecommerce.Data {
         public DbSet<Rate> Rates { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
