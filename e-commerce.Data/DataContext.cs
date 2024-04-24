@@ -1,6 +1,5 @@
 using ecommerce.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace ecommerce.Data {
     public class DataContext : DbContext {
@@ -15,6 +14,7 @@ namespace ecommerce.Data {
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Wish> Wishs { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
