@@ -17,3 +17,98 @@
 **:construction:**  -  *'Work in progress.'*<br>
 **:card_file_box:**  -  *'Perform database related changes.'*<br>
 **:memo:** -  *'Add or update documentation.'*
+
+### Modèle de données :
+```mermaid
+classDiagram
+    User <|-- Comment
+    User <|-- Wish
+    User <|-- Rate
+    User <|-- ShoppingCart
+
+    Product <|-- ProductCategory
+    Product <|-- Wish
+    Product <|-- Rate
+    Product <|-- ProductList
+    Product <|-- Comment
+
+    ShoppingCart <|-- ProductList
+    ShoppingCart <|-- User
+
+    Comment <|-- Product
+    Comment <|-- User
+
+    Rate <|-- Product
+    Rate <|-- User
+
+    Wish <|-- User
+    Wish <|-- Product
+
+    WishList <|-- Wish
+
+    ProductCategory <|-- Product
+
+    ProductList <|-- Product
+
+    class Wish{
+        int Id
+        int ProductId
+        int UserId
+    }
+    class WishList{
+        int Id
+        int WishId
+    }
+    class Product{
+        int Id
+        string ImagePath
+        string Name
+        float Price
+        int Quantity
+        int CategoryId
+    }
+    class Rate{
+        int Id
+        int Value
+        int ProductId
+        int UserId
+    }
+    class ProductList{
+        int Id
+        int ProductId
+        int ShoppingCartId
+    }
+    class ShoppingCart{
+        int Id
+        int UserId
+    }
+    class ProductCategory{
+        int Id
+        string CategoryName
+        int ProductId
+    }
+    class User{
+        int Id
+        string Firstname
+        string Lastname
+        string Pseudo
+        string Email
+        string Password
+        DateTime Birthdate
+        double Money
+    }
+    class Comment{
+        int Id
+        string Title
+        string Description
+        int ProductId
+        int UserId
+    }
+    class Admin{
+        int Id
+        string Pseudo
+        string Email
+        string Password
+        int Permission
+    }
+```
