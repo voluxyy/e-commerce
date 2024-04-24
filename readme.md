@@ -22,7 +22,7 @@
 ```mermaid
 classDiagram
     User <|-- Comment
-    User <|-- Wish
+    User --|> Wish
     User <|-- Rate
     User <|-- ShoppingCart
 
