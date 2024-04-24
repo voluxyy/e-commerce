@@ -34,7 +34,6 @@ classDiagram
     Comment <|-- Product
 
     Rate <|-- Product
-    Rate <|-- User
 
     Wish <|-- Product
 
