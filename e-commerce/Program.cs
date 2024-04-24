@@ -36,6 +36,7 @@ builder.Services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>()
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IWishRepository, WishRepository>();
 builder.Services.AddTransient<IWishListRepository, WishListRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 
 // Link services
 builder.Services.AddTransient<IAdminService, AdminService>();
@@ -47,6 +48,7 @@ builder.Services.AddTransient<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWishService, WishService>();
 builder.Services.AddTransient<IWishListService, WishListService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

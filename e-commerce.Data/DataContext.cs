@@ -16,6 +16,8 @@ namespace ecommerce.Data {
         public DbSet<Wish> Wishs { get; set; }
         public DbSet<WishList> WishLists { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data source=database.db");
