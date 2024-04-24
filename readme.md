@@ -27,8 +27,6 @@ classDiagram
     User <|-- ShoppingCart
 
     Product <|-- ProductCategory
-    Product <|-- Wish
-    Product <|-- Rate
     Product <|-- ProductList
 
     ShoppingCart <|-- ProductList
@@ -43,8 +41,6 @@ classDiagram
     WishList <|-- Wish
 
     Category <|-- Product
-
-    ProductList <|-- Product
 
     class Wish{
         int Id
