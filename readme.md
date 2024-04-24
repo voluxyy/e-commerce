@@ -30,23 +30,19 @@ classDiagram
     Product <|-- Wish
     Product <|-- Rate
     Product <|-- ProductList
-    Product <|-- Comment
 
     ShoppingCart <|-- ProductList
-    ShoppingCart <|-- User
 
     Comment <|-- Product
-    Comment <|-- User
 
     Rate <|-- Product
     Rate <|-- User
 
-    Wish <|-- User
     Wish <|-- Product
 
     WishList <|-- Wish
 
-    ProductCategory <|-- Product
+    Category <|-- Product
 
     ProductList <|-- Product
 
@@ -82,10 +78,9 @@ classDiagram
         int Id
         int UserId
     }
-    class ProductCategory{
+    class Category{
         int Id
         string CategoryName
-        int ProductId
     }
     class User{
         int Id
