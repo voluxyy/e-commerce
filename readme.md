@@ -21,9 +21,10 @@
 ### Modèle de données :
 ```mermaid
 classDiagram
-    User <|-- Comment
+    User --|> Comment
     User --|> Wish
-    User <|-- Rate
+    User --|> Rate
+    
     User <|-- ShoppingCart
 
     Product <|-- Category
