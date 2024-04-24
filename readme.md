@@ -24,8 +24,7 @@ classDiagram
     User --|> Comment
     User --|> Wish
     User --|> Rate
-    
-    User <|-- ShoppingCart
+    User --|> ShoppingCart
 
     Product <|-- Category
     Product <|-- ProductList
