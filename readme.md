@@ -40,63 +40,63 @@ classDiagram
     WishList <|-- Wish
 
     class Wish{
-        int Id
-        int ProductId
-        int UserId
+        **int** Id
+        **int** ProductId
+        **int** UserId
     }
     class WishList{
-        int Id
-        int WishId
+        **int** Id
+        **int** WishId
     }
     class Product{
-        int Id
-        string ImagePath
-        string Name
-        float Price
-        int Quantity
-        int CategoryId
+        **int** Id
+        **string** ImagePath
+        **string** Name
+        **float** Price
+        **int** Quantity
+        **int** CategoryId
     }
     class Rate{
-        int Id
-        int Value
-        int ProductId
-        int UserId
+        **int** Id
+        **int** Value
+        **int** ProductId
+        **int** UserId
     }
     class ProductList{
-        int Id
-        int ProductId
-        int ShoppingCartId
+        **int** Id
+        **int** ProductId
+        **int** ShoppingCartId
     }
     class ShoppingCart{
-        int Id
-        int UserId
+        **int** Id
+        **int** UserId
     }
     class Category{
-        int Id
-        string CategoryName
+        **int** Id
+        **string** CategoryName
     }
     class User{
-        int Id
-        string Firstname
-        string Lastname
-        string Pseudo
-        string Email
-        string Password
-        DateTime Birthdate
-        double Money
+        **int** Id
+        **string** Firstname
+        **string** Lastname
+        **string** Pseudo
+        **string** Email
+        **string** Password
+        **DateTime** Birthdate
+        **double** Money
     }
     class Comment{
-        int Id
-        string Title
-        string Description
-        int ProductId
-        int UserId
+        **int** Id
+        **string** Title
+        **string** Description
+        **int** ProductId
+        **int** UserId
     }
     class Admin{
-        int Id
-        string Pseudo
-        string Email
-        string Password
-        int Permission
+        **int** Id
+        **string** Pseudo
+        **string** Email
+        **string** Password
+        **int** Permission
     }
 ```
