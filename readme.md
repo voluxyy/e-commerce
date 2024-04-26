@@ -1,5 +1,5 @@
 ## Back-End
-<img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" /> &nbsp; **Manipulate our database**
+<img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" /> &nbsp; Manipulate our database 
 
 <br>
 
