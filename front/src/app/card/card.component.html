@@ -1,1 +1,10 @@
-<p>card works!</p>
+<div class="card">
+    @for (prod of products; track prod) {
+    <div class="card-header">
+        <h4>{{ prod.name }}</h4>
+    </div>
+    <div class="card-body">
+        <p>{{ prod.price }}</p>
+    </div>
+    }
+</div>
