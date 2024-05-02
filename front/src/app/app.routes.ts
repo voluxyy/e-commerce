@@ -4,36 +4,24 @@ import { CardComponent } from './card/card.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
-    { path: '',   redirectTo: '/', pathMatch: 'full' },
-    { 
+    { path: '', redirectTo: '/', pathMatch: 'full' },
+    {
         path: 'home',
         component: CardsComponent,
+        title: 'Home Page',
         children: [
             {
                 path: 'cards',
                 component: CardsComponent,
+                title: 'Bento Cards',
                 children: [
-                    { path: 'card', component: CardComponent }
+                    { 
+                        path: 'card', 
+                        title: 'Product Card',
+                        component: CardComponent }
                 ]
-            }
-        
-        ]},
-    { path: '**', component: PageNotFoundComponent },
-    // { path: 'about', loadChildren: './about/about.module#AboutModule' }
+            },
+            { path: '**', title: "Page Not Found", component: PageNotFoundComponent },
+        ]
+    },
 ];
-
-
-// import { NgModule } from '@angular/core';
-// import { RouterModule, Routes } from '@angular/router';
-// import { CardsComponent } from './cards/cards.component';
-
-// const routes: Routes = [
-//     { path: '', redirectTo: 'home', pathMatch: 'full' },
-//     { path : 'cards', component: CardsComponent},
-// ];
-
-// @NgModule({
-//     imports: [RouterModule.forRoot(routes)],
-//     exports: [RouterModule]
-//   })
-// export class AppRoutingModule { }
