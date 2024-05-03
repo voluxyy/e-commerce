@@ -1,6 +1,6 @@
 header{
+    padding: 1vw 4vw;
     background-color: #f8f9fa;
-    padding: 10px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
     display: flex;
     justify-content: space-between;
@@ -10,14 +10,14 @@ header{
         display: flex;
         gap: 20px;
         list-style-type: none;
-        a{
-            color: #000;
-            text-decoration: none;
-            &:hover{
-                color: #2463a7;
-                font-weight: 500;
-                cursor: pointer;
-            }
+    }
+    a{
+        color: #000;
+        text-decoration: none;
+        &:hover{
+            color: #2463a7;
+            font-weight: 500;
+            cursor: pointer;
         }
     }
 }

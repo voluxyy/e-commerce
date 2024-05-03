@@ -1,0 +1,12 @@
+
+section{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2%;
+    margin: 4vw;
+}
+.card-bento{
+    padding: 20px 10px;
+    border: 1px solid #1f1f1f;
+    border-radius: 5px;
+}
