@@ -2,32 +2,8 @@
     <h2>Pixel</h2>
     <input type="text" placeholder="Search...">
     <menu>
-        <li><a href="">Home</a></li>
-        <li><a href="#" id="categories">Categories</a>
-            <ul class="submenu show" id="categories-submenu">
-                <li><a href="">Category 1</a></li>
-                <li><a href="">Category 2</a></li>
-                <li><a href="">Category 3</a></li>
-            </ul>
+        <li><a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a></li>
+        <li><a routerLink="/categories" routerLinkActive="active" ariaCurrentWhenActive="page" id="categories">Categories</a>
         </li>
     </menu>
 </header>
-
-<script>
-    const menu = document.getElementById('categories');
-    menu.onclick = (event) => {
-        event.preventDefault(); // Prevent the default link behavior
-        const submenu = document.getElementById('categories-submenu');
-        submenu.classList.toggle('show'); // Toggle the "show" class to display/hide the submenu
-    }
-</script>
-
-<style>
-    .submenu {
-        display: none;
-    }
-
-    .show {
-        display: block;
-    }
-</style>

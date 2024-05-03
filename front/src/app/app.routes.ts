@@ -1,18 +1,19 @@
 import { Routes } from '@angular/router';
-import { CardsComponent } from './cards/cards.component';
 import { CardComponent } from './card/card.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CardBentoComponent } from './card-bento/card-bento.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/', pathMatch: 'full' },
     {
         path: 'home',
-        component: CardsComponent,
+        component: HomeComponent,
         title: 'Home Page',
         children: [
             {
                 path: 'cards',
-                component: CardsComponent,
+                component: CardBentoComponent,
                 title: 'Bento Cards',
                 children: [
                     { 
@@ -21,7 +22,8 @@ export const routes: Routes = [
                         component: CardComponent }
                 ]
             },
-            { path: '**', title: "Page Not Found", component: PageNotFoundComponent },
         ]
     },
+    
+    { path: '**', title: "Page Not Found", component: PageNotFoundComponent },
 ];
