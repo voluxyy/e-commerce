@@ -5,9 +5,8 @@ import { CardBentoComponent } from './card-bento/card-bento.component';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/', pathMatch: 'full' },
     {
-        path: 'home',
+        path: '',
         component: HomeComponent,
         title: 'Home Page',
         children: [

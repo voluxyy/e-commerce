@@ -19,8 +19,7 @@ export class CardComponent implements OnInit {
   target: string;
 
   constructor(private http: HttpClient) {
-    // this.target = 'http://localhost:7094';
-    this.target = 'http://localhost:44359';
+    this.target = 'http://localhost:5016';
   }
 
   ngOnInit(): void {
