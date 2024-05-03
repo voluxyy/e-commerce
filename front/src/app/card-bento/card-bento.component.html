@@ -1,36 +1,10 @@
-<section *NgFor="let product of products">
-    <a routerLink="/Product/:id" >
-        <div class="card-bento">
-            <div class="card-bento__header">
-                <img src="" alt="">
+<section>
+    <div class="product__card" *ngFor="let product of products">
+        <a href="/Product/{{product.id}}">
+            <div class="product__image">
+                <img src="{{ product.imagePath}}" alt="">
             </div>
-            <div class="card-bento__content">
-                <app-card></app-card>
-            </div>
-        </div>
-    </a>
-    <div class="card-bento">
-        <div class="card-bento__header">
-            <img src="" alt="">
-        </div>
-        <div class="card-bento__content">
-            <app-card></app-card>
-        </div>
-    </div>
-    <div class="card-bento">
-        <div class="card-bento__header">
-            <img src="" alt="">
-        </div>
-        <div class="card-bento__content">
-            <app-card></app-card>
-        </div>
-    </div>
-    <div class="card-bento">
-        <div class="card-bento__header">
-            <img src="" alt="">
-        </div>
-        <div class="card-bento__content">
-            <app-card></app-card>
-        </div>
+        </a>
+        <p class="product__name">{{ product.name }}</p>
     </div>
 </section>

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { CardComponent } from './card/card.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CardBentoComponent } from './card-bento/card-bento.component';
 import { HomeComponent } from './home/home.component';
@@ -14,15 +13,9 @@ export const routes: Routes = [
         title: 'Home Page',
         children: [
             {
-                path: 'cards',
+                path: 'Video Games',
                 component: CardBentoComponent,
                 title: 'Bento Cards',
-                children: [
-                    { 
-                        path: 'card', 
-                        title: 'Product Card',
-                        component: CardComponent }
-                ]
             },
         ]
     },
