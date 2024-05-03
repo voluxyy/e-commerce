@@ -51,6 +51,7 @@ builder.Services.AddTransient<IWishListService, WishListService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 var app = builder.Build();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
