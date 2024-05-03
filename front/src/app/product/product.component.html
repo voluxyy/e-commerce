@@ -1,0 +1,10 @@
+<section>
+    <div class="product__card" *ngFor="let product of products">
+        <a href="/Product/{{product.id}}">
+            <div class="product__image">
+                <img src="{{ product.imagePath}}" alt="">
+            </div>
+        </a>
+        <p class="product__name">{{ product.name }}</p>
+    </div>
+</section>

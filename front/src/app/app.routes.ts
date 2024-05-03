@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { GamesAdminComponent } from './games-admin/games-admin.component';
 
 export const routes: Routes = [
     {
@@ -19,6 +20,7 @@ export const routes: Routes = [
             },
         ]
     },
+    { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent},
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},
     { path: 'dashboard', title: 'Dashboard', component: DashboardComponent},

@@ -12,14 +12,14 @@ import { NgFor } from '@angular/common';
 })
 export class CardBentoComponent {
   products: any;
-  target: string;
+  apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.target = 'http://localhost:5016';
+    this.apiUrl = 'http://localhost:5016';
   }
 
   ngOnInit(): void {
-    this.http.get<any>(this.target + "/api/Product/all")
+    this.http.get<any>(this.apiUrl + "/api/Product/all")
       .subscribe(data => {
         this.products = data;
       });
