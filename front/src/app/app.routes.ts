@@ -3,6 +3,9 @@ import { CardComponent } from './card/card.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CardBentoComponent } from './card-bento/card-bento.component';
 import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +26,8 @@ export const routes: Routes = [
             },
         ]
     },
-    
+    { path: 'register', title: 'Register', component: RegisterComponent},
+    { path: 'login', title: 'Login', component: LoginComponent},
+    { path: 'dashboard', title: 'Dashboard', component: DashboardComponent},
     { path: '**', title: "Page Not Found", component: PageNotFoundComponent },
 ];
