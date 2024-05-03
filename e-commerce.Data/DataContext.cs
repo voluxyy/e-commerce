@@ -12,10 +12,9 @@ namespace ecommerce.Data {
         public DbSet<ProductList> ProductLists { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Wish> Wishs { get; set; }
-        public DbSet<WishList> WishLists { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

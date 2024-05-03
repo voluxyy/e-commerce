@@ -1,9 +1,8 @@
-using System.Runtime.InteropServices;
-
 namespace ecommerce.Data.Models {
-    public class ProductList {
+    public class Sale {
         public required int Id { get; set; }
+        public required int UserId { get; set; }
         public required int ProductId { get; set; }
-        public required int ShoppingCartId { get; set; }
+        public required string ActivationCode { get; set; }
     }
 }
