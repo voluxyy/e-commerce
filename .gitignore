@@ -520,5 +520,6 @@ testem.log
 Thumbs.db
 
 # Ignore database files
+database.db
 database.db-shm
 database.db-wal
