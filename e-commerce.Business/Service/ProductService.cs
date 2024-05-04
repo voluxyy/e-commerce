@@ -66,7 +66,8 @@ namespace ecommerce.Business.Service
                 ImagePath = product.ImagePath,
                 Name = product.Name,
                 Price = product.Price,
-                Quantity = product.Quantity
+                Quantity = product.Quantity,
+                CategoryId = product.CategoryId,
             };
 
             return productDto;
@@ -80,7 +81,8 @@ namespace ecommerce.Business.Service
                 ImagePath = productDto.ImagePath,
                 Name = productDto.Name,
                 Price = productDto.Price,
-                Quantity = productDto.Quantity
+                Quantity = productDto.Quantity,
+                CategoryId = productDto.CategoryId,
             };
 
             return product;
