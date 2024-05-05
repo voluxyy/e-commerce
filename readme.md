@@ -31,16 +31,19 @@ classDiagram
     Comment <|-- Product
     Rate <|-- Product
     Wish <|-- Product
-    WishList <|-- Wish
+    Sale <|-- Product
+    Sale <|-- User
 
+    class Sale{
+        int Id
+        int ProductId
+        int UserId
+        string ActivationCode
+    }
     class Wish{
         int Id
         int ProductId
         int UserId
-    }
-    class WishList{
-        int Id
-        int WishId
     }
     class Product{
         int Id

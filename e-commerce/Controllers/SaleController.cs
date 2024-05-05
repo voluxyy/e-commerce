@@ -1,31 +1,31 @@
 ﻿using ecommerce.Business.Dto;
-using ecommerce.Business.Service.Interface;
+using ecommerce.Business.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecommerce.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
-    public class WishListController : ControllerBase
+    public class SaleController : ControllerBase
     {
-        private readonly IWishListService service;
+        private readonly ISaleService service;
 
-        public WishListController(IWishListService service)
+        public SaleController(ISaleService service)
         {
             this.service = service;
         }
 
         /// <summary>
-        /// Adds a new WishList using the data provided in the request body.
+        /// Adds a new Sale using the data provided in the request body.
         /// </summary>
-        /// <param name="dto">The data of the WishList to add.</param>
+        /// <param name="dto">The data of the Sale to add.</param>
         /// <returns>
-        /// Returns an HTTP 201 Created response if the WishList is successfully added,
+        /// Returns an HTTP 201 Created response if the Sale is successfully added,
         /// a problematic validation response in case of validation error,
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<WishListDto>> Add([FromBody] WishListDto dto)
+        public async Task<ActionResult<SaleDto>> Add([FromBody] SaleDto dto)
         {
             try
             {
@@ -43,16 +43,16 @@ namespace ecommerce.Controllers
         }
 
         /// <summary>
-        /// Retrieves the details of a WishList based on its identifier.
+        /// Retrieves the details of a Sale based on its identifier.
         /// </summary>
-        /// <param name="id">The identifier of the WishList to retrieve.</param>
+        /// <param name="id">The identifier of the Sale to retrieve.</param>
         /// <returns>
-        /// Returns an HTTP 404 NotFound response if the WishList does not exist,
-        /// the details of the WishList if found,
+        /// Returns an HTTP 404 NotFound response if the Sale does not exist,
+        /// the details of the Sale if found,
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<WishListDto>> Get(int id)
+        public async Task<ActionResult<SaleDto>> Get(int id)
         {
             if (id <= default(int))
             {
@@ -70,17 +70,17 @@ namespace ecommerce.Controllers
         }
 
         /// <summary>
-        /// Updates the details of a WishList based on its identifier using the provided data.
+        /// Updates the details of a Sale based on its identifier using the provided data.
         /// </summary>
-        /// <param name="id">The identifier of the WishList to update.</param>
-        /// <param name="dto">The new data of the WishList.</param>
+        /// <param name="id">The identifier of the Sale to update.</param>
+        /// <param name="dto">The new data of the Sale.</param>
         /// <returns>
-        /// Returns an HTTP 404 NotFound response if the WishList does not exist,
+        /// Returns an HTTP 404 NotFound response if the Sale does not exist,
         /// a problematic validation response in case of validation error,
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<WishListDto>> Update(int id, WishListDto dto)
+        public async Task<ActionResult<SaleDto>> Update(int id, SaleDto dto)
         {
             if (id <= default(int))
             {
@@ -102,12 +102,12 @@ namespace ecommerce.Controllers
         }
 
         /// <summary>
-        /// Deletes a WishList based on its identifier.
+        /// Deletes a Sale based on its identifier.
         /// </summary>
-        /// <param name="id">The identifier of the WishList to delete.</param>
+        /// <param name="id">The identifier of the Sale to delete.</param>
         /// <returns>
-        /// Returns an HTTP 404 NotFound response if the WishList does not exist,
-        /// an HTTP 200 OK response if the WishList is successfully deleted,
+        /// Returns an HTTP 404 NotFound response if the Sale does not exist,
+        /// an HTTP 200 OK response if the Sale is successfully deleted,
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpDelete("delete/{id}")]
@@ -137,7 +137,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpGet("all")]
-        public ActionResult<List<WishListDto>> GetAll()
+        public ActionResult<List<SaleDto>> GetAll()
         {
             try
             {
