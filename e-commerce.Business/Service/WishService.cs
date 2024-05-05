@@ -65,7 +65,7 @@ namespace ecommerce.Business.Service
             {
                 Id = wish.Id,
                 ProductId = wish.ProductId,
-                UserId = wish.UserId,
+                WishListId = wish.WishListId,
             };
 
             return wishDto;
@@ -77,7 +77,7 @@ namespace ecommerce.Business.Service
             {
                 Id = wishDto.Id,
                 ProductId = wishDto.ProductId,
-                UserId = wishDto.UserId,
+                WishListId = wishDto.WishListId,
             };
 
             return wish;

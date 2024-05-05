@@ -63,7 +63,7 @@ namespace ecommerce.Business.Service
             SaleDto saleDto = new SaleDto
             {
                 Id = sale.Id,
-                Value = sale.Value,
+                ActivationCode = sale.ActivationCode,
                 ProductId = sale.ProductId,
                 UserId = sale.UserId
             };
@@ -76,7 +76,7 @@ namespace ecommerce.Business.Service
             Sale sale = new Sale
             {
                 Id = saleDto.Id,
-                Value = saleDto.Value,
+                ActivationCode = saleDto.ActivationCode,
                 ProductId = saleDto.ProductId,
                 UserId = saleDto.UserId
             };

@@ -1,8 +1,11 @@
+.pannel__games_admin{
+    margin: 4vw;
+    font-family: sans-serif;
+}
 section{
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1%;
-    margin: 4vw;
 }
 
 .product__card{

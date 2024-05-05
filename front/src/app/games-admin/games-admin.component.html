@@ -1,0 +1,14 @@
+<div class="pannel__games_admin">
+    <h1>Administrez les jeux de votre app</h1>
+    <button class="btn btn-primary" (click)="addGame(0)" *ngIf="prod.EmployeeId=='0'">Ajouter un jeu</button>
+    <section>
+        <div class="product__card" *ngFor="let product of products">
+            <a href="/Product/{{product.id}}">
+                <div class="product__image">
+                    <img src="{{ product.imagePath}}" alt="">
+                </div>
+            </a>
+            <p class="product__name">{{ product.name }}</p>
+        </div>
+    </section>
+</div>

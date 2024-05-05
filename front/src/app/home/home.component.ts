@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, NgModule, OnInit, viewChild } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
+import { Component} from '@angular/core';
+import { CardBentoComponent } from '../card-bento/card-bento.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CardBentoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
