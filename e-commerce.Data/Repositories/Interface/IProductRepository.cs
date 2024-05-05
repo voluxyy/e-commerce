@@ -12,6 +12,8 @@ namespace ecommerce.Data.Repositories
 
         Task<Product> Get(int id);
 
+        Task<Product> GetLast();
+
         List<Product> GetAll();
     }
 }

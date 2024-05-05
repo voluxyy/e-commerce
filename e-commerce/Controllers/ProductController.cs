@@ -25,11 +25,12 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto)
+        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto, IFormFile imageFile)
         {
             try
             {
-                await this.service.Add(dto);
+                byte[] imageData = await ReadImageData(imageFile);
+                await this.service.Add(dto, imageData);
                 return StatusCode(StatusCodes.Status201Created, dto);
             }
             catch (ArgumentNullException)
@@ -146,6 +147,15 @@ namespace ecommerce.Controllers
             catch (Exception)
             {
                 return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        private async Task<byte[]> ReadImageData(IFormFile imageFile)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                await imageFile.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
             }
         }
     }

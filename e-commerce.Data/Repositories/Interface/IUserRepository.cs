@@ -13,5 +13,7 @@ namespace ecommerce.Data.Repositories
         Task<User> Get(int id);
 
         List<User> GetAll();
+
+        Task<User> GetByEmail(string email);
     }
 }

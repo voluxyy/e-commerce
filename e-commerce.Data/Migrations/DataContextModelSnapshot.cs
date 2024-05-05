@@ -42,6 +42,21 @@ namespace e_commerce.Data.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("ecommerce.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ecommerce.Data.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -75,6 +90,9 @@ namespace e_commerce.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -90,6 +108,8 @@ namespace e_commerce.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -137,6 +157,31 @@ namespace e_commerce.Data.Migrations
                     b.ToTable("Rates");
                 });
 
+            modelBuilder.Entity("ecommerce.Data.Models.Sale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ActivationCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sales");
+                });
+
             modelBuilder.Entity("ecommerce.Data.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -159,7 +204,7 @@ namespace e_commerce.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Birthdate")
+                    b.Property<DateOnly?>("Birthdate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -175,9 +220,13 @@ namespace e_commerce.Data.Migrations
                     b.Property<int>("Money")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Pseudo")
                         .IsRequired()
@@ -188,11 +237,41 @@ namespace e_commerce.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ecommerce.Data.Models.Wish", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wishs");
+                });
+
             modelBuilder.Entity("ecommerce.Data.Models.Comment", b =>
                 {
                     b.HasOne("ecommerce.Data.Models.User", null)
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ecommerce.Data.Models.Product", b =>
+                {
+                    b.HasOne("ecommerce.Data.Models.Category", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -221,6 +300,21 @@ namespace e_commerce.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ecommerce.Data.Models.Sale", b =>
+                {
+                    b.HasOne("ecommerce.Data.Models.Product", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ecommerce.Data.Models.User", null)
+                        .WithMany("Sales")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ecommerce.Data.Models.ShoppingCart", b =>
                 {
                     b.HasOne("ecommerce.Data.Models.User", null)
@@ -230,9 +324,33 @@ namespace e_commerce.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ecommerce.Data.Models.Wish", b =>
+                {
+                    b.HasOne("ecommerce.Data.Models.Product", null)
+                        .WithMany("Wishs")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ecommerce.Data.Models.User", null)
+                        .WithMany("Wishs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ecommerce.Data.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("ecommerce.Data.Models.Product", b =>
                 {
                     b.Navigation("ProductLists");
+
+                    b.Navigation("Sales");
+
+                    b.Navigation("Wishs");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.ShoppingCart", b =>
@@ -246,7 +364,11 @@ namespace e_commerce.Data.Migrations
 
                     b.Navigation("Rates");
 
+                    b.Navigation("Sales");
+
                     b.Navigation("ShoppingCarts");
+
+                    b.Navigation("Wishs");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,9 @@
+using System.Security.Cryptography;
+using System.Text;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace ecommerce.Business.Service
 {
@@ -15,18 +18,41 @@ namespace ecommerce.Business.Service
 
         public async Task<UserDto> Add(UserDto dto)
         {
-            User user = DtoToModel(dto);
+            var exist = await userRepository.GetByEmail(dto.Email);
+            if (exist != null)
+                throw new ApplicationException("User with this email already exists");
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+
+            User user = DtoToModel(dto, passwordHash, passwordSalt);
             await userRepository.Add(user);
-            UserDto userDto = ModelToDto(user);
+            UserDto userDto = ModelToDto(user, null);
 
             return userDto;
         }
 
         public async Task<UserDto> Update(UserDto dto)
         {
-            User user = DtoToModel(dto);
+            User currentUser = await userRepository.Get(dto.Id);
+
+            User user = DtoToModel(dto, currentUser.PasswordHash, currentUser.PasswordSalt);
             await userRepository.Update(user);
-            UserDto userDto = ModelToDto(user);
+            UserDto userDto = ModelToDto(user, null);
+
+            return userDto;
+        }
+
+        public async Task<UserDto> UpdatePassword(UserDto dto) 
+        {
+            User currentUser = await userRepository.Get(dto.Id);
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+
+            User user = DtoToModel(dto, passwordHash, passwordSalt);
+            await userRepository.Update(user);
+            UserDto userDto = ModelToDto(user, null);
 
             return userDto;
         }
@@ -38,7 +64,7 @@ namespace ecommerce.Business.Service
 
         public async Task<UserDto> Get(int id)
         {
-            return ModelToDto(await userRepository.Get(id));
+            return ModelToDto(await userRepository.Get(id), null);
         }
 
         public List<UserDto> GetAll()
@@ -53,12 +79,12 @@ namespace ecommerce.Business.Service
             List<UserDto> usersDtos = new List<UserDto>();
             foreach (User user in users)
             {
-                usersDtos.Add(ModelToDto(user));
+                usersDtos.Add(ModelToDto(user, null));
             }
             return usersDtos;
         }
 
-        private UserDto ModelToDto(User user)
+        private UserDto ModelToDto(User user, string password)
         {
             UserDto userDto = new UserDto
             {
@@ -67,8 +93,7 @@ namespace ecommerce.Business.Service
                 Firstname = user.Firstname,
                 Pseudo = user.Pseudo,
                 Email = user.Email,
-                PasswordHash = user.PasswordHash,
-                PasswordSalt = user.PasswordSalt,
+                Password = password,
                 Birthdate = user.Birthdate,
                 Money = user.Money
             };
@@ -76,7 +101,7 @@ namespace ecommerce.Business.Service
             return userDto;
         }
 
-        private User DtoToModel(UserDto userDto)
+        private User DtoToModel(UserDto userDto, byte[] passwordHash, byte[] passwordSalt)
         {
             User user = new User
             {
@@ -85,13 +110,23 @@ namespace ecommerce.Business.Service
                 Firstname = userDto.Firstname,
                 Pseudo = userDto.Pseudo,
                 Email = userDto.Email,
-                PasswordHash = userDto.PasswordHash,
-                PasswordSalt = userDto.PasswordSalt,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
                 Birthdate = userDto.Birthdate,
                 Money = userDto.Money
             };
 
             return user;
         }
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512())
+        {
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        }
+    }
+
     }
 }

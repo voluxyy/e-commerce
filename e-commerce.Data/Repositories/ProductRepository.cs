@@ -1,4 +1,5 @@
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -41,6 +42,11 @@ namespace ecommerce.Data.Repositories
         public async Task<Product> Get(int id)
         {
             return await _context.Products.FindAsync(id);
+        }
+
+        public async Task<Product> GetLast()
+        {
+            return await _context.Products.LastAsync();
         }
 
         public List<Product> GetAll()

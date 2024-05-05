@@ -5,9 +5,7 @@ namespace ecommerce.Business.Dto {
         public string? Firstname { get; set; }
         public required string Pseudo { get; set; }
         public required string Email { get; set; }
-        public byte[]? PasswordHash { get; set; }
-        public byte[]? PasswordSalt { get; set; }
-
+        public string? Password { get; set; }
         public DateOnly? Birthdate { get; set; }
         public required int Money { get; set; }
     }
