@@ -67,7 +67,8 @@ namespace ecommerce.Business.Service
                 Firstname = user.Firstname,
                 Pseudo = user.Pseudo,
                 Email = user.Email,
-                Password = user.Password,
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt,
                 Birthdate = user.Birthdate,
                 Money = user.Money
             };
@@ -84,7 +85,8 @@ namespace ecommerce.Business.Service
                 Firstname = userDto.Firstname,
                 Pseudo = userDto.Pseudo,
                 Email = userDto.Email,
-                Password = userDto.Password,
+                PasswordHash = userDto.PasswordHash,
+                PasswordSalt = userDto.PasswordSalt,
                 Birthdate = userDto.Birthdate,
                 Money = userDto.Money
             };

@@ -2,8 +2,8 @@
 {
     public class WishDto
     {
-        public required int Id { get; set; }
+        public int Id { get; set; }
         public required int ProductId { get; set; }
-        public required int WishListId { get; set; }
+        public required int UserId { get; set; }
     }
 }

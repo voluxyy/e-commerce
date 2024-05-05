@@ -5,7 +5,8 @@ namespace ecommerce.Data.Models {
         public string? Firstname { get; set; }
         public required string Pseudo { get; set; }
         public required string Email { get; set; }
-        public required string Password { get; set; }
+        public required byte[] PasswordHash { get; set; }
+        public required byte[] PasswordSalt { get; set; }
         public DateOnly? Birthdate { get; set; }
         public required int Money { get; set; }
         public ICollection<ShoppingCart>? ShoppingCarts { get; set; }
