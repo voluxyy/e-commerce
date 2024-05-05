@@ -523,3 +523,6 @@ Thumbs.db
 database.db
 database.db-shm
 database.db-wal
+
+# Ignore .mono directory added by C# extension
+.mono
