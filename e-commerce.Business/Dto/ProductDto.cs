@@ -5,6 +5,6 @@ namespace ecommerce.Business.Dto {
         public required string Name { get; set; }
         public required float Price { get; set; }
         public required int Quantity { get; set; }
-        public required int CategoryId { get; set; }
+        public int CategoryId { get; set; }
     }
 }
