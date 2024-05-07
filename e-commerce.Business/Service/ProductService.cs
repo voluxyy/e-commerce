@@ -1,3 +1,4 @@
+using System.IO.Enumeration;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
@@ -13,8 +14,12 @@ namespace ecommerce.Business.Service
             this.productRepository = productRepository;
         }
 
-        public async Task<ProductDto> Add(ProductDto dto)
+        public async Task<ProductDto> Add(ProductDto dto, byte[] imageData)
         {
+            Product lastProduct = await productRepository.GetLast();
+
+            dto.ImagePath = await SaveImage(lastProduct.Id+1, dto.Name, imageData);
+
             Product product = DtoToModel(dto);
             await productRepository.Add(product);
             ProductDto productDto = ModelToDto(product);
@@ -86,6 +91,17 @@ namespace ecommerce.Business.Service
             };
 
             return product;
+        }
+
+        private async Task<string> SaveImage(int id, string name, byte[] imageData)
+        {
+            string uniqueFileName = "picture_" + id + "-" + name;
+            string uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "var", "uploads");
+            string filePath = Path.Combine(uploadsFolderPath, uniqueFileName);
+
+            await File.WriteAllBytesAsync(filePath, imageData);
+
+            return uniqueFileName;
         }
     }
 }

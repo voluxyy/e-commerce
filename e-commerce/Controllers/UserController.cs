@@ -36,9 +36,9 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.StatusCode(500, "Internal Server Error");
+                return this.StatusCode(500, "Internal Server Error: "+e.Message);
             }
         }
 
@@ -81,6 +81,38 @@ namespace ecommerce.Controllers
         /// </returns>
         [HttpPut("update/{id}")]
         public async Task<ActionResult<UserDto>> Update(int id, UserDto dto)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                return await this.service.Update(dto);
+            }
+            catch (ArgumentNullException)
+            {
+                return this.ValidationProblem();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
+        /// Updates the password of a User based on its identifier using the provided data.
+        /// </summary>
+        /// <param name="id">The identifier of the User to update.</param>
+        /// <param name="dto">The new data of the User.</param>
+        /// <returns>
+        /// Returns an HTTP 404 NotFound response if the User does not exist,
+        /// a problematic validation response in case of validation error,
+        /// or an HTTP 500 Internal Server Error response in case of server internal error.
+        /// </returns>
+        [HttpPut("update-password/{id}")]
+        public async Task<ActionResult<UserDto>> UpdatePassword(int id, UserDto dto)
         {
             if (id <= default(int))
             {

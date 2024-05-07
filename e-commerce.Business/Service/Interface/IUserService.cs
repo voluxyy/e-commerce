@@ -8,6 +8,8 @@ namespace ecommerce.Business.Service
 
         Task<UserDto> Update(UserDto dto);
 
+        Task<UserDto> UpdatePassword(UserDto dto);
+
         Task<int> Delete(int id);
 
         Task<UserDto> Get(int id);

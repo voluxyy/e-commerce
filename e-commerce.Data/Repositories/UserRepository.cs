@@ -1,4 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -41,6 +43,11 @@ namespace ecommerce.Data.Repositories
         public async Task<User> Get(int id)
         {
             return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<User> GetByEmail(string email) 
+        {
+            return _context.Users.Where(x => x.Email == email).First();
         }
 
         public List<User> GetAll()
