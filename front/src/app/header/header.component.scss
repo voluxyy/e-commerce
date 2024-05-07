@@ -1,7 +1,12 @@
 header{
+    position: sticky;
+    top: 4%;
+    z-index: 100;
+    margin: 2% 0;
     padding: 1vw 4vw;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+    background-color: #363636e6;
+    border-radius: 10px;
+    border: 1px solid #525252;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,12 +17,16 @@ header{
         list-style-type: none;
     }
     a{
-        color: #000;
+        color: var(--var-grey);
         text-decoration: none;
         &:hover{
-            color: #2463a7;
+            color: var(--var-primary);
             font-weight: 500;
             cursor: pointer;
+        }
+        &:focus{
+            color: var(--var-primary);
+            font-weight: 500;
         }
     }
 }

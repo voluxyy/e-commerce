@@ -1,0 +1,33 @@
+table {
+    border-collapse: collapse;
+    border: 1px solid var(--var-grey);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    width: 100%;
+
+    th,
+    td {
+        border: 1px solid var(--var-grey);
+    }
+}
+
+thead {
+    text-align: left;
+    tr {
+        th {
+            color: var(--var-white);
+            font-weight: 900;
+            padding: 20px 10px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+tbody {
+    tr {
+        td {
+            padding: 10px;
+        }
+    }
+}
