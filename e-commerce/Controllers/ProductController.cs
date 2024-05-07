@@ -25,7 +25,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto, IFormFile imageFile)
+        public async Task<ActionResult<ProductDto>> Add([FromForm] ProductDto dto, IFormFile imageFile)
         {
             try
             {

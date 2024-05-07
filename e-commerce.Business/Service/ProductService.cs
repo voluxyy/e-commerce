@@ -18,7 +18,9 @@ namespace ecommerce.Business.Service
         {
             Product lastProduct = await productRepository.GetLast();
 
-            dto.ImagePath = await SaveImage(lastProduct.Id+1, dto.Name, imageData);
+            int Id = (lastProduct != null) ? lastProduct.Id : 0;
+
+            dto.ImagePath = await SaveImage(Id+1, dto.Name, imageData);
 
             Product product = DtoToModel(dto);
             await productRepository.Add(product);
