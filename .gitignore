@@ -524,5 +524,8 @@ database.db
 database.db-shm
 database.db-wal
 
+# Ignore pictures folders
+var
+
 # Ignore .mono directory added by C# extension
 .mono

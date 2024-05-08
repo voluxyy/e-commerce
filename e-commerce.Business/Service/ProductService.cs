@@ -1,16 +1,23 @@
 using System.IO.Enumeration;
+using System.Security;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace ecommerce.Business.Service
 {
     public class ProductService : IProductService
     {
+        private string varFolderPath;
+        private string uploadsFolderPath;
+
         private readonly IProductRepository productRepository;
 
         public ProductService(IProductRepository productRepository)
         {
+            this.varFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "var");
+            this.uploadsFolderPath = Path.Combine(this.varFolderPath, "uploads");
             this.productRepository = productRepository;
         }
 
@@ -29,8 +36,14 @@ namespace ecommerce.Business.Service
             return productDto;
         }
 
-        public async Task<ProductDto> Update(ProductDto dto)
+        public async Task<ProductDto> Update(ProductDto dto, byte[] imageData)
         {
+            if (dto.ImagePath == null) {
+                throw new ArgumentNullException("ImagePath is missing.");
+            }
+
+            UpdateImage(dto.ImagePath, imageData);
+
             Product product = DtoToModel(dto);
             await productRepository.Update(product);
             ProductDto productDto = ModelToDto(product);
@@ -40,6 +53,12 @@ namespace ecommerce.Business.Service
 
         public async Task<int> Delete(int id)
         {
+            Product product = await productRepository.Get(id);
+
+            if (product.ImagePath != null) {
+                File.Delete(Path.Combine(this.uploadsFolderPath, product.ImagePath));
+            }
+
             return await productRepository.Delete(id);
         }
 
@@ -95,15 +114,35 @@ namespace ecommerce.Business.Service
             return product;
         }
 
-        private async Task<string> SaveImage(int id, string name, byte[] imageData)
+        private async Task<string> SaveImage(int id, string fileName, byte[] imageData)
         {
-            string uniqueFileName = "picture_" + id + "-" + name;
-            string uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "var", "uploads");
-            string filePath = Path.Combine(uploadsFolderPath, uniqueFileName);
+            this.CheckFolders();
 
-            await File.WriteAllBytesAsync(filePath, imageData);
+            string uniqueFileName = "picture_" + id + "-" + fileName + ".jpg";
+            string filePath = Path.Combine(this.uploadsFolderPath, uniqueFileName);
+
+            _ = File.WriteAllBytesAsync(filePath, imageData);
 
             return uniqueFileName;
+        }
+
+        private async void UpdateImage(string path, byte[] imageData)
+        {
+            this.CheckFolders();
+
+            string filePath = Path.Combine(this.uploadsFolderPath, path);
+
+            _ = File.WriteAllBytesAsync(filePath, imageData);
+        }
+
+        private void CheckFolders() {
+            if (!Directory.Exists(this.varFolderPath)) {
+                Directory.CreateDirectory(this.varFolderPath);
+            }
+
+            if (!Directory.Exists(this.uploadsFolderPath)) {
+                Directory.CreateDirectory(this.uploadsFolderPath);
+            }
         }
     }
 }
