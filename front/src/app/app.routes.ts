@@ -2,10 +2,11 @@ import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CardBentoComponent } from './card-bento/card-bento.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { GamesAdminComponent } from './games-admin/games-admin.component';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { RegisterComponent } from './User/register/register.component';
+import { LoginComponent } from './User/login/login.component';
+import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
+import { MembersAdminComponent } from './Admin/members-admin/members-admin.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,8 @@ export const routes: Routes = [
             },
         ]
     },
+    { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent},
+
     { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent},
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},

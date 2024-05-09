@@ -1,11 +1,12 @@
 table {
+    font-family: "Poppins", sans-serif;
     border-collapse: collapse;
     border: 1px solid var(--var-grey);
     font-family: sans-serif;
     font-size: 0.8rem;
     letter-spacing: 1px;
     width: 100%;
-
+    margin: 0 0 10% 0;
     th,
     td {
         border: 1px solid var(--var-grey);
@@ -16,10 +17,13 @@ thead {
     text-align: left;
     tr {
         th {
-            color: var(--var-white);
-            font-weight: 900;
+            font-size: 1.2em;
+            font-family: "Poppins", sans-serif;
+            background-color: var(--var-grey);
+            border: 1px solid var(--var-black);
+            color: var(--var-black);
+            font-weight: 700;
             padding: 20px 10px;
-            text-transform: uppercase;
         }
     }
 }
@@ -30,4 +34,8 @@ tbody {
             padding: 10px;
         }
     }
+}
+
+h2{
+    margin-top: 10%;
 }

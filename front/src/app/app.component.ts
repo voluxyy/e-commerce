@@ -1,7 +1,7 @@
 import { CommonModule} from '@angular/common';
 import { Component} from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './Components/header/header.component';
 import { CardBentoComponent } from './card-bento/card-bento.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
