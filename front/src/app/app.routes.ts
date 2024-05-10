@@ -7,6 +7,7 @@ import { RegisterComponent } from './User/register/register.component';
 import { LoginComponent } from './User/login/login.component';
 import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
 import { MembersAdminComponent } from './Admin/members-admin/members-admin.component';
+import { ProductComponent } from './product/product.component';
 
 export const routes: Routes = [
     {
@@ -21,8 +22,8 @@ export const routes: Routes = [
             },
         ]
     },
+    { path: 'product/:id', title: 'Product', component: ProductComponent},
     { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent},
-
     { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent},
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},

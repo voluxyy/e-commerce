@@ -529,3 +529,8 @@ var
 
 # Ignore .mono directory added by C# extension
 .mono
+
+# Image files
+*.jpg
+*.jpeg
+*.png

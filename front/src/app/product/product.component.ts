@@ -1,34 +1,25 @@
 import { NgFor, NgIf } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
-  selector: 'app-games-admin',
+  selector: 'product',
   standalone: true,
   imports: [RouterOutlet, NgFor, NgIf],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
-export class ProductComponent {
-  products: any;
+export class ProductComponent implements OnInit{
   prod: any;
-  apiUrl: string;
 
-  constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:5016/Product/:id';
-  }
+  constructor(private route: ActivatedRoute) { }
 
-  addGame(prod: any): Observable<any> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<any>(this.apiUrl + "/api/Product/:id", prod, httpOptions);
-  }
 
   ngOnInit(): void {
-    this.http.get<any>(this.apiUrl + "/api/Product/all")
-      .subscribe(data => {
-        this.products = data;
-      });
+    this.route.params.subscribe(params => {
+      this.prod = params['id'];
+    });
   }
 }

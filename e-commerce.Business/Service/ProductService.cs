@@ -16,8 +16,10 @@ namespace ecommerce.Business.Service
 
         public ProductService(IProductRepository productRepository)
         {
-            this.varFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "var");
-            this.uploadsFolderPath = Path.Combine(this.varFolderPath, "uploads");
+            string pathToFront = "../front/src/";
+
+            this.varFolderPath = Path.Combine(Directory.GetCurrentDirectory(), pathToFront);
+            this.uploadsFolderPath = Path.Combine(this.varFolderPath, "assets");
             this.productRepository = productRepository;
         }
 
@@ -116,7 +118,7 @@ namespace ecommerce.Business.Service
 
         private async Task<string> SaveImage(int id, string fileName, byte[] imageData)
         {
-            this.CheckFolders();
+            /*this.CheckFolders();*/
 
             string uniqueFileName = "picture_" + id + "-" + fileName + ".jpg";
             string filePath = Path.Combine(this.uploadsFolderPath, uniqueFileName);
@@ -128,14 +130,14 @@ namespace ecommerce.Business.Service
 
         private async void UpdateImage(string path, byte[] imageData)
         {
-            this.CheckFolders();
-
+/*            this.CheckFolders();
+*/
             string filePath = Path.Combine(this.uploadsFolderPath, path);
 
             _ = File.WriteAllBytesAsync(filePath, imageData);
         }
 
-        private void CheckFolders() {
+        /*private void CheckFolders() {
             if (!Directory.Exists(this.varFolderPath)) {
                 Directory.CreateDirectory(this.varFolderPath);
             }
@@ -143,6 +145,6 @@ namespace ecommerce.Business.Service
             if (!Directory.Exists(this.uploadsFolderPath)) {
                 Directory.CreateDirectory(this.uploadsFolderPath);
             }
-        }
+        }*/
     }
 }

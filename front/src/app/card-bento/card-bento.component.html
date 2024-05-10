@@ -1,8 +1,8 @@
 <section>
     <div class="product__card" *ngFor="let product of products">
-        <a href="/Product/{{product.id}}">
+        <a href="/Product/{{ product.id }}">
             <div class="product__image">
-                <img src="{{ product.imagePath}}" alt="">
+                <img src="../assets/{{ product.imagePath }}" alt="">
             </div>
         </a>
         <p class="product__name">{{ product.name }}</p>

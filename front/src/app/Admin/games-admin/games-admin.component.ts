@@ -17,16 +17,26 @@ export class GamesAdminComponent {
   apiUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:5016';
+    this.apiUrl = 'http://localhost:5016/api/Product';
   }
 
   addGame(prod: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<any>(this.apiUrl + "/api/Product", prod, httpOptions);
+    return this.http.put<any>(this.apiUrl + "/add", prod, httpOptions);
   }
 
+  editGame(prod: any): Observable<any> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.http.put<any>(this.apiUrl + "/update", prod, httpOptions);
+  }
+
+  // deleteGame(productId: number): Observable<any> {
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  //   return this.http.delete<number>(this.apiUrl + "/delete", productId, httpOptions);
+  // }
+
   ngOnInit(): void {
-    this.http.get<any>(this.apiUrl + "/api/Product/all")
+    this.http.get<any>(this.apiUrl + "/all")
       .subscribe(data => {
         this.products = data;
       });
