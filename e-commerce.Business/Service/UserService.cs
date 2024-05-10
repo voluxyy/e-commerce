@@ -19,6 +19,7 @@ namespace ecommerce.Business.Service
         public async Task<UserDto> Add(UserDto dto)
         {
             var exist = await userRepository.GetByEmail(dto.Email);
+            
             if (exist != null)
                 throw new ApplicationException("User with this email already exists");
 

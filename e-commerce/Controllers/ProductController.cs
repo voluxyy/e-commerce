@@ -25,7 +25,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto, IFormFile imageFile)
+        public async Task<ActionResult<ProductDto>> Add([FromForm] ProductDto dto, IFormFile imageFile)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<ProductDto>> Update(int id, ProductDto dto)
+        public async Task<ActionResult<ProductDto>> Update(int id,[FromForm] ProductDto dto, IFormFile imageFile)
         {
             if (id <= default(int))
             {
@@ -90,7 +90,8 @@ namespace ecommerce.Controllers
 
             try
             {
-                return await this.service.Update(dto);
+                byte[] imageData = await ReadImageData(imageFile);
+                return await this.service.Update(dto, imageData);
             }
             catch (ArgumentNullException)
             {

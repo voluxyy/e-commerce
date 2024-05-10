@@ -46,7 +46,7 @@ namespace ecommerce.Data.Repositories
 
         public async Task<Product> GetLast()
         {
-            return await _context.Products.LastAsync();
+            return await _context.Products.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
         }
 
         public List<Product> GetAll()

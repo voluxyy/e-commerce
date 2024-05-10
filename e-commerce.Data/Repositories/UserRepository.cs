@@ -47,7 +47,7 @@ namespace ecommerce.Data.Repositories
 
         public async Task<User> GetByEmail(string email) 
         {
-            return _context.Users.Where(x => x.Email == email).First();
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public List<User> GetAll()
