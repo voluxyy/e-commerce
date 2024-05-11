@@ -1,45 +1,28 @@
-<h2>Informations about members</h2>
+<h1>List of members</h1>
 <table>
     <thead>
         <tr>
-            <th>Number of members</th>
-            <th>Number of sales</th>
+            <th>Member ID</th>
+            <th>Lastname Firstname</th>
+            <th>Pseudo</th>
+            <th>Email</th>
+            <th>Birthdate</th>
+            <th>Sales</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>⚠️ Insert dynamic Data about members here ⚠️</td>
-            <td>⚠️ Insert dynamic Data about sales here ⚠️</td>
-        </tr>
-    </tbody>
-</table>
-
-<h2>Last 7 days</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Number of news sales last 7 days</th>
-            <th>Revenues this last 7 days</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>⚠️ Insert dynamic Data about new sales last 7 days ⚠️</td>
-            <td>⚠️ Insert dynamic Data about revenue this last 7 days ⚠️</td>
-        </tr>
-    </tbody>
-</table>
-
-<h2>Global</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Total Revenues</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>⚠️ Insert dynamic Data about total revenue ⚠️</td>
+        <tr *ngFor="let user of users">
+            <td> {{ user.id }} </td>
+            <td> {{ user.lastname }} {{ user.firstname }} </td>
+            <td> {{ user.pseudo }} </td>
+            <td> {{ user.email }} </td>
+            <td> {{ user.birthdate }} </td>
+            <td> {{ user.sales }} </td>
+            <td> 
+                <button class="edit__btn">Edit</button>
+                <button class="delete__btn">Delete</button>
+            </td>
         </tr>
     </tbody>
 </table>

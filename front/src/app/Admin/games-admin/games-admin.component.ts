@@ -13,21 +13,20 @@ import { Observable } from 'rxjs';
 })
 export class GamesAdminComponent {
   products: any;
-  prod: any;
   apiUrl: string;
 
   constructor(private http: HttpClient) {
     this.apiUrl = 'http://localhost:5016/api/Product';
   }
 
-  addGame(prod: any): Observable<any> {
+  addGame(products: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<any>(this.apiUrl + "/add", prod, httpOptions);
+    return this.http.put<any>(this.apiUrl + "/add", products, httpOptions);
   }
 
-  editGame(prod: any): Observable<any> {
+  editGame(products: any): Observable<any> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<any>(this.apiUrl + "/update", prod, httpOptions);
+    return this.http.put<any>(this.apiUrl + "/update", products, httpOptions);
   }
 
   // deleteGame(productId: number): Observable<any> {

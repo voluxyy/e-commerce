@@ -6,6 +6,15 @@
     --var-grey: #d4d4d4;
     --var-white: #ffffff;
     --var-primary: #3ef19d;
+
+    --edit : #1000f5;
+    --edit-hover : #6c63ee;
+
+    --delete : #f50000;
+    --delete-hover : #ce1a56;
+
+    --add : #00ca00;
+    --add-hover : #63d463;
 }
 
 // General CSS
@@ -19,4 +28,90 @@ body{
 
 h1, h2, h3, h4, h5, h6{
     font-weight: 500;
+}
+
+
+// Tables
+table {
+    border-collapse: collapse;
+    border: 1px solid var(--var-grey);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    width: 100%;
+    margin: 0 0 10% 0;
+    th,
+    td {
+        border: 1px solid var(--var-grey);
+    }
+}
+
+thead {
+    text-align: left;
+    tr {
+        th {
+            font-size: 1.2em;
+            font-family: "Poppins", sans-serif;
+            background-color: var(--var-grey);
+            border: 1px solid var(--var-black);
+            color: var(--var-black);
+            font-weight: 700;
+            padding: 20px 10px;
+        }
+    }
+}
+
+tbody {
+    tr {
+        td {
+            padding: 10px;
+        }
+    }
+}
+
+h2{
+    margin-top: 10%;
+}
+
+// Buttons
+.add__btn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: var(--add);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+        background-color: var(--add-hover);;
+    }
+}
+.edit__btn{
+    margin-right: 20px;
+    background-color: var(--edit);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+        background-color: var(--edit-hover);
+    }
+}
+.delete__btn{
+    background-color: var(--delete);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+        background-color: var(--delete-hover);;
+    }
 }

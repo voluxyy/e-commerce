@@ -1,14 +1,37 @@
 <div class="pannel__games_admin">
-    <h1>Administrez les jeux de votre app</h1>
-    <button class="btn btn-primary" (click)="addGame(0)" *ngIf="prod.EmployeeId=='0'">Ajouter un jeu</button>
-    <section>
-        <div class="product__card" *ngFor="let product of products">
-            <a href="/Product/{{product.id}}">
-                <div class="product__image">
-                    <img src="{{ product.imagePath}}" alt="">
-                </div>
-            </a>
-            <p class="product__name">{{ product.name }}</p>
-        </div>
-    </section>
+    <h1>List of videos games</h1>
+    <button class="add__btn">Add Game</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Image</th>
+                <th>ImagePath</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Category ID</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td> {{ product.id }} </td>
+                <td>
+                    <div class="product__image">
+                        <img src="../assets/{{ product.imagePath }}" alt="">
+                    </div>
+                </td>
+                <td> {{ product.imagePath }} </td>
+                <td> {{ product.name }} </td>
+                <td> {{ product.price }} €</td>
+                <td> {{ product.quantity }} </td>
+                <td> {{ product.categoryId }} </td>
+                <td>
+                    <button class="edit__btn">Edit</button>
+                    <button class="delete__btn">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
