@@ -15,5 +15,7 @@ namespace ecommerce.Business.Service
         Task<AdminDto> Get(Guid id);
 
         List<AdminDto> GetAll();
+
+        Task<Boolean> CheckConnection(AdminDto dto);
     }
 }

@@ -160,5 +160,26 @@ namespace ecommerce.Controllers
                 return this.StatusCode(500, "Internal Server Error: " + e.Message);
             }
         }
+
+        [HttpPost("check-connection")]
+        public async Task<ActionResult<Boolean>> CheckConnection([FromBody] AdminDto dto)
+        {
+            try 
+            {
+                return await this.service.CheckConnection(dto);
+            }
+            catch (InvalidOperationException e)
+            {
+                return this.NotFound(e.Message);
+            }
+            catch (ArgumentNullException e)
+            {
+                return this.BadRequest(e.Message);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

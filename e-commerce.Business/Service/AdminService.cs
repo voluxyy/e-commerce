@@ -17,6 +17,11 @@ namespace ecommerce.Business.Service
 
         public async Task<AdminDto> Add(AdminDto dto)
         {
+            var exist = await adminRepository.GetByEmail(dto.Email);
+            
+            if (exist != null)
+                throw new ApplicationException("User with this email already exists");
+
             dto.Id = Guid.NewGuid();
 
             byte[] passwordHash, passwordSalt;
@@ -74,6 +79,24 @@ namespace ecommerce.Business.Service
             List<Admin> admins = adminRepository.GetAll();
             List<AdminDto> adminsDtos = ListModelToDto(admins);
             return adminsDtos;
+        }
+
+        public async Task<Boolean> CheckConnection(AdminDto dto) {
+            if (dto.Email == null || dto.Password == null)
+                throw new ArgumentNullException("The email and the password are required."); 
+
+            Admin admin = await adminRepository.GetByEmail(dto.Email);
+
+            if (admin == null)
+                throw new InvalidOperationException("The email or the password provided is wrong.");
+
+            byte[] passwordHash;
+            CreatePasswordHashFromSalt(dto.Password, admin.PasswordSalt, out passwordHash);
+
+            if (!admin.PasswordHash.SequenceEqual(passwordHash))
+                return false;
+
+            return true;
         }
 
         private List<AdminDto> ListModelToDto(List<Admin> admins)

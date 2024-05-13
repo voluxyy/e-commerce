@@ -11,8 +11,8 @@ using ecommerce.Data;
 namespace e_commerce.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240513085704_FeatPasswordHashingSystemForAdmin")]
-    partial class FeatPasswordHashingSystemForAdmin
+    [Migration("20240513094557_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,8 @@ namespace e_commerce.Data.Migrations
 
             modelBuilder.Entity("ecommerce.Data.Models.Admin", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")

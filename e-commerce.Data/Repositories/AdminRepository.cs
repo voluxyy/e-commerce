@@ -1,4 +1,5 @@
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -41,6 +42,11 @@ namespace ecommerce.Data.Repositories
         public async Task<Admin> Get(Guid id)
         {
             return await _context.Admins.FindAsync(id);
+        }
+
+        public async Task<Admin> GetByEmail(string email)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public List<Admin> GetAll()

@@ -12,6 +12,8 @@ namespace ecommerce.Data.Repositories
 
         Task<Admin> Get(Guid id);
 
+        Task<Admin> GetByEmail(string email);
+
         List<Admin> GetAll();
     }
 }
