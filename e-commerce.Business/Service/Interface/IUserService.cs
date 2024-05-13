@@ -15,5 +15,7 @@ namespace ecommerce.Business.Service
         Task<UserDto> Get(int id);
 
         List<UserDto> GetAll();
+
+        Task<Boolean> CheckConnection(UserDto dto);
     }
 }

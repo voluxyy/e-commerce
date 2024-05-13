@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
@@ -83,6 +84,24 @@ namespace ecommerce.Business.Service
             return usersDtos;
         }
 
+        public async Task<Boolean> CheckConnection(UserDto dto) {
+            if (dto.Email == null || dto.Password == null)
+                throw new ArgumentNullException("The email and the password are required."); 
+
+            User user = await userRepository.GetByEmail(dto.Email);
+
+            if (user == null)
+                throw new InvalidOperationException("The email or the password provided is wrong.");
+
+            byte[] passwordHash;
+            CreatePasswordHashFromSalt(dto.Password, user.PasswordSalt, out passwordHash);
+
+            if (!user.PasswordHash.SequenceEqual(passwordHash))
+                return false;
+
+            return true;
+        }
+
         private List<UserDto> ListModelToDto(List<User> users)
         {
             List<UserDto> usersDtos = new List<UserDto>();
@@ -129,13 +148,20 @@ namespace ecommerce.Business.Service
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-    {
-        using (var hmac = new HMACSHA512())
         {
-            passwordSalt = hmac.Key;
-            passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
         }
-    }
 
+        private void CreatePasswordHashFromSalt(string password, byte[] salt, out byte[] hash)
+        {
+            using (var hmac = new HMACSHA512(salt))
+            {
+                hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
     }
 }
