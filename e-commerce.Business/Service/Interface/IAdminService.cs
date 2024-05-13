@@ -7,10 +7,12 @@ namespace ecommerce.Business.Service
         Task<AdminDto> Add(AdminDto dto);
 
         Task<AdminDto> Update(AdminDto dto);
+        
+        Task<AdminDto> UpdatePassword(AdminDto dto);
 
-        Task<int> Delete(string id);
+        Task<int> Delete(Guid id);
 
-        Task<AdminDto> Get(string id);
+        Task<AdminDto> Get(Guid id);
 
         List<AdminDto> GetAll();
     }

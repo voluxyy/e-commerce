@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
@@ -15,30 +17,56 @@ namespace ecommerce.Business.Service
 
         public async Task<AdminDto> Add(AdminDto dto)
         {
-            Admin admin = DtoToModel(dto);
+            dto.Id = Guid.NewGuid();
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+
+            Admin admin = DtoToModel(dto, passwordHash, passwordSalt);
             await adminRepository.Add(admin);
-            AdminDto adminDto = ModelToDto(admin);
+            AdminDto adminDto = ModelToDto(admin, null);
 
             return adminDto;
         }
 
         public async Task<AdminDto> Update(AdminDto dto)
         {
-            Admin admin = DtoToModel(dto);
-            await adminRepository.Update(admin);
-            AdminDto adminDto = ModelToDto(admin);
+            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id);
+
+            currentAdmin.Pseudo = dto.Pseudo;
+            currentAdmin.Email = dto.Email;
+            currentAdmin.Permission = dto.Permission;
+
+            await adminRepository.Update(currentAdmin);
+            AdminDto adminDto = ModelToDto(currentAdmin, null);
 
             return adminDto;
         }
 
-        public async Task<int> Delete(string id)
+        public async Task<AdminDto> UpdatePassword(AdminDto dto)
+        {
+            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id);
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+
+            currentAdmin.PasswordHash = passwordHash;
+            currentAdmin.PasswordSalt = passwordSalt;
+
+            await adminRepository.Update(currentAdmin);
+            AdminDto adminDto = ModelToDto(currentAdmin, null);
+
+            return adminDto;
+        }
+
+        public async Task<int> Delete(Guid id)
         {
             return await adminRepository.Delete(id);
         }
 
-        public async Task<AdminDto> Get(string id)
+        public async Task<AdminDto> Get(Guid id)
         {
-            return ModelToDto(await adminRepository.Get(id));
+            return ModelToDto(await adminRepository.Get(id), null);
         }
 
         public List<AdminDto> GetAll()
@@ -53,37 +81,55 @@ namespace ecommerce.Business.Service
             List<AdminDto> adminsDtos = new List<AdminDto>();
             foreach (Admin admin in admins)
             {
-                adminsDtos.Add(ModelToDto(admin));
+                adminsDtos.Add(ModelToDto(admin, null));
             }
             return adminsDtos;
         }
 
-        private AdminDto ModelToDto(Admin admin)
+        private AdminDto ModelToDto(Admin admin, string password)
         {
             AdminDto adminDto = new AdminDto
             {
                 Id = admin.Id,
                 Pseudo = admin.Pseudo,
                 Email = admin.Email,
-                Password = admin.Password,
+                Password = password,
                 Permission = admin.Permission
             };
 
             return adminDto;
         }
 
-        private Admin DtoToModel(AdminDto adminDto)
+        private Admin DtoToModel(AdminDto adminDto, byte[] passwordHash, byte[] passwordSalt)
         {
             Admin admin = new Admin
             {
-                Id = adminDto.Id,
+                Id = (Guid)adminDto.Id,
                 Pseudo = adminDto.Pseudo,
                 Email = adminDto.Email,
-                Password = adminDto.Password,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
                 Permission = adminDto.Permission
             };
 
             return admin;
+        }
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private void CreatePasswordHashFromSalt(string password, byte[] salt, out byte[] hash)
+        {
+            using (var hmac = new HMACSHA512(salt))
+            {
+                hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace ecommerce.Data.Repositories
             return admin;
         }
 
-        public async Task<int> Delete(string id)
+        public async Task<int> Delete(Guid id)
         {
             Admin admin = await _context.Admins.FindAsync(id);
 
@@ -38,7 +38,7 @@ namespace ecommerce.Data.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<Admin> Get(string id)
+        public async Task<Admin> Get(Guid id)
         {
             return await _context.Admins.FindAsync(id);
         }

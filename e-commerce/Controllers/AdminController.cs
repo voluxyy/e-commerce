@@ -52,7 +52,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpGet("get/{id}")]
-        public async Task<ActionResult<AdminDto>> Get(string id)
+        public async Task<ActionResult<AdminDto>> Get(Guid id)
         {
             try
             {
@@ -92,6 +92,33 @@ namespace ecommerce.Controllers
         }
 
         /// <summary>
+        /// Updates the password of a User based on its identifier using the provided data.
+        /// </summary>
+        /// <param name="id">The identifier of the User to update.</param>
+        /// <param name="dto">The new data of the User.</param>
+        /// <returns>
+        /// Returns an HTTP 404 NotFound response if the User does not exist,
+        /// a problematic validation response in case of validation error,
+        /// or an HTTP 500 Internal Server Error response in case of server internal error.
+        /// </returns>
+        [HttpPut("update-password/{id}")]
+        public async Task<ActionResult<AdminDto>> UpdatePassword(string id, AdminDto dto)
+        {
+            try
+            {
+                return await this.service.UpdatePassword(dto);
+            }
+            catch (ArgumentNullException)
+            {
+                return this.ValidationProblem();
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        /// <summary>
         /// Deletes a Admin based on its identifier.
         /// </summary>
         /// <param name="id">The identifier of the Admin to delete.</param>
@@ -101,7 +128,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
@@ -128,9 +155,9 @@ namespace ecommerce.Controllers
             {
                 return this.service.GetAll();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.StatusCode(500, "Internal Server Error");
+                return this.StatusCode(500, "Internal Server Error: " + e.Message);
             }
         }
     }
