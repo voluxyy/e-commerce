@@ -21,7 +21,7 @@ export class AddProductComponent {
     price: new FormControl(''),
     quantity: new FormControl(''), 
     categoryId: new FormControl(''),
-    // imageData: new FormControl('imageData'),
+    // imageFile: new FormControl(''),
   });
 
   constructor(private http: HttpClient) {
@@ -30,10 +30,15 @@ export class AddProductComponent {
   }
 
   onSubmit() {
-    console.log(this.gameForm.value);
+    console.log(JSON.stringify(this.gameForm.value));
 
+    
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
-    this.http.post<any>(this.productApiUrl, this.gameForm.value, httpOptions)
+    console.log(httpOptions)
+    this.http.post<any>(this.productApiUrl, JSON.stringify(this.gameForm.value), httpOptions)
+    .subscribe(data => {
+      console.log(data);
+    });
   }
 
   ngOnInit(): void {
