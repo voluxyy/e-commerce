@@ -1,0 +1,23 @@
+<h2>Add Product</h2>
+
+<form [formGroup]="gameForm">
+
+    <label for="name">Nom</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label for="price">Price</label>
+    <input type="number" id="price" formControlName="price">
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" formControlName="quantity">
+
+    <label for="categoryId">Category</label>
+    <select name="categoryId" id="categoryId" formControlName="categoryId">
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
+    </select>
+
+    <!-- <label for="imageData">Image</label>
+<input type="file" id="imageData" formControlName="imageData"> -->
+
+    <input type="submit" (click)="onSubmit()">
+</form>

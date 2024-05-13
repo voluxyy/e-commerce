@@ -8,12 +8,14 @@ import { LoginComponent } from './User/login/login.component';
 import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
 import { MembersAdminComponent } from './Admin/members-admin/members-admin.component';
 import { ProductComponent } from './product/product.component';
+import { AddProductComponent } from './Admin/add-product/add-product.component';
+import { EditProductComponent } from './Admin/edit-product/edit-product.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent,
         title: 'Home Page',
+        component: HomeComponent,
         children: [
             {
                 path: 'Video Games',
@@ -22,9 +24,15 @@ export const routes: Routes = [
             },
         ]
     },
-    { path: 'product/:id', title: 'Product', component: ProductComponent},
-    { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent},
-    { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent},
+    { path: 'product/:id', title: 'Product', component: ProductComponent },
+
+    // Admin routes
+    { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent} ,
+    { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent },
+    { path: 'add-product', component: AddProductComponent, title: 'Add Product' }, 
+    { path: 'edit-product/:id', component: EditProductComponent, title: 'Edit Product' },
+
+    // User routes
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},
     { path: 'dashboard', title: 'Dashboard', component: DashboardComponent},

@@ -24,6 +24,9 @@ body{
     color: var(--var-white);
     margin: 0 6%;
     padding: 0;
+    a{
+        text-decoration: none;
+    }
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -33,6 +36,8 @@ h1, h2, h3, h4, h5, h6{
 
 // Tables
 table {
+    background-color: #2b2b2b;
+    box-shadow: 0px 0px 15px rgba(182, 182, 182, 0.1);
     border-collapse: collapse;
     border: 1px solid var(--var-grey);
     font-family: sans-serif;
@@ -71,6 +76,53 @@ tbody {
 
 h2{
     margin-top: 10%;
+}
+
+// Forms
+form{
+    margin: 0 0 10vh 0;
+    select{
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        background-color: var(--var-grey);
+        color: var(--var-black);
+        border-radius: 5px;
+    }
+    margin-top: 10%;
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"]{
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        background-color: var(--var-grey);
+        color: var(--var-black);
+        border-radius: 5px;
+    }
+
+    input[type="file"]{
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        background-color: var(--var-grey);
+        color: var(--var-black);
+        border-radius: 5px;
+    }
+    input[type="submit"]{
+        background-color: var(--var-primary);
+        color: var(--var-black);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover{
+            background-color: var(--var-black);
+            color: var(--var-primary);
+        }
+    }
 }
 
 // Buttons

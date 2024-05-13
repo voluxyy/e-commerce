@@ -25,23 +25,21 @@ section{
         }
     }
     &:hover{
-        box-shadow: 0 0 40px var(--var-primary);
+        animation: 1s forwards boxShadowFade;
         transform: scale(1.02);
-        transition: 1s;
+        transition: .1s;
         .product__image{
             border: 2px solid var(--var-primary);
             
-            filter: grayscale(0.9) brightness(0.8) blur(1.4px);
+            filter: grayscale(.2) brightness(.6) blur(1.4px);
             transition: .6s;
         }
         .product__name{
             margin: -2vw 0 0 1vw ;
             display: block;
-            font-size: 2rem;
-            letter-spacing: 1px;
-            font-weight: 400;
+            font-size: 1.8rem;
             color: white;
-            animation: 600ms forwards fadeIn;
+            animation: 600ms forwards nameFadeIn;
             text-shadow: 0px 0px 1px white,
             0px 0px 1px white,
             0px 0px 2px black,
@@ -51,7 +49,19 @@ section{
 
 }
 
-@keyframes fadeIn {
+@keyframes boxShadowFade {
+    from {
+        box-shadow: 0 0 1px var(--var-primary);
+    }
+    to {
+        box-shadow: 0 0 20px var(--var-primary);
+    }
+}
+
+
+
+
+@keyframes nameFadeIn {
     from {
         opacity: 0;
         margin: -4vw 0 0 1vw ;

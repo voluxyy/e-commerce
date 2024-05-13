@@ -1,6 +1,6 @@
 <div class="pannel__games_admin">
     <h1>List of videos games</h1>
-    <button class="add__btn">Add Game</button>
+    <a routerLink="/add-product" class="add__btn">Add Game</a>
     <table>
         <thead>
             <tr>
@@ -28,8 +28,8 @@
                 <td> {{ product.quantity }} </td>
                 <td> {{ product.categoryId }} </td>
                 <td>
-                    <button class="edit__btn">Edit</button>
-                    <button class="delete__btn">Delete</button>
+                    <a routerLink="/edit-product/:{{ product.Id }}" class="edit__btn">Edit</a>
+                    <a onclick="deleteGame()" class="delete__btn">Delete</a>
                 </td>
             </tr>
         </tbody>
