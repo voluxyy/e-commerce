@@ -1,23 +1,23 @@
 <h2>Add Product</h2>
 
-<form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
 
     <label for="name">Nom</label>
-    <input type="text" id="name" formControlName="name">
+    <input type="text" id="name" formControlName="Name">
 
     <label for="price">Price</label>
-    <input type="number" id="price" formControlName="price">
+    <input type="number" id="price" formControlName="Price">
 
     <label for="quantity">Quantity</label>
-    <input type="number" id="quantity" formControlName="quantity">
+    <input type="number" id="quantity" formControlName="Quantity">
 
     <label for="categoryId">Category</label>
-    <select name="categoryId" id="categoryId" formControlName="categoryId">
+    <select name="categoryId" id="categoryId" formControlName="CategoryId">
         <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
     </select>
 
-    <!-- <label for="imageData">Image</label>
-<input type="file" id="imageData" formControlName="imageData"> -->
+    <label for="imageData">Image</label>
+    <input type="file" id="imageData" formControlName="ImageFile">
 
     <button type="submit">Envoyer</button>
 </form>

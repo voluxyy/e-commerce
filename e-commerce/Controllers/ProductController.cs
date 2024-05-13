@@ -25,10 +25,29 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> Add([FromForm] ProductDto dto, IFormFile imageFile)
+        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto)
         {
             try
             {
+                Console.WriteLine(dto.Name);
+                Console.WriteLine(dto.Price);
+                Console.WriteLine(dto.Quantity);
+                Console.WriteLine(dto.CategoryId);
+
+                var formCollection = await this.Request.ReadFormAsync();
+                var files = formCollection.Files;
+                
+                Console.WriteLine(files[0].ContentType);
+
+                if (files.Count == 0)
+                {
+                    return this.BadRequest("No image file uploaded");
+                }
+
+                var imageFile = files[0];
+
+                //byte[] imageData = new byte[2];
+
                 byte[] imageData = await ReadImageData(imageFile);
                 await this.service.Add(dto, imageData);
                 return StatusCode(StatusCodes.Status201Created, dto);
@@ -37,9 +56,10 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.StatusCode(500, "Internal Server Error");
+                Console.WriteLine(e.Message);
+                return this.StatusCode(500, e.Message);
             }
         }
 

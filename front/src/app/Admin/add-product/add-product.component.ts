@@ -1,8 +1,8 @@
 import { NgFor } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NONE_TYPE } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-add-product',
@@ -16,12 +16,18 @@ export class AddProductComponent {
   categoryApiUrl: string;
   productApiUrl: string;
 
-  gameForm = new FormGroup({
-    name: new FormControl(''),
-    price: new FormControl(''),
-    quantity: new FormControl(''), 
-    categoryId: new FormControl(''),
-    // imageFile: new FormControl(''),
+  form: FormGroup<{
+    Name: FormControl<string | null>;
+    Price: FormControl<number | null>;
+    Quantity: FormControl<number | null>; 
+    CategoryId: FormControl<number | null>;
+    ImageFile: FormControl;
+  }> = new FormGroup({
+    Name: new FormControl<string | null>(null),
+    Price: new FormControl<number | null>(null),
+    Quantity: new FormControl<number | null>(null), 
+    CategoryId: new FormControl<number | null>(null),
+    ImageFile: new FormControl(null),
   });
 
   constructor(private http: HttpClient) {
@@ -30,14 +36,20 @@ export class AddProductComponent {
   }
 
   onSubmit() {
-    console.log(JSON.stringify(this.gameForm.value));
+    const formData = JSON.stringify(this.form.value);
+    const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
 
-    
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
-    console.log(httpOptions)
-    this.http.post<any>(this.productApiUrl, JSON.stringify(this.gameForm.value), httpOptions)
+    // J'ai réussi à créer un produit en mettant Content-type: application/json
+    // Et côté backend en faisant en sorte de ne pas prendre en compte l'image.
+    // Cet à dire que j'ai commenté toutes les lignes faisant référence à l'image
+    // et j'ai ajouté une variable temporaire comme ceci : //byte[] imageData = new byte[2];
+    // Pour que cette ligne : await this.service.Add(dto, imageData); n'est pas d'erreur.
+
+    this.http.post<any>(this.productApiUrl, formData, { headers })
     .subscribe(data => {
       console.log(data);
+    }, error => {
+      console.log(error);
     });
   }
 
