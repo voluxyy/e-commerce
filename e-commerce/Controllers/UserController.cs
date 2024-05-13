@@ -95,7 +95,7 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return this.StatusCode(500, "Internal Server Error");
             }
@@ -121,13 +121,13 @@ namespace ecommerce.Controllers
 
             try
             {
-                return await this.service.Update(dto);
+                return await this.service.UpdatePassword(dto);
             }
             catch (ArgumentNullException)
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return this.StatusCode(500, "Internal Server Error");
             }

@@ -25,7 +25,7 @@ namespace ecommerce.Data.Repositories
         public async Task<User> Update(User user)
         {
             _context.Users.Update(user);
-
+            
             await _context.SaveChangesAsync();
 
             return user;

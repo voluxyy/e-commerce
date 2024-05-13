@@ -37,23 +37,31 @@ namespace ecommerce.Business.Service
         {
             User currentUser = await userRepository.Get(dto.Id);
 
-            User user = DtoToModel(dto, currentUser.PasswordHash, currentUser.PasswordSalt);
-            await userRepository.Update(user);
-            UserDto userDto = ModelToDto(user, null);
+            currentUser.Lastname = dto.Lastname;
+            currentUser.Firstname = dto.Firstname;
+            currentUser.Pseudo = dto.Pseudo;
+            currentUser.Email = dto.Email;
+            currentUser.Birthdate = dto.Birthdate;
+            currentUser.Money = dto.Money;
+
+            await userRepository.Update(currentUser);
+            UserDto userDto = ModelToDto(currentUser, null);
 
             return userDto;
         }
 
-        public async Task<UserDto> UpdatePassword(UserDto dto) 
+        public async Task<UserDto> UpdatePassword(UserDto dto)
         {
             User currentUser = await userRepository.Get(dto.Id);
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
 
-            User user = DtoToModel(dto, passwordHash, passwordSalt);
-            await userRepository.Update(user);
-            UserDto userDto = ModelToDto(user, null);
+            currentUser.PasswordHash = passwordHash;
+            currentUser.PasswordSalt = passwordSalt;
+
+            await userRepository.Update(currentUser);
+            UserDto userDto = ModelToDto(currentUser, null);
 
             return userDto;
         }
