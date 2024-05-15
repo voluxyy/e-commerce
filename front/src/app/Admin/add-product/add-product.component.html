@@ -17,7 +17,7 @@
     </select>
 
     <label for="imageData">Image</label>
-    <input type="file" id="imageData" formControlName="ImageFile">
+    <input type="file" (change)="onFileSelected($event)">
 
     <button type="submit">Envoyer</button>
 </form>

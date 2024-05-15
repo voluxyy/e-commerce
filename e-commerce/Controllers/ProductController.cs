@@ -1,6 +1,7 @@
 ﻿using ecommerce.Business.Dto;
 using ecommerce.Business.Service;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ecommerce.Controllers
 {
@@ -25,18 +26,13 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<ProductDto>> Add([FromBody] ProductDto dto)
+        public async Task<ActionResult<ProductDto>> Add()
         {
             try
             {
-                Console.WriteLine(dto.Name);
-                Console.WriteLine(dto.Price);
-                Console.WriteLine(dto.Quantity);
-                Console.WriteLine(dto.CategoryId);
-
                 var formCollection = await this.Request.ReadFormAsync();
                 var files = formCollection.Files;
-                
+
                 Console.WriteLine(files[0].ContentType);
 
                 if (files.Count == 0)
@@ -45,10 +41,11 @@ namespace ecommerce.Controllers
                 }
 
                 var imageFile = files[0];
-
-                //byte[] imageData = new byte[2];
-
                 byte[] imageData = await ReadImageData(imageFile);
+
+                var jsonDto = formCollection["dto"];
+                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto);
+
                 await this.service.Add(dto, imageData);
                 return StatusCode(StatusCodes.Status201Created, dto);
             }
