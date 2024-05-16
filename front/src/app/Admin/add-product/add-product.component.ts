@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
@@ -16,6 +17,8 @@ export class AddProductComponent {
   categoryApiUrl: string;
   productApiUrl: string;
 
+  form: FormGroup;
+
   gameForm = new FormGroup({
     name: new FormControl(''),
     price: new FormControl(''),
@@ -24,9 +27,15 @@ export class AddProductComponent {
     // imageFile: new FormControl(''),
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     this.productApiUrl = 'http://localhost:5016/api/Product';
     this.categoryApiUrl = 'http://localhost:5016/api/Category';
+    this.form = this.formBuilder.group({
+      name: '',
+      price: '',
+      quantity: '',
+      categoryId: ''
+    });
   }
 
   onSubmit() {
@@ -37,7 +46,7 @@ export class AddProductComponent {
     console.log(httpOptions)
     this.http.post<any>(this.productApiUrl, JSON.stringify(this.gameForm.value), httpOptions)
     .subscribe(data => {
-      console.log(data);
+      console.log(data.json());
     });
   }
 
