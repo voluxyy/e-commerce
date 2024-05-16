@@ -1,87 +1,6 @@
-// import { NgFor } from '@angular/common';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { NONE_TYPE } from '@angular/compiler';
-// import { Component, Input } from '@angular/core';
-// import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
-// @Component({
-//   selector: 'app-add-product',
-//   templateUrl: './add-product.component.html',
-//   styleUrls: ['./add-product.component.scss'],
-//   standalone: true,
-//   imports: [ReactiveFormsModule, NgFor],
-// })
-// export class AddProductComponent {
-//   categories: any;
-//   categoryApiUrl: string;
-//   productApiUrl: string;
-
-//   form: FormGroup<{
-//     Name: FormControl<string | null>;
-//     Price: FormControl<number | null>;
-//     Quantity: FormControl<number | null>; 
-//     CategoryId: FormControl<number | null>;
-//     ImageFile: FormControl;
-//   }>;
-
-//   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
-//     this.productApiUrl = 'http://localhost:5016/api/Product';
-//     this.categoryApiUrl = 'http://localhost:5016/api/Category';
-
-//     this.form = this.formBuilder.group({
-//       Name: new FormControl<string | null>(null),
-//       Price: new FormControl<number | null>(null),
-//       Quantity: new FormControl<number | null>(null),
-//       CategoryId: new FormControl<number | null>(null),
-//       ImageFile: new FormControl<File | null>(null),
-//     });
-//   }
-
-//   onFileSelected(event: Event) {
-//     const fileInput = event.target as HTMLInputElement;
-//     if (fileInput.files && fileInput.files.length > 0) {
-//       const file = fileInput.files[0];
-//       this.form.patchValue({ ImageFile: file });
-//     }
-//   }
-
-//   onSubmit() {
-//     const formData = new FormData();
-//     formData.append('dto', JSON.stringify(this.form.value));
-
-//     const imageFile = (this.form.get('ImageFile')?.value as File);
-
-//     if (imageFile instanceof File) {
-//       formData.append('ImageFile', imageFile, imageFile.name);
-//     } else {
-//       console.error("Format non valide");
-//       return;
-//     }
-
-//     formData.append('image', imageFile, imageFile.name);
-
-//     const headers = new HttpHeaders();
-
-//     this.http.post<any>(this.productApiUrl, formData, { headers })
-//         .subscribe(data => {
-//             console.log(data);
-//         }, error => {
-//             console.log(error);
-//         });
-// }
-
-//   ngOnInit(): void {
-//     this.http.get<any>(this.categoryApiUrl + "/all")
-//       .subscribe(data => {
-//         this.categories = data;
-//       });
-//   }
-// }
-
 import { NgFor } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NONE_TYPE } from '@angular/compiler';
-import { Component, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -98,10 +17,17 @@ export class AddProductComponent {
   
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
-  this.productApiUrl = 'http://localhost:5016/api/Product';
+  gameForm = new FormGroup({
+    Name: new FormControl(''),
+    Price: new FormControl(''),
+    Quantity: new FormControl(''), 
+    CategoryId: new FormControl(''),
+    ImageFile: new FormControl(''),
+  });
+
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+    this.productApiUrl = 'http://localhost:5016/api/Product';
     this.categoryApiUrl = 'http://localhost:5016/api/Category';
-    
     this.form = this.fb.group({
       Name: new FormControl<string | null>(null),
       Price: new FormControl<number | null>(null),
