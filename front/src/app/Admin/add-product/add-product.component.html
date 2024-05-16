@@ -15,14 +15,9 @@
     <select name="categoryId" id="categoryId" formControlName="CategoryId">
         <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
     </select>
-
-<<<<<<< HEAD
-    <!-- <label for="imageData">Image</label>
-    <input type="file" id="imageData" formControlName="imageData"> -->
-=======
+    
     <label for="imageData">Image</label>
     <input type="file" (change)="onFileSelected($event)">
->>>>>>> bb23fb1c56c34c483c94bd8004db5d24beffbb4b
 
     <button type="submit">Envoyer</button>
 </form>
