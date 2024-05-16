@@ -3,6 +3,7 @@ using System.Security;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
 using ecommerce.Data.Repositories;
+using ecommerce.Data.Repositories.Interface;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace ecommerce.Business.Service
@@ -29,7 +30,7 @@ namespace ecommerce.Business.Service
 
             int Id = (lastProduct != null) ? lastProduct.Id : 0;
 
-            dto.ImagePath = await SaveImage(Id+1, dto.Name, imageData);
+            dto.ImagePath = await SaveImage(Id + 1, dto.Name, imageData);
 
             Product product = DtoToModel(dto);
             await productRepository.Add(product);
@@ -40,7 +41,8 @@ namespace ecommerce.Business.Service
 
         public async Task<ProductDto> Update(ProductDto dto, byte[] imageData)
         {
-            if (dto.ImagePath == null) {
+            if (dto.ImagePath == null)
+            {
                 throw new ArgumentNullException("ImagePath is missing.");
             }
 
@@ -57,7 +59,8 @@ namespace ecommerce.Business.Service
         {
             Product product = await productRepository.Get(id);
 
-            if (product.ImagePath != null) {
+            if (product.ImagePath != null)
+            {
                 File.Delete(Path.Combine(this.uploadsFolderPath, product.ImagePath));
             }
 
@@ -130,8 +133,8 @@ namespace ecommerce.Business.Service
 
         private async void UpdateImage(string path, byte[] imageData)
         {
-/*            this.CheckFolders();
-*/
+            /*            this.CheckFolders();
+            */
             string filePath = Path.Combine(this.uploadsFolderPath, path);
 
             _ = File.WriteAllBytesAsync(filePath, imageData);
@@ -146,5 +149,65 @@ namespace ecommerce.Business.Service
                 Directory.CreateDirectory(this.uploadsFolderPath);
             }
         }*/
+
+
+        // 
+        public List<ProductDto> SearchBar(string searchItems)
+        {
+            List<Product> allProducts = productRepository.GetAll();
+            List<ProductDto> searchedProducts = new List<ProductDto>();
+
+            List<Category> allCategories = ICategoryRepository.GetAll();
+
+            string searchTermLower = searchItems.ToLower();
+            string searchTermUpper = searchItems.ToUpper();
+
+            foreach (Product product in allProducts)
+            {
+                if (FuzzyMatch(product.Name.ToLower(), searchTermLower) || FuzzyMatch(product.Name.ToUpper(), searchTermUpper))
+                {
+                    searchedProducts.Add(ModelToDto(product));
+                }
+                
+            }
+
+            return searchedProducts;
+        }
+
+        // Using the Levenshtein algorythm to let the user match his search with 2 errors
+        private bool FuzzyMatch(string input, string searchTerm)
+        {
+            int n = input.Length;
+            int m = searchTerm.Length;
+
+            int[,] distance = new int[n + 1, m + 1];
+
+            if (n == 0) return m <= 2;
+            if (m == 0) return n <= 2;
+
+            for (int i = 0; i < n; i++)
+            {
+                distance[i, 0] = i;
+            }
+            for (int j = 0; j <= m; j++)
+            {
+                distance[0, j] = j;
+            }
+
+            for (int j = 1; j <= m; j++)
+            {
+                for (int i = 1; i <= n; i++)
+                {
+                    int cost = (input[i - 1] == searchTerm[j - 1]) ? 0 : 1;
+
+                    distance[i, j] = Math.Min(Math.Min(
+                        distance[i - 1, j] + 1,
+                        distance[i, j - 1] + 1),
+                        distance[i - 1, j - 1] + cost);
+                }
+            }
+
+            return distance[n, m] <= 2;
+        }
     }
 }
