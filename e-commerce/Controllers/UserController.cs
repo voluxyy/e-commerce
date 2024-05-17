@@ -1,6 +1,7 @@
 ﻿using ecommerce.Business.Dto;
 using ecommerce.Business.Service;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ecommerce.Controllers
 {
@@ -25,10 +26,17 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPost]
-        public async Task<ActionResult<UserDto>> Add([FromBody] UserDto dto)
+        public async Task<ActionResult<UserDto>> Add()
         {
             try
             {
+                var formCollection = await this.Request.ReadFormAsync();
+
+                var jsonDto = formCollection["dto"];
+                var dto = JsonConvert.DeserializeObject<UserDto>(jsonDto);
+
+                Console.WriteLine(dto);
+
                 await this.service.Add(dto);
                 return StatusCode(StatusCodes.Status201Created, dto);
             }
@@ -182,7 +190,7 @@ namespace ecommerce.Controllers
         }
 
         [HttpPost("check-connection")]
-        public async Task<ActionResult<Boolean>> CheckConnection([FromBody] UserDto dto)
+        public async Task<ActionResult<Boolean>> CheckConnection([FromBody] LoginDto dto)
         {
             try 
             {

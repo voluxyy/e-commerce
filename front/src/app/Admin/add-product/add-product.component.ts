@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -17,15 +18,15 @@ export class AddProductComponent {
   
   form: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router) {
     this.productApiUrl = 'http://localhost:5016/api/Product';
     this.categoryApiUrl = 'http://localhost:5016/api/Category';
     this.form = this.fb.group({
-      Name: new FormControl<string | null>(null),
-      Price: new FormControl<number | null>(null),
-      Quantity: new FormControl<number | null>(null),
-      CategoryId: new FormControl<number | null>(null),
-      ImageFile: new FormControl<File | null>(null),
+      name: new FormControl<string | null>(null),
+      price: new FormControl<number | null>(null),
+      quantity: new FormControl<number | null>(null),
+      categoryId: new FormControl<number | null>(null),
+      imageFile: new FormControl<File | null>(null),
     });
   }
 
@@ -33,8 +34,7 @@ export class AddProductComponent {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      console.log("File selected:", file);
-      this.form.get('ImageFile')?.setValue(file);
+      this.form.get('imageFile')?.setValue(file);
     } else {
       console.error("No file selected.");
     }
@@ -43,15 +43,15 @@ export class AddProductComponent {
   onSubmit() {
     const formData = new FormData();
     const dto = {
-      Name: this.form.value.Name,
-      Price: this.form.value.Price,
-      Quantity: this.form.value.Quantity,
-      CategoryId: this.form.value.CategoryId,
+      name: this.form.value.name,
+      price: this.form.value.price,
+      quantity: this.form.value.quantity,
+      categoryId: this.form.value.categoryId,
     };
 
     formData.append('dto', JSON.stringify(dto));
 
-    const imageFile = this.form.value.ImageFile;
+    const imageFile = this.form.value.imageFile;
 
     if (imageFile instanceof File) {
       formData.append('image', imageFile, imageFile.name);
@@ -62,7 +62,7 @@ export class AddProductComponent {
 
     this.http.post<any>(this.productApiUrl, formData)
       .subscribe(data => {
-        console.log(data);
+        this.router.navigate(['gamesAdmin']);
       }, error => {
         console.log(error);
       });
