@@ -17,14 +17,6 @@ export class AddProductComponent {
   
   form: FormGroup;
 
-  gameForm = new FormGroup({
-    Name: new FormControl(''),
-    Price: new FormControl(''),
-    Quantity: new FormControl(''), 
-    CategoryId: new FormControl(''),
-    ImageFile: new FormControl(''),
-  });
-
   constructor(private http: HttpClient, private fb: FormBuilder) {
     this.productApiUrl = 'http://localhost:5016/api/Product';
     this.categoryApiUrl = 'http://localhost:5016/api/Category';
@@ -60,8 +52,6 @@ export class AddProductComponent {
     formData.append('dto', JSON.stringify(dto));
 
     const imageFile = this.form.value.ImageFile;
-
-    console.log(formData);
 
     if (imageFile instanceof File) {
       formData.append('image', imageFile, imageFile.name);
