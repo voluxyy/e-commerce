@@ -33,8 +33,6 @@ namespace ecommerce.Controllers
                 var formCollection = await this.Request.ReadFormAsync();
                 var files = formCollection.Files;
 
-                Console.WriteLine(files[0].ContentType);
-
                 if (files.Count == 0)
                 {
                     return this.BadRequest("No image file uploaded");

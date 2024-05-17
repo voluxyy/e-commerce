@@ -7,6 +7,6 @@ namespace ecommerce.Business.Dto {
         public required string Email { get; set; }
         public string? Password { get; set; }
         public DateOnly? Birthdate { get; set; }
-        public required int Money { get; set; }
+        public int Money { get; set; }
     }
 }

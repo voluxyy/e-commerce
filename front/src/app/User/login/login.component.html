@@ -1,6 +1,6 @@
 <section>
     <h1>Login</h1>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST">
         <div class="form-group">
             <label for="email" hidden>Email</label>
             <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email">
