@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -17,7 +18,7 @@ export class AddProductComponent {
   
   form: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router) {
     this.productApiUrl = 'http://localhost:5016/api/Product';
     this.categoryApiUrl = 'http://localhost:5016/api/Category';
     this.form = this.fb.group({
@@ -33,7 +34,6 @@ export class AddProductComponent {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      console.log("File selected:", file);
       this.form.get('ImageFile')?.setValue(file);
     } else {
       console.error("No file selected.");
@@ -62,7 +62,7 @@ export class AddProductComponent {
 
     this.http.post<any>(this.productApiUrl, formData)
       .subscribe(data => {
-        console.log(data);
+        this.router.navigate(['gamesAdmin']);
       }, error => {
         console.log(error);
       });
