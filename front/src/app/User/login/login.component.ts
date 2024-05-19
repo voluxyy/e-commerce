@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
@@ -11,6 +11,11 @@ import {CookieService} from 'ngx-cookie-service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
+
+@Injectable(
+  {providedIn: 'root'}
+)
+
 export class LoginComponent {
   url : string;
   form: FormGroup;

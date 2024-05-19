@@ -72,11 +72,11 @@ export class ProductComponent {
         currentUser = data;
       });
       }
-      this.userComment.push({
-        user: currentUser,
-        title: comment.Title,
-        rate: currentRate
-      });
+      // this.userComment.push({
+      //   user: currentUser,
+      //   title: comment.Title,
+      //   rate: currentRate
+      // });
     }
 
   }
