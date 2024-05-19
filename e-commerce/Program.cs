@@ -37,6 +37,7 @@ builder.Services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>()
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IWishRepository, WishRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IReviewRepository, ReviewRepository>();
 
 // Link services
 builder.Services.AddTransient<IAdminService, AdminService>();
@@ -48,6 +49,7 @@ builder.Services.AddTransient<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWishService, WishService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 var app = builder.Build();
 app.UseCors(MyAllowSpecificOrigins);

@@ -10,6 +10,7 @@ import { MembersAdminComponent } from './Admin/members-admin/members-admin.compo
 import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './Admin/add-product/add-product.component';
 import { EditProductComponent } from './Admin/edit-product/edit-product.component';
+import { AdminLoginComponent } from './Admin/login/login.component';
 
 export const routes: Routes = [
     {
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'product/:id', title: 'Product', component: ProductComponent },
 
     // Admin routes
+    { path: 'admin-login', title: 'AdminLogin', component: AdminLoginComponent},
     { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent} ,
     { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent },
     { path: 'add-product', component: AddProductComponent, title: 'Add Product' }, 

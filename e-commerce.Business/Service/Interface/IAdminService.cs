@@ -16,6 +16,6 @@ namespace ecommerce.Business.Service
 
         List<AdminDto> GetAll();
 
-        Task<Boolean> CheckConnection(AdminDto dto);
+        Task<Boolean> CheckConnection(LoginDto dto);
     }
 }

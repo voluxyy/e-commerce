@@ -1,27 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-admin-login',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-
-@Injectable(
-  {providedIn: 'root'}
-)
-
-export class LoginComponent {
+export class AdminLoginComponent {
   url : string;
   form: FormGroup;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private cookieService: CookieService) {
-    this.url = "http://localhost:5016/api/User";
+    this.url = "http://localhost:5016/api/Admin";
     this.form = this.fb.group({
       email: new FormControl<string | null>(null),
       password: new FormControl<string | null>(null),
@@ -41,7 +36,7 @@ export class LoginComponent {
 
     this.http.post<any>(this.url + '/check-connection', formData, { headers })
       .subscribe(data => {
-        this.cookieService.set('Type', 'User');
+        this.cookieService.set('Type', 'Admin');
         this.router.navigate(['']);
       }, error => {
         console.log(error);

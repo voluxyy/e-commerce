@@ -1,21 +1,20 @@
-div{
+div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 60vh;
-    font-size: 2rem;
     color: var(--var-white);
     a {
         border: 1px solid var(--var-grey);
         padding: 10px 30px;
-        border-radius: 40px;
-        color: var(--var-grey);
-        text-decoration: none;
-        &:hover{
-            border: 1px solid var(--var-white);
-            background-color: var(--var-grey);
-            box-shadow: 0px 0px 5px var(--var-white);
+        color: var(--var-primary);
+        background-color: transparent;
+        border: 1px solid var(--var-primary);
+        transition: var(--cubic-bezier) 0.3s;
+        &:hover {
+            background-color: var(--var-primary);
+            color: var(--var-black);
         }
     }
 }
