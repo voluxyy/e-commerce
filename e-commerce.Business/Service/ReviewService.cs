@@ -48,6 +48,13 @@ namespace ecommerce.Business.Service
             return reviewsDtos;
         }
 
+        public List<ReviewDto> GetFromProduct(int id)
+        {
+            List<Review> reviews = reviewRepository.GetFromProduct(id);
+            List<ReviewDto> reviewDtos = ListModelToDto(reviews);
+            return reviewDtos;
+        }
+
         private List<ReviewDto> ListModelToDto(List<Review> reviews)
         {
             List<ReviewDto> reviewsDtos = new List<ReviewDto>();

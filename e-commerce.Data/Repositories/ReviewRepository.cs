@@ -47,5 +47,10 @@ namespace ecommerce.Data.Repositories
         {
             return _context.Reviews.ToList();
         }
+
+        public List<Review> GetFromProduct(int id)
+        {
+            return _context.Reviews.Where(x => x.ProductId == id).ToList();
+        }
     }
 }

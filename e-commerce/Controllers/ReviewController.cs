@@ -1,6 +1,7 @@
 using ecommerce.Business.Dto;
 using ecommerce.Business.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Any;
 
 namespace ecommerce.Controllers
 {
@@ -142,6 +143,20 @@ namespace ecommerce.Controllers
             try
             {
                 return this.service.GetAll();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("get-from-product/{id}")]
+        public ActionResult<List<ReviewDto>> GetFromProduct(int id) {
+            try {
+                Console.WriteLine(id);
+                List<ReviewDto> result = this.service.GetFromProduct(id);
+                Console.WriteLine(result.First().Title);
+                return result;
             }
             catch (Exception)
             {
