@@ -4,6 +4,7 @@
             <img src="../assets/{{ product.imagePath }}" alt="hi">
         </div>
         <div class="product__info">
+            <p>{{ product.id }}</p>
             <h1 class="product__name">{{ product.name }}</h1>
             <p class="product__price">Price : {{ product.price }} €</p>
             <p class="product__quantity">Quantity : {{ product.quantity ? product.quantity : "Plus en réserve" }}
@@ -14,10 +15,13 @@
     <!-- <button class="product__button" (click)="addToCart(product)">Add to Cart</button> -->
 </section>
 <section>
-    <div id="comments" *ngFor="let comment of comments">
-        <h2>Comments</h2>
-        <h3> {{ comment.title }}</h3>
-        <p> {{ rates.value }} </p>
-        <p> {{ comment.description }}</p>
+    <div id="reviews" *ngFor="let current of reviewsFormatted">
+        <h2>Reviews</h2>
+        <p>{{ current.user.firstname }}</p>
+        <p>{{ current.user.lastname }}</p>
+        <p>{{ current.user.pseudo }}</p>
+        <h3>{{ current.review.title }}</h3>
+        <p>{{ current.review.rate }}</p>
+        <p>{{ current.review.description }}</p>
     </div>
 </section>
