@@ -14,14 +14,16 @@ namespace ecommerce.Business.Service
         private string uploadsFolderPath;
 
         private readonly IProductRepository productRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             string pathToFront = "../front/src/";
 
             this.varFolderPath = Path.Combine(Directory.GetCurrentDirectory(), pathToFront);
             this.uploadsFolderPath = Path.Combine(this.varFolderPath, "assets");
             this.productRepository = productRepository;
+            this.categoryRepository = categoryRepository;
         }
 
         public async Task<ProductDto> Add(ProductDto dto, byte[] imageData)
@@ -157,7 +159,7 @@ namespace ecommerce.Business.Service
             List<Product> allProducts = productRepository.GetAll();
             List<ProductDto> searchedProducts = new List<ProductDto>();
 
-            List<Category> allCategories = ICategoryRepository.GetAll();
+            List<Category> allCategories = categoryRepository.GetAll();
 
             string searchTermLower = searchItems.ToLower();
             string searchTermUpper = searchItems.ToUpper();

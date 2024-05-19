@@ -10,8 +10,7 @@ namespace ecommerce.Data.Models {
         public DateOnly? Birthdate { get; set; }
         public required int Money { get; set; }
         public ICollection<ShoppingCart>? ShoppingCarts { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
-        public ICollection<Rate>? Rates { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
         public ICollection<Wish>? Wishs { get; set; }
         public ICollection<Sale>? Sales { get; set; }
     }
