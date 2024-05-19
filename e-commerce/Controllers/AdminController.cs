@@ -162,7 +162,7 @@ namespace ecommerce.Controllers
         }
 
         [HttpPost("check-connection")]
-        public async Task<ActionResult<Boolean>> CheckConnection([FromBody] AdminDto dto)
+        public async Task<ActionResult<Boolean>> CheckConnection([FromBody] LoginDto dto)
         {
             try 
             {

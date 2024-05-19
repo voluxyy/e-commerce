@@ -81,7 +81,7 @@ namespace ecommerce.Business.Service
             return adminsDtos;
         }
 
-        public async Task<Boolean> CheckConnection(AdminDto dto) {
+        public async Task<Boolean> CheckConnection(LoginDto dto) {
             if (dto.Email == null || dto.Password == null)
                 throw new ArgumentNullException("The email and the password are required."); 
 
