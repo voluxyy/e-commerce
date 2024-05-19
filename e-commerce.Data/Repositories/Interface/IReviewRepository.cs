@@ -13,5 +13,7 @@ namespace ecommerce.Data.Repositories
         Task<Review> Get(int id);
 
         List<Review> GetAll();
+
+        List<Review> GetFromProduct(int id);
     }
 }

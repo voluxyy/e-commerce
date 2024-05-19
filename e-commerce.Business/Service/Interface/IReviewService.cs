@@ -13,5 +13,7 @@ namespace ecommerce.Business.Service
         Task<ReviewDto> Get(int id);
 
         List<ReviewDto> GetAll();
+
+        List<ReviewDto> GetFromProduct(int id);
     }
 }

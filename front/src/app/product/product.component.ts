@@ -14,82 +14,58 @@ import { Subscription } from 'rxjs';
 })
 export class ProductComponent {
   productUrl: string;
-  commentsUrl: string;
-  rateUrl: string;
+  reviewsUrl: string;
   userUrl: string;
 
-  comments: any;
-  rates: any;
+  reviews: any[] = [];
   product: any;
 
   id: number | undefined;
 
-  commentsFormatted: [
-    {
-      user: object,
-      comment: object,
-      rate: object,
-    }
-  ] | null;
-
+  reviewsFormatted: { user: any, review: any }[] = [];
 
   private routeSub: Subscription = new Subscription;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.productUrl = 'http://localhost:5016/api/Product';
-    this.commentsUrl = 'http://localhost:5016/api/Comment';
-    this.rateUrl = 'http://localhost:5016/api/Rate';
+    this.reviewsUrl = 'http://localhost:5016/api/Review';
     this.userUrl = 'http://localhost:5016/api/User';
-    this.commentsFormatted = null;
   }
 
   ngOnInit(): void {
     // Get the id in the URL
     this.routeSub = this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = +params['id'];
+      this.loadProductData(this.id);
     });
+  }
 
+  loadProductData(productId: number): void {
     // Get the product
-    this.http.get<any>(this.productUrl + '/get/' + this.id)
+    this.http.get<any>(`${this.productUrl}/get/${productId}`)
       .subscribe(data => {
         this.product = data;
       });
 
-    // TODO: create backend routes to get from product comments and rates
-
-    // Get the comments of the product
-    this.http.get<any>(this.commentsUrl + '/get-from-product/' + this.id)
-      .subscribe(data => {
-        this.comments = data;
+    // Get the reviews of the product and link them with users
+    this.http.get<any[]>(`${this.reviewsUrl}/get-from-product/${productId}`)
+      .subscribe(reviews => {
+        this.reviews = reviews;
+        this.linkReviewsWithUsers();
       });
-
-    // Get the rates of the product
-    this.http.get<any>(this.rateUrl + '/get-from-product/' + this.id)
-      .subscribe(data => {
-        this.rates = data;
-      });
-
-    // Link rate and comment
-    for (let comment of this.comments) {
-      let currentRate: any;
-      let currentUser: any;
-      for (let rate of this.rates) {
-        if (rate.UserId == comment.UserId) {
-          currentRate = rate;
-        }
-
-        this.http.get<any>(this.userUrl + '/get/' + comment.UserId)
-          .subscribe(data => {
-            currentUser = data;
-          });
-      }
-      this.commentsFormatted?.push({
-        user: currentUser,
-        comment: comment,
-        rate: currentRate
-      });
-    }
   }
+
+  linkReviewsWithUsers(): void {
+    const requests = this.reviews.map(review => {
+      return this.http.get<any>(`${this.userUrl}/get/${review.userId}`).toPromise()
+        .then(user => {
+          this.reviewsFormatted.push({ user, review });
+        });
+    });
+
+    Promise.all(requests);
+  }
+
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
