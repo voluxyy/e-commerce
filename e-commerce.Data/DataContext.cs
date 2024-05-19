@@ -16,6 +16,7 @@ namespace ecommerce.Data {
         public DbSet<User> Users { get; set; }
         public DbSet<Wish> Wishs { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

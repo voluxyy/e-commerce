@@ -24,12 +24,13 @@ export class ProductComponent {
 
   id: number | undefined;
 
-  userComment: [
+  commentsFormatted: [
     {
-      user: string,
-      title: string,
-      rate: number,
-    }] | null ;
+      user: object,
+      comment: object,
+      rate: object,
+    }
+  ] | null;
 
 
   private routeSub: Subscription = new Subscription;
@@ -39,27 +40,36 @@ export class ProductComponent {
     this.commentsUrl = 'http://localhost:5016/api/Comment';
     this.rateUrl = 'http://localhost:5016/api/Rate';
     this.userUrl = 'http://localhost:5016/api/User';
-    this.userComment = null;
+    this.commentsFormatted = null;
   }
 
   ngOnInit(): void {
+    // Get the id in the URL
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    // Get the product
     this.http.get<any>(this.productUrl + '/get/' + this.id)
       .subscribe(data => {
         this.product = data;
       });
-    this.http.get<any>(this.commentsUrl + '/get/' + this.id)
+
+    // TODO: create backend routes to get from product comments and rates
+
+    // Get the comments of the product
+    this.http.get<any>(this.commentsUrl + '/get-from-product/' + this.id)
       .subscribe(data => {
         this.comments = data;
       });
-    this.http.get<any>(this.rateUrl + '/get/' + this.id)
+
+    // Get the rates of the product
+    this.http.get<any>(this.rateUrl + '/get-from-product/' + this.id)
       .subscribe(data => {
         this.rates = data;
       });
-    
 
+    // Link rate and comment
     for (let comment of this.comments) {
       let currentRate: any;
       let currentUser: any;
@@ -67,19 +77,20 @@ export class ProductComponent {
         if (rate.UserId == comment.UserId) {
           currentRate = rate;
         }
-      this.http.get<any>(this.userUrl + '/get/' + comment.UserId)
-      .subscribe(data => {
-        currentUser = data;
-      });
-      }
-      // this.userComment.push({
-      //   user: currentUser,
-      //   title: comment.Title,
-      //   rate: currentRate
-      // });
-    }
 
+        this.http.get<any>(this.userUrl + '/get/' + comment.UserId)
+          .subscribe(data => {
+            currentUser = data;
+          });
+      }
+      this.commentsFormatted?.push({
+        user: currentUser,
+        comment: comment,
+        rate: currentRate
+      });
+    }
   }
+
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
