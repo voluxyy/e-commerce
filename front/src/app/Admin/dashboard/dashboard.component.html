@@ -8,8 +8,8 @@
     </thead>
     <tbody>
         <tr>
-            <td>⚠️ Insert dynamic Data about members here ⚠️</td>
-            <td>⚠️ Insert dynamic Data about sales here ⚠️</td>
+            <td>Users registered: {{ numberOfMembers() }}</td>
+            <td>Total sales registered : {{ numberOfSales() }}</td>
         </tr>
     </tbody>
 </table>
@@ -24,8 +24,8 @@
     </thead>
     <tbody>
         <tr>
-            <td>⚠️ Insert dynamic Data about new sales last 7 days ⚠️</td>
-            <td>⚠️ Insert dynamic Data about revenue this last 7 days ⚠️</td>
+            <td>{{ lastSevenDaysSales() }}</td>
+            <td>{{ lastSevenDaysRevenues() }}</td>
         </tr>
     </tbody>
 </table>
@@ -39,7 +39,7 @@
     </thead>
     <tbody>
         <tr>
-            <td>⚠️ Insert dynamic Data about total revenue ⚠️</td>
+            <td>{{ totalRevenues() }}</td>
         </tr>
     </tbody>
 </table>

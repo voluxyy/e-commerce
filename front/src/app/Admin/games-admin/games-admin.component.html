@@ -29,7 +29,7 @@
                 <td> {{ product.categoryId }} </td>
                 <td>
                     <a routerLink="/edit-product/:{{ product.Id }}" class="edit__btn">Edit</a>
-                    <a onclick="deleteGame()" class="delete__btn">Delete</a>
+                    <button onclick="deleteGame(id)" class="delete__btn">Delete</button>
                 </td>
             </tr>
         </tbody>

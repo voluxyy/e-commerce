@@ -11,6 +11,7 @@ import { ProductComponent } from './product/product.component';
 import { AddProductComponent } from './Admin/add-product/add-product.component';
 import { EditProductComponent } from './Admin/edit-product/edit-product.component';
 import { AdminLoginComponent } from './Admin/login/login.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 export const routes: Routes = [
     {
@@ -35,8 +36,11 @@ export const routes: Routes = [
     { path: 'edit-product/:id', component: EditProductComponent, title: 'Edit Product' },
 
     // User routes
+    { path: 'shopping-cart', title: 'Shopping Cart', component: ShoppingCartComponent },
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},
     { path: 'dashboard', title: 'Dashboard', component: DashboardComponent},
+
+    // Default route
     { path: '**', title: "Page Not Found", component: PageNotFoundComponent },
 ];

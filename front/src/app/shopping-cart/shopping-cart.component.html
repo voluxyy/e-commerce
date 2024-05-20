@@ -1,0 +1,13 @@
+<div *ngFor="let shop of shoppingCart">
+    <p>Shopping Cart Id : {{ shop.Id }}</p>
+    <p>Shopping Cart User Id : {{ shop.userId }}</p>
+</div>
+
+<div *ngFor="let prod of productList" style="margin-top: 1em; border: 1px solid white;">
+    <p>Product List Id : {{ prod.Id }}</p>
+    <p>Product Id : </p>
+    <ul>
+        <li>{{ prod.productId }}</li>
+    </ul>
+    <p>Shopping Cart Id : {{ prod.shoppingCartId }}</p>
+</div>

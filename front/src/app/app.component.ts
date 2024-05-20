@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddProductComponent } from './Admin/add-product/add-product.component';
 import { EditProductComponent } from './Admin/edit-product/edit-product.component';
 import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,7 +22,9 @@ import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
     HeaderComponent, 
     CardBentoComponent,
     GamesAdminComponent,
-    EditProductComponent],
+    EditProductComponent, 
+    ShoppingCartComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

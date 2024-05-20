@@ -11,15 +11,15 @@ import { Component } from '@angular/core';
 })
 export class MembersAdminComponent {
   users: any;
-  apiUrl: string;
+  userUrl: string;
 
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:5016/api/User';
+    this.userUrl = 'http://localhost:5016/api/User';
   }
 
 
   ngOnInit(): void {
-    this.http.get<any>(this.apiUrl + "/all")
+    this.http.get<any>(this.userUrl + "/all")
       .subscribe(data => {
         this.users = data;
       });
