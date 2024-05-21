@@ -17,11 +17,13 @@
 <section>
     <div id="reviews" *ngFor="let current of reviewsFormatted">
         <h2>Reviews</h2>
-        <p>{{ current.user.firstname }}</p>
-        <p>{{ current.user.lastname }}</p>
-        <p>{{ current.user.pseudo }}</p>
-        <h3>{{ current.review.title }}</h3>
-        <p>{{ current.review.rate }}</p>
-        <p>{{ current.review.description }}</p>
+        <div class="reviews_background">
+            <div class="reviews_title">
+                <h3>Title: {{ current.review.title }}</h3>
+                <p>Rate: {{ current.review.rate }} / 5</p>
+                <a href="user-profil/:id">Author: {{ current.user.pseudo }}</a>
+            </div>
+            <p>Description: {{ current.review.description }}</p>
+        </div>
     </div>
 </section>

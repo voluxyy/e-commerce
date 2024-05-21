@@ -1,49 +1,49 @@
-header{
+header {
     position: sticky;
     top: 4%;
     z-index: 100;
+    padding: .2% 2%;
     margin: 2% 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
-    .border__right{
-        border-right: 6px solid #525252;
-        border-radius: 20px;
-        padding-right: 20px;
-    }
+    background-color: #1b1b1b;
+    border-radius: 60px;
     input{
         border: 1px solid #525252;
         border-radius: 60px;
-        padding: .6vw 1vw;
+        padding: 0.6vw 1vw;
         background-color: #363636;
-        color: var(--var-grey);
+        color: var(--var-primary);
         font-size: 1rem;
         font-family: "Poppins", sans-serif;
         letter-spacing: 1px;
         width: 20vw;
-        &:focus{
-            outline: none;
+        &:focus {
+            outline: 1px solid var(--var-primary);
+            box-shadow: 0px 0px 6px 0px var(--var-primary);
+        }
+        &:hover{
+            animation: .6s InputShadow infinite alternate;
         }
     }
-    menu{
-        border: 1px solid #525252;
-        background-color: #363636;
-        border-radius: 60px;
+    menu {
         display: flex;
         gap: 20px;
         list-style-type: none;
-        padding: .6vw 4vw;
+        padding: 0.6vw 4vw;
     }
-    a{
+    a {
         color: var(--var-grey);
         text-decoration: none;
-        &:hover{
+        &:hover {
             color: var(--var-primary);
             font-weight: 500;
             cursor: pointer;
+            animation: .3s TextShadow infinite alternate;
         }
-        &:focus{
+        &:focus {
             color: var(--var-primary);
             font-weight: 500;
         }
@@ -52,4 +52,23 @@ header{
 .active-link {
     color: var(--var-primary);
     font-weight: 500;
- }
+}
+
+
+@keyframes InputShadow {
+    from {
+        box-shadow: 0px 0px 2px 0px var(--var-primary);
+    }
+    to {
+        box-shadow: 0px 0px 6px 0px var(--var-primary);
+    }
+}
+
+@keyframes TextShadow {
+    from {
+        text-shadow: 0px 0px 40px white;
+    }
+    to {
+        text-shadow: 0px 0px 50px white;
+    }
+}

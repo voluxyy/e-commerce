@@ -34,3 +34,30 @@
         }
     }
 }
+
+#reviews{
+    margin: 4% 0;
+    
+    .reviews_background{
+        border-radius: 20px;
+        border: 1px solid var(--var-primary);
+        padding: 2%;
+    }
+    h2{
+        font-size: 2rem;
+        padding-bottom: 2%;
+    }
+    a{
+        color: var(--var-primary);
+    }
+    .reviews_title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4rem;
+        h3{
+            padding: 0;
+            line-height: 0;
+        }
+    }
+}
