@@ -96,7 +96,7 @@ namespace ecommerce.Controllers
         /// or an HTTP 500 Internal Server Error response in case of server internal error.
         /// </returns>
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<ProductDto>> Update(int id,[FromForm] ProductDto dto, IFormFile imageFile)
+        public async Task<ActionResult<ProductDto>> Update(int id)
         {
             if (id <= default(int))
             {
@@ -105,16 +105,28 @@ namespace ecommerce.Controllers
 
             try
             {
-                byte[] imageData = await ReadImageData(imageFile);
+                var formCollection = await this.Request.ReadFormAsync();
+                var files = formCollection.Files;
+
+                byte[] imageData = null;
+                if (files.Count > 0)
+                {
+                    var imageFile = files[0];
+                    imageData = await ReadImageData(imageFile);
+                }
+
+                var jsonDto = formCollection["dto"];
+                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto);
+
                 return await this.service.Update(dto, imageData);
             }
             catch (ArgumentNullException)
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.StatusCode(500, "Internal Server Error");
+                return this.StatusCode(500, e.Message);
             }
         }
 

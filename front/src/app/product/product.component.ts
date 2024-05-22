@@ -66,7 +66,6 @@ export class ProductComponent {
     Promise.all(requests);
   }
 
-
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }

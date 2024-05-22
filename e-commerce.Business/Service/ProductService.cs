@@ -43,14 +43,16 @@ namespace ecommerce.Business.Service
 
         public async Task<ProductDto> Update(ProductDto dto, byte[] imageData)
         {
-            if (dto.ImagePath == null)
-            {
-                throw new ArgumentNullException("ImagePath is missing.");
-            }
+            Product product = await productRepository.Get(dto.Id);
 
-            UpdateImage(dto.ImagePath, imageData);
+            product.Name = (dto.Name != null) ? dto.Name : product.Name;
+            product.Price = (dto.Price != null) ? dto.Price : product.Price;
+            product.Quantity = (dto.Quantity != null) ? dto.Quantity : product.Quantity;
+            product.CategoryId = (dto.CategoryId != null) ? dto.CategoryId : product.CategoryId;
 
-            Product product = DtoToModel(dto);
+            if (imageData != null)
+                UpdateImage(product.ImagePath, imageData);
+
             await productRepository.Update(product);
             ProductDto productDto = ModelToDto(product);
 
@@ -123,7 +125,7 @@ namespace ecommerce.Business.Service
 
         private async Task<string> SaveImage(int id, string fileName, byte[] imageData)
         {
-            /*this.CheckFolders();*/
+            this.CheckFolders();
 
             string uniqueFileName = "picture_" + id + "-" + fileName + ".jpg";
             string filePath = Path.Combine(this.uploadsFolderPath, uniqueFileName);
@@ -135,14 +137,13 @@ namespace ecommerce.Business.Service
 
         private async void UpdateImage(string path, byte[] imageData)
         {
-            /*            this.CheckFolders();
-            */
+            this.CheckFolders();
             string filePath = Path.Combine(this.uploadsFolderPath, path);
 
             _ = File.WriteAllBytesAsync(filePath, imageData);
         }
 
-        /*private void CheckFolders() {
+        private void CheckFolders() {
             if (!Directory.Exists(this.varFolderPath)) {
                 Directory.CreateDirectory(this.varFolderPath);
             }
@@ -150,10 +151,8 @@ namespace ecommerce.Business.Service
             if (!Directory.Exists(this.uploadsFolderPath)) {
                 Directory.CreateDirectory(this.uploadsFolderPath);
             }
-        }*/
+        }
 
-
-        // 
         public List<ProductDto> SearchBar(string searchItems)
         {
             List<Product> allProducts = productRepository.GetAll();
