@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace e_commerce.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class ForDeleteCascade : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,49 +84,6 @@ namespace e_commerce.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Rates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Value = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Rates_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShoppingCarts",
                 columns: table => new
                 {
@@ -139,6 +96,35 @@ namespace e_commerce.Data.Migrations
                     table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ShoppingCarts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Rate = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -225,11 +211,6 @@ namespace e_commerce.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductLists_ProductId",
                 table: "ProductLists",
                 column: "ProductId");
@@ -245,8 +226,13 @@ namespace e_commerce.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rates_UserId",
-                table: "Rates",
+                name: "IX_Reviews_ProductId",
+                table: "Reviews",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -262,7 +248,8 @@ namespace e_commerce.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCarts_UserId",
                 table: "ShoppingCarts",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wishs_ProductId",
@@ -282,13 +269,10 @@ namespace e_commerce.Data.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
-                name: "Comments");
-
-            migrationBuilder.DropTable(
                 name: "ProductLists");
 
             migrationBuilder.DropTable(
-                name: "Rates");
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Sales");

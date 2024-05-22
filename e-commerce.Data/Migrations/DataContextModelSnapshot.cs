@@ -137,6 +137,8 @@ namespace e_commerce.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
@@ -178,7 +180,8 @@ namespace e_commerce.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -245,74 +248,100 @@ namespace e_commerce.Data.Migrations
 
             modelBuilder.Entity("ecommerce.Data.Models.Product", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.Category", null)
+                    b.HasOne("ecommerce.Data.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.ProductList", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.Product", null)
+                    b.HasOne("ecommerce.Data.Models.Product", "Product")
                         .WithMany("ProductLists")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ecommerce.Data.Models.ShoppingCart", null)
+                    b.HasOne("ecommerce.Data.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ProductLists")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.Review", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.User", null)
+                    b.HasOne("ecommerce.Data.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ecommerce.Data.Models.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.Sale", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.Product", null)
+                    b.HasOne("ecommerce.Data.Models.Product", "Product")
                         .WithMany("Sales")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ecommerce.Data.Models.User", null)
+                    b.HasOne("ecommerce.Data.Models.User", "User")
                         .WithMany("Sales")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.User", null)
-                        .WithMany("ShoppingCarts")
-                        .HasForeignKey("UserId")
+                    b.HasOne("ecommerce.Data.Models.User", "User")
+                        .WithOne("ShoppingCarts")
+                        .HasForeignKey("ecommerce.Data.Models.ShoppingCart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.Wish", b =>
                 {
-                    b.HasOne("ecommerce.Data.Models.Product", null)
+                    b.HasOne("ecommerce.Data.Models.Product", "Product")
                         .WithMany("Wishs")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ecommerce.Data.Models.User", null)
+                    b.HasOne("ecommerce.Data.Models.User", "User")
                         .WithMany("Wishs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ecommerce.Data.Models.Category", b =>
@@ -323,6 +352,8 @@ namespace e_commerce.Data.Migrations
             modelBuilder.Entity("ecommerce.Data.Models.Product", b =>
                 {
                     b.Navigation("ProductLists");
+
+                    b.Navigation("Reviews");
 
                     b.Navigation("Sales");
 

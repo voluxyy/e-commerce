@@ -34,6 +34,16 @@ namespace ecommerce.Data.Repositories
         {
             Product product = await _context.Products.FindAsync(id);
 
+            List<ProductList> productLists = await _context.ProductLists.Where(x => x.ProductId == id).ToListAsync();
+            foreach (ProductList productList in productLists) {
+                _context.ProductLists.Remove(productList);
+            }
+
+            List<Review> reviews = await _context.Reviews.Where(x => x.ProductId == id).ToListAsync();
+            foreach (Review review in reviews) {
+                _context.Reviews.Remove(review);
+            }
+
             _context.Products.Remove(product);
 
             return await _context.SaveChangesAsync();

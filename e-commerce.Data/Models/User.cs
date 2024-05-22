@@ -9,7 +9,7 @@ namespace ecommerce.Data.Models {
         public required byte[] PasswordSalt { get; set; }
         public DateOnly? Birthdate { get; set; }
         public required int Money { get; set; }
-        public ICollection<ShoppingCart>? ShoppingCarts { get; set; }
+        public ShoppingCart? ShoppingCarts { get; set; }
         public ICollection<Review>? Reviews { get; set; }
         public ICollection<Wish>? Wishs { get; set; }
         public ICollection<Sale>? Sales { get; set; }

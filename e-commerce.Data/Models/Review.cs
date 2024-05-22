@@ -5,6 +5,8 @@ namespace ecommerce.Data.Models {
         public string? Description { get; set; }
         public required int Rate { get; set; }
         public required int ProductId { get; set; }
+        public Product Product { get; set; } = null!;
         public required int UserId { get; set; }
+        public User User { get; set; } = null!;
     }
 }
