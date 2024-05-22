@@ -12,6 +12,8 @@ import { AddProductComponent } from './Admin/add-product/add-product.component';
 import { EditProductComponent } from './Admin/edit-product/edit-product.component';
 import { AdminLoginComponent } from './Admin/login/login.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { MyProfileComponent } from './User/my-profile/my-profile.component';
+import { UserProfileComponent } from './User/user-profile/user-profile.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +42,8 @@ export const routes: Routes = [
     { path: 'register', title: 'Register', component: RegisterComponent},
     { path: 'login', title: 'Login', component: LoginComponent},
     { path: 'dashboard', title: 'Dashboard', component: DashboardComponent},
+    { path: 'my-profile/:id', title: 'My Profile', component: MyProfileComponent},
+    { path: 'user-profile/:id', title: 'User Profile', component: UserProfileComponent},
 
     // Default route
     { path: '**', title: "Page Not Found", component: PageNotFoundComponent },

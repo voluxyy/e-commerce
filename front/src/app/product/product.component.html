@@ -1,28 +1,29 @@
-<section>
-    <div class="product">
-        <div class="product__image">
-            <img src="../../assets/{{ product.imagePath }}" alt="Couverture du jeu.">
-        </div>
-        <div class="product__info">
-            <h1 class="product__name">{{ product.name }}</h1>
-            <p class="product__price">Price : {{ product.price }} €</p>
-            <p class="product__quantity">Quantity : {{ product.quantity ? product.quantity : "Plus en réserve" }}
-            </p>
-            <button class="product__button">Add to Cart</button>
-        </div>
-    </div>
-    <!-- <button class="product__button" (click)="addToCart(product)">Add to Cart</button> -->
-</section>
-<section>
-    <div id="reviews" *ngFor="let current of reviewsFormatted">
-        <h2>Reviews</h2>
-        <div class="reviews_background">
-            <div class="reviews_title">
-                <h3>Title: {{ current.review.title }}</h3>
-                <p>Rate: {{ current.review.rate }} / 5</p>
-                <a href="user-profil/:id">Author: {{ current.user.pseudo }}</a>
+<main>
+    <section>
+        <div class="product">
+            <div class="product__image">
+                <img src="../../assets/{{ product.imagePath }}" alt="Couverture du jeu.">
             </div>
-            <p>Description: {{ current.review.description }}</p>
+            <div class="product__info">
+                <h1 class="product__name">{{ product.name }}</h1>
+                <p class="product__price">Price : {{ product.price }} €</p>
+                <p class="product__quantity">Quantity : {{ product.quantity ? product.quantity : "Plus en réserve" }}
+                </p>
+                <button class="product__button">Add to Cart</button>
+            </div>
         </div>
-    </div>
-</section>
+        <!-- <button class="product__button" (click)="addToCart(product)">Add to Cart</button> -->
+    </section>
+    <section id="reviews" *ngFor="let current of reviewsFormatted">
+            <h2>Reviews</h2>
+            <div class="reviews_background">
+                <div class="reviews_title">
+                    <h3>Title: {{ current.review.title }}</h3>
+                    <p>Rate: {{ current.review.rate }} / 5</p>
+                    <!-- Add Correct Routes to User Id -->
+                    <a href="user-profile/1">Author: {{ current.user.pseudo }}</a>
+                </div>
+                <p>Description: {{ current.review.description }}</p>
+        </div>
+    </section>
+</main>

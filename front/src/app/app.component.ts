@@ -9,6 +9,9 @@ import { AddProductComponent } from './Admin/add-product/add-product.component';
 import { EditProductComponent } from './Admin/edit-product/edit-product.component';
 import { GamesAdminComponent } from './Admin/games-admin/games-admin.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { MyProfileComponent } from './User/my-profile/my-profile.component';
+import { UserProfileComponent } from './User/user-profile/user-profile.component';
+import { FooterComponent } from './Components/footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,7 +26,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     CardBentoComponent,
     GamesAdminComponent,
     EditProductComponent, 
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    MyProfileComponent,
+    UserProfileComponent,
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

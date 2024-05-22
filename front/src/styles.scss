@@ -24,11 +24,14 @@ body {
     font-family: "Poppins", sans-serif !important;
     background-color: var(--var-black);
     color: var(--var-white);
-    margin: 0 6%;
     padding: 0;
     a {
         text-decoration: none;
     }
+}
+
+main {
+    margin: 0 2%;
 }
 
 h1,
@@ -144,7 +147,7 @@ form {
 }
 
 // Buttons
-button{
+button {
     padding: 8px 0;
     border-radius: 10px;
     transition: 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -153,7 +156,7 @@ button{
     font-size: 1.2rem;
     color: var(--var-grey);
     border: 1px solid var(--var-grey);
-    &:hover{
+    &:hover {
         transform: matrix3d(1.05, 0, 0, 0, 0, 1.05, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
         transition: 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
         border-radius: 40px;

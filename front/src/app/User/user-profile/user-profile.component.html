@@ -1,0 +1,23 @@
+<main id="user-profile">
+    <h2>Personals Informations</h2>
+
+    <div>
+        <h4>About Him</h4>
+        <p><span>Id</span> {{ user.id }}</p>
+        <p><span>Lastname</span> {{ user.lastname }}</p>
+        <p><span>Firstname</span> {{ user.firstname }}</p>
+        <p><span>Birthdate</span> {{ user.birthdate }}</p>
+    </div>
+
+    <div>
+        <h4>Account Informations</h4>
+        <p><span>Pseudo</span> {{ user.pseudo }}</p>
+        <p><span>Email</span> {{ user.email }}</p>
+    </div>
+
+    <div>
+        <h4>Money</h4>
+        <p><span>Pixels Credits</span> {{ (user.money < 0 ? user.money : "It's just a poor guy. Ignore him.") }}</p>
+    </div>
+
+</main>

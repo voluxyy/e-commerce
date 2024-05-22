@@ -2,15 +2,15 @@ header {
     position: sticky;
     top: 4%;
     z-index: 100;
-    padding: .2% 2%;
-    margin: 2% 0;
+    padding: 0.2% 2%;
+    margin: 2%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
     background-color: #1b1b1b;
     border-radius: 60px;
-    input{
+    input {
         border: 1px solid #525252;
         border-radius: 60px;
         padding: 0.6vw 1vw;
@@ -24,13 +24,13 @@ header {
             outline: 1px solid var(--var-primary);
             box-shadow: 0px 0px 6px 0px var(--var-primary);
         }
-        &:hover{
-            animation: .6s InputShadow infinite alternate;
+        &:hover {
+            animation: 0.6s InputShadow infinite alternate;
         }
     }
     menu {
         display: flex;
-        gap: 20px;
+        gap: 10px;
         list-style-type: none;
         padding: 0.6vw 4vw;
     }
@@ -41,11 +41,30 @@ header {
             color: var(--var-primary);
             font-weight: 500;
             cursor: pointer;
-            animation: .3s TextShadow infinite alternate;
+            animation: 0.6s TextShadow infinite alternate;
         }
         &:focus {
             color: var(--var-primary);
             font-weight: 500;
+        }
+        &::before,
+        &::after {
+            content: "";
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        &::before {
+            content: "[ ";
+        }
+
+        &::after {
+            content: " ]";
+        }
+
+        &:hover::before,
+        &:hover::after {
+            opacity: .7;
         }
     }
 }
@@ -53,7 +72,6 @@ header {
     color: var(--var-primary);
     font-weight: 500;
 }
-
 
 @keyframes InputShadow {
     from {
@@ -66,7 +84,7 @@ header {
 
 @keyframes TextShadow {
     from {
-        text-shadow: 0px 0px 40px white;
+        text-shadow: 0px 0px 30px white;
     }
     to {
         text-shadow: 0px 0px 50px white;

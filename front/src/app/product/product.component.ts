@@ -40,6 +40,7 @@ export class ProductComponent {
     });
   }
 
+
   loadProductData(productId: number): void {
     // Get the product
     this.http.get<any>(`${this.productUrl}/get/${productId}`)

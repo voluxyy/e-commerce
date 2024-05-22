@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -6,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-member',
   standalone: true,
-  imports: [],
+  imports: [NgFor],
   templateUrl: './edit-member.component.html',
   styleUrl: './edit-member.component.scss'
 })
