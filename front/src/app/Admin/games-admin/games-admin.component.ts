@@ -15,6 +15,7 @@ export class GamesAdminComponent {
   products: any;
   apiUrl: string;
 
+<<<<<<< Updated upstream
   constructor(private http: HttpClient) {
     this.apiUrl = 'http://localhost:5016/api/Product';
   }
@@ -26,6 +27,18 @@ export class GamesAdminComponent {
       console.error('Error deleting product:', error);
     });
   }
+=======
+  // id: number;
+
+  constructor(private http: HttpClient) {
+    this.apiUrl = 'http://localhost:5016/api/Product';
+    // this.id = this.products.id;
+  }
+
+  // deleteGame() {
+  //   return this.http.delete<number>(this.apiUrl + "/delete/" + this.id);
+  // }
+>>>>>>> Stashed changes
 
 
   ngOnInit(): void {
@@ -33,5 +46,12 @@ export class GamesAdminComponent {
       .subscribe(data => {
         this.products = data;
       });
+<<<<<<< Updated upstream
+=======
+    // this.http.delete<number>(this.apiUrl + "/delete/" + this.id)
+    //   .subscribe(data => {
+    //     this.products = data;
+    //   });
+>>>>>>> Stashed changes
   }
 }

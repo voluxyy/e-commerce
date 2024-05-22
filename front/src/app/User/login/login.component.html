@@ -1,14 +1,17 @@
-<section>
-    <h1>Login</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST">
-        <div class="form-group">
-            <label for="email" hidden>Email</label>
-            <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-            <label for="password" hidden>Password</label>
-            <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
-        </div>
-        <button type="submit">Submit</button>
-    </form>
-</section>
+<main>
+    <section>
+        <h1>Login</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST">
+            <div class="form-group">
+                <label for="email" hidden>Email</label>
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password" hidden>Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password"
+                    placeholder="Password">
+            </div>
+            <button style="width:100%;" type="submit">Submit</button>
+        </form>
+    </section>
+</main>
