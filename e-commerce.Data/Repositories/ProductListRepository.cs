@@ -1,4 +1,5 @@
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -38,9 +39,23 @@ namespace ecommerce.Data.Repositories
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> DeleteFromProduct(int id)
+        {
+            ProductList productList = await _context.ProductLists.Where(x => x.ProductId == id).FirstAsync();
+
+            _context.ProductLists.Remove(productList);
+
+            return await _context.SaveChangesAsync();
+        }
+
         public async Task<ProductList> Get(int id)
         {
             return await _context.ProductLists.FindAsync(id);
+        }
+
+        public async Task<List<ProductList>> GetFromShoppingCart(int id)
+        {
+            return await _context.ProductLists.Where(x => x.ShoppingCartId == id).ToListAsync();
         }
 
         public List<ProductList> GetAll()

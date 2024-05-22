@@ -1,4 +1,5 @@
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -41,6 +42,11 @@ namespace ecommerce.Data.Repositories
         public async Task<ShoppingCart> Get(int id)
         {
             return await _context.ShoppingCarts.FindAsync(id);
+        }
+
+        public async Task<ShoppingCart> GetFromUser(int id)
+        {
+            return await _context.ShoppingCarts.Where(x => x.UserId == id).FirstAsync();
         }
 
         public List<ShoppingCart> GetAll()

@@ -12,6 +12,8 @@ namespace ecommerce.Business.Service
 
         Task<ShoppingCartDto> Get(int id);
 
+        Task<ShoppingCartDto> GetFromUser(int id);
+
         List<ShoppingCartDto> GetAll();
     }
 }

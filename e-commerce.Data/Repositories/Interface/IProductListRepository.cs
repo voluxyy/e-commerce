@@ -9,8 +9,12 @@ namespace ecommerce.Data.Repositories
         Task<ProductList> Update(ProductList productList);
 
         Task<int> Delete(int id);
+        
+        Task<int> DeleteFromProduct(int id);
 
         Task<ProductList> Get(int id);
+
+        Task<List<ProductList>> GetFromShoppingCart(int id);
 
         List<ProductList> GetAll();
     }

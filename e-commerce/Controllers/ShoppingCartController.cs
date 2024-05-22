@@ -69,6 +69,24 @@ namespace ecommerce.Controllers
             }
         }
 
+        [HttpGet("get-from-user/{id}")]
+        public async Task<ActionResult<ShoppingCartDto>> GetFromUser(int id)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                return await this.service.GetFromUser(id);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
         /// <summary>
         /// Updates the details of a ShoppingCart based on its identifier using the provided data.
         /// </summary>

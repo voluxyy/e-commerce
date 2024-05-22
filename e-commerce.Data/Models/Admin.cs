@@ -1,6 +1,6 @@
 namespace ecommerce.Data.Models {
     public class Admin {
-        public required Guid Id { get; set; }
+        public Guid Id { get; set; }
         public required string Pseudo { get; set; }
         public required string Email { get; set; }
         public required byte[] PasswordHash { get; set; }

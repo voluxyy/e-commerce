@@ -12,6 +12,8 @@ namespace ecommerce.Data.Repositories
 
         Task<ShoppingCart> Get(int id);
 
+        Task<ShoppingCart> GetFromUser(int id);
+
         List<ShoppingCart> GetAll();
     }
 }

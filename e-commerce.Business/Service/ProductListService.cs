@@ -36,9 +36,19 @@ namespace ecommerce.Business.Service
             return await productListRepository.Delete(id);
         }
 
+        public async Task<int> DeleteFromProduct(int id)
+        {
+            return await productListRepository.DeleteFromProduct(id);
+        }
+
         public async Task<ProductListDto> Get(int id)
         {
             return ModelToDto(await productListRepository.Get(id));
+        }
+
+        public async Task<List<ProductListDto>> GetFromShoppingCart(int id)
+        {
+            return ListModelToDto(await productListRepository.GetFromShoppingCart(id));
         }
 
         public List<ProductListDto> GetAll()

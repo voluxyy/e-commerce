@@ -11,10 +11,12 @@ namespace ecommerce.Business.Service
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IShoppingCartRepository shoppingCartRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IShoppingCartRepository shoppingCartRepository)
         {
             this.userRepository = userRepository;
+            this.shoppingCartRepository = shoppingCartRepository;
         }
 
         public async Task<UserDto> Add(UserDto dto)
@@ -30,6 +32,13 @@ namespace ecommerce.Business.Service
             User user = DtoToModel(dto, passwordHash, passwordSalt);
             await userRepository.Add(user);
             UserDto userDto = ModelToDto(user, null);
+
+            ShoppingCart shoppingCart = new ShoppingCart
+            {
+                UserId = userDto.Id,
+            };
+
+            await shoppingCartRepository.Add(shoppingCart);
 
             return userDto;
         }
@@ -84,7 +93,7 @@ namespace ecommerce.Business.Service
             return usersDtos;
         }
 
-        public async Task<Boolean> CheckConnection(LoginDto dto) {
+        public async Task<UserDto> CheckConnection(LoginDto dto) {
             if (dto.Email == null || dto.Password == null)
                 throw new ArgumentNullException("The email and the password are required."); 
 
@@ -97,9 +106,9 @@ namespace ecommerce.Business.Service
             CreatePasswordHashFromSalt(dto.Password, user.PasswordSalt, out passwordHash);
 
             if (!user.PasswordHash.SequenceEqual(passwordHash))
-                return false;
+                throw new InvalidOperationException("The email or the password provided is wrong.");
 
-            return true;
+            return ModelToDto(user, null);
         }
 
         private List<UserDto> ListModelToDto(List<User> users)

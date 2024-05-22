@@ -46,9 +46,9 @@ namespace ecommerce.Business.Service
             Product product = await productRepository.Get(dto.Id);
 
             product.Name = (dto.Name != null) ? dto.Name : product.Name;
-            product.Price = (dto.Price != null) ? dto.Price : product.Price;
-            product.Quantity = (dto.Quantity != null) ? dto.Quantity : product.Quantity;
-            product.CategoryId = (dto.CategoryId != null) ? dto.CategoryId : product.CategoryId;
+            product.Price = dto.Price;
+            product.Quantity = dto.Quantity;
+            product.CategoryId = dto.CategoryId;
 
             if (imageData != null)
                 UpdateImage(product.ImagePath, imageData);
@@ -130,7 +130,7 @@ namespace ecommerce.Business.Service
             string uniqueFileName = "picture_" + id + "-" + fileName + ".jpg";
             string filePath = Path.Combine(this.uploadsFolderPath, uniqueFileName);
 
-            _ = File.WriteAllBytesAsync(filePath, imageData);
+            await File.WriteAllBytesAsync(filePath, imageData);
 
             return uniqueFileName;
         }
@@ -140,7 +140,7 @@ namespace ecommerce.Business.Service
             this.CheckFolders();
             string filePath = Path.Combine(this.uploadsFolderPath, path);
 
-            _ = File.WriteAllBytesAsync(filePath, imageData);
+            await File.WriteAllBytesAsync(filePath, imageData);
         }
 
         private void CheckFolders() {

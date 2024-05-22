@@ -9,8 +9,11 @@ namespace ecommerce.Business.Service
         Task<ProductListDto> Update(ProductListDto dto);
 
         Task<int> Delete(int id);
+        Task<int> DeleteFromProduct(int id);
 
         Task<ProductListDto> Get(int id);
+
+        Task<List<ProductListDto>> GetFromShoppingCart(int id);
 
         List<ProductListDto> GetAll();
     }

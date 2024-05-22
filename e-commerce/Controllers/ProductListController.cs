@@ -69,6 +69,24 @@ namespace ecommerce.Controllers
             }
         }
 
+        [HttpGet("get-from-shopping-cart/{id}")]
+        public async Task<ActionResult<List<ProductListDto>>> GetFromShoppingCart(int id)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                return await this.service.GetFromShoppingCart(id);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
         /// <summary>
         /// Updates the details of a ProductList based on its identifier using the provided data.
         /// </summary>
@@ -121,6 +139,25 @@ namespace ecommerce.Controllers
             try
             {
                 await this.service.Delete(id);
+                return this.Ok();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpDelete("delete-from-product/{id}")]
+        public async Task<IActionResult> DeleteFromProduct(int id)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                await this.service.DeleteFromProduct(id);
                 return this.Ok();
             }
             catch (Exception)

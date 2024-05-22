@@ -37,12 +37,13 @@ export class LoginComponent {
     const formData = JSON.stringify(dto);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    console.log(formData);
-
     this.http.post<any>(this.url + '/check-connection', formData, { headers })
       .subscribe(data => {
-        this.cookieService.set('Type', 'User');
-        this.router.navigate(['']);
+        if (data != null) {
+          this.cookieService.set('Type', 'User');
+          this.cookieService.set('UserId', data.id);
+          this.router.navigate(['']);
+        }
       }, error => {
         console.log(error);
       });

@@ -1,6 +1,6 @@
 namespace ecommerce.Data.Models {
     public class Product {
-        public required int Id { get; set; }
+        public int Id { get; set; }
         public required string ImagePath { get; set; }
         public required string Name { get; set; }
         public required float Price { get; set; }

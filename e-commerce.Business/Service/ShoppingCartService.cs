@@ -41,6 +41,11 @@ namespace ecommerce.Business.Service
             return ModelToDto(await shoppingCartRepository.Get(id));
         }
 
+        public async Task<ShoppingCartDto> GetFromUser(int id)
+        {
+            return ModelToDto(await shoppingCartRepository.GetFromUser(id));
+        }
+
         public List<ShoppingCartDto> GetAll()
         {
             List<ShoppingCart> shoppingCarts = shoppingCartRepository.GetAll();
