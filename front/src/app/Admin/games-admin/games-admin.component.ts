@@ -27,6 +27,7 @@ export class GamesAdminComponent {
     });
   }
 
+
   ngOnInit(): void {
     this.http.get<any>(this.apiUrl + "/all")
       .subscribe(data => {

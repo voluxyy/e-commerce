@@ -29,11 +29,7 @@
                 <td> {{ product.categoryId }} </td>
                 <td>
                     <a routerLink="/edit-product/{{ product.id }}" class="edit__btn">Edit</a>
-<<<<<<< Updated upstream
-                    <button (click)="deleteGame(product.id)" class="delete__btn">Delete</button>
-=======
-                    <a onclick="deleteGame(id)" class="delete__btn">Delete</a>
->>>>>>> Stashed changes
+                    <a (click)="deleteGame(product.id)" class="delete__btn">Delete</a>
                 </td>
             </tr>
         </tbody>
