@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+<p>edit-product works!</p>
 <h2>Add Product</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
@@ -16,7 +16,7 @@
     <select name="categoryId" id="categoryId" formControlName="categoryId">
         <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
     </select>
-    
+
     <label for="imageData">Image</label>
     <input type="file" (change)="onFileSelected($event)">
 
@@ -27,30 +27,3 @@
 
     <button href="/games-admin" type="submit">Envoyer</button>
 </form>
-=======
-<main>
-    <h2>Edit Product</h2>
-
-    <form (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
-
-        <label for="name">Nom</label>
-        <input type="text" id="name" formControlName="name" placeholder="{{ product.name }}">
-
-        <label for="price">Price</label>
-        <input type="number" id="price" formControlName="price" placeholder="{{ product.price }}">
-
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" formControlName="quantity" placeholder="{{ product.quantity }}">
-
-        <label for="categoryId">Category</label>
-        <select name="categoryId" id="categoryId" formControlName="categoryId">
-            <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
-        </select>
-
-        <label for="imageData">Image</label>
-        <input type="file" (change)="onFileSelected($event)">
-
-        <button href="/games-admin" type="submit">Envoyer</button>
-    </form>
-</main>
->>>>>>> Stashed changes
