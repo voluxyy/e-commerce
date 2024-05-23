@@ -27,11 +27,11 @@ namespace ecommerce.Business.Service
                 throw new ApplicationException("User with this email already exists");
 
             byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(dto.Password!, out passwordHash, out passwordSalt);
 
             User user = DtoToModel(dto, passwordHash, passwordSalt);
             await userRepository.Add(user);
-            UserDto userDto = ModelToDto(user, null);
+            UserDto userDto = ModelToDto(user, null!);
 
             ShoppingCart shoppingCart = new ShoppingCart
             {
@@ -55,7 +55,7 @@ namespace ecommerce.Business.Service
             currentUser.Money = dto.Money;
 
             await userRepository.Update(currentUser);
-            UserDto userDto = ModelToDto(currentUser, null);
+            UserDto userDto = ModelToDto(currentUser, null!);
 
             return userDto;
         }
@@ -65,13 +65,25 @@ namespace ecommerce.Business.Service
             User currentUser = await userRepository.Get(dto.Id);
 
             byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
+            CreatePasswordHash(dto.Password!, out passwordHash, out passwordSalt);
 
             currentUser.PasswordHash = passwordHash;
             currentUser.PasswordSalt = passwordSalt;
 
             await userRepository.Update(currentUser);
-            UserDto userDto = ModelToDto(currentUser, null);
+            UserDto userDto = ModelToDto(currentUser, null!);
+
+            return userDto;
+        }
+
+        public async Task<UserDto> UpdateMoney(MoneyDto dto)
+        {
+            User currentUser = await userRepository.Get(dto.UserId);
+
+            currentUser.Money = dto.Money;
+
+            await userRepository.Update(currentUser);
+            UserDto userDto = ModelToDto(currentUser, null!);
 
             return userDto;
         }
@@ -83,7 +95,7 @@ namespace ecommerce.Business.Service
 
         public async Task<UserDto> Get(int id)
         {
-            return ModelToDto(await userRepository.Get(id), null);
+            return ModelToDto(await userRepository.Get(id), null!);
         }
 
         public List<UserDto> GetAll()
@@ -108,7 +120,7 @@ namespace ecommerce.Business.Service
             if (!user.PasswordHash.SequenceEqual(passwordHash))
                 throw new InvalidOperationException("The email or the password provided is wrong.");
 
-            return ModelToDto(user, null);
+            return ModelToDto(user, null!);
         }
 
         private List<UserDto> ListModelToDto(List<User> users)
@@ -116,7 +128,7 @@ namespace ecommerce.Business.Service
             List<UserDto> usersDtos = new List<UserDto>();
             foreach (User user in users)
             {
-                usersDtos.Add(ModelToDto(user, null));
+                usersDtos.Add(ModelToDto(user, null!));
             }
             return usersDtos;
         }

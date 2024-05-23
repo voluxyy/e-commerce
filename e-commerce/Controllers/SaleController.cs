@@ -36,9 +36,9 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return this.StatusCode(500, "Internal Server Error");
+                return this.StatusCode(500, e.Message);
             }
         }
 
@@ -62,6 +62,24 @@ namespace ecommerce.Controllers
             try
             {
                 return await this.service.Get(id);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("get-from-user/{id}")]
+        public async Task<ActionResult<List<SaleDto>>> GetFromUser(int id)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                return await this.service.GetFromUser(id);
             }
             catch (Exception)
             {
@@ -142,6 +160,24 @@ namespace ecommerce.Controllers
             try
             {
                 return this.service.GetAll();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("has-buy/{productId}/{userId}")]
+        public async Task<ActionResult<Boolean>> HasBuy(int productId, int userId ) {
+            try
+            {
+                HasBuy hasBuy = new HasBuy
+                {
+                    UserId = userId,
+                    ProductId = productId,
+                };
+                
+                return await this.service.HasBuy(hasBuy);
             }
             catch (Exception)
             {

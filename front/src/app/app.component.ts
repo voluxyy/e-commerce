@@ -12,6 +12,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { MyProfileComponent } from './User/my-profile/my-profile.component';
 import { UserProfileComponent } from './User/user-profile/user-profile.component';
 import { FooterComponent } from './Components/footer/footer.component';
+import { AddCategoryComponent } from './Admin/add-category/add-category.component';
+import { EditCategoryComponent } from './Admin/edit-category/edit-category.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,6 +30,8 @@ import { FooterComponent } from './Components/footer/footer.component';
     EditProductComponent, 
     ShoppingCartComponent,
     MyProfileComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
     UserProfileComponent,
     FooterComponent,
   ],

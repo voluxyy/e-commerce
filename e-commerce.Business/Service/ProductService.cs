@@ -113,7 +113,7 @@ namespace ecommerce.Business.Service
             Product product = new Product
             {
                 Id = productDto.Id,
-                ImagePath = productDto.ImagePath,
+                ImagePath = productDto.ImagePath!,
                 Name = productDto.Name,
                 Price = productDto.Price,
                 Quantity = productDto.Quantity,
@@ -158,25 +158,24 @@ namespace ecommerce.Business.Service
             List<Product> allProducts = productRepository.GetAll();
             List<ProductDto> searchedProducts = new List<ProductDto>();
 
-            List<Category> allCategories = categoryRepository.GetAll();
-
             string searchTermLower = searchItems.ToLower();
-            string searchTermUpper = searchItems.ToUpper();
 
             foreach (Product product in allProducts)
             {
-                if (FuzzyMatch(product.Name.ToLower(), searchTermLower) || FuzzyMatch(product.Name.ToUpper(), searchTermUpper))
+                string productName = product.Name.ToLower();
+
+                Console.WriteLine(searchTermLower);
+                Console.WriteLine(productName);
+
+                if (productName.Contains(searchTermLower) || Levenshtein(productName, searchTermLower))
                 {
                     searchedProducts.Add(ModelToDto(product));
                 }
                 
             }
-
             return searchedProducts;
         }
-
-        // Using the Levenshtein algorythm to let the user match his search with 2 errors
-        private bool FuzzyMatch(string input, string searchTerm)
+        private bool Levenshtein(string input, string searchTerm)
         {
             int n = input.Length;
             int m = searchTerm.Length;

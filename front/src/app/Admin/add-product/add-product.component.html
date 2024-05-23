@@ -3,7 +3,7 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
 
-        <label for="name">Nom</label>
+        <label for="name">Name</label>
         <input type="text" id="name" formControlName="name">
 
         <label for="price">Price</label>
@@ -20,6 +20,6 @@
         <label for="imageData">Image</label>
         <input type="file" (change)="onFileSelected($event)">
 
-        <button href="/games-admin" type="submit">Envoyer</button>
+        <button href="/games-admin" type="submit">Submit</button>
     </form>
 </main>

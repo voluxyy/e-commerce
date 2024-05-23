@@ -32,12 +32,11 @@ export class AdminLoginComponent {
     const formData = JSON.stringify(dto);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    console.log(formData);
-
     this.http.post<any>(this.url + '/check-connection', formData, { headers })
       .subscribe(data => {
         this.cookieService.set('Type', 'Admin');
-        this.router.navigate(['']);
+        this.cookieService.set('UserId', data.id);
+        window.location.href = "";
       }, error => {
         console.log(error);
       });

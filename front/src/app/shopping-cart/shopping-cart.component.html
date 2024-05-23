@@ -1,10 +1,23 @@
-<div *ngFor="let product of products" style="margin-top: 1em; border: 1px solid white;">
-    <img src="../../assets/{{ product.imagePath }}">
-
-    <p>{{ product.name }}</p>
-    <p>{{ product.price }}</p>
-
-    <div>
-        <button (click)="deleteProduct(product.id)">&cross;</button>
+<main>
+    <div *ngIf="!products || products.length === 0; else notEmpty">
+        <p>You have nothing in your shopping cart.</p>
     </div>
-</div>
+    <ng-template #notEmpty>
+        <div *ngFor="let product of products">
+            <div class="container_product">
+                <div class="container_image">
+                    <img src="../../assets/{{ product.imagePath }}">
+                </div>
+                <div>
+                    <p>{{ product.name }}</p>
+                    <p>{{ product.price }} €</p>
+                </div>
+                <a (click)="deleteProduct(product.id)">&Cross;</a>
+            </div>
+        </div>
+    </ng-template>
+    <div>
+        <p>You have <span>{{ user.money }}</span> credits.</p>
+        <button id="purchase-btn" (click)="purchase()">Buy your games</button>
+    </div>
+</main>

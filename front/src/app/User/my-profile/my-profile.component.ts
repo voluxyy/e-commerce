@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })
@@ -14,24 +15,27 @@ export class MyProfileComponent {
   userUrl: string;
   user: any
 
-  id: number | undefined;
+  id: string | undefined;
 
   private routeSub: Subscription = new Subscription;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private cookie: CookieService) {
     this.userUrl = 'http://localhost:5016/api/User';
   }
 
   ngOnInit() {
-    this.routeSub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      this.loadUserData(this.id);
-    });
+    this.id = this.cookie.get("UserId");
+    if (!this.id) {
+      window.location.href = "";
+      return;
+    }
+
+    this.loadUserData(this.id)
   }
 
-  loadUserData(userId: number): void {
+  async loadUserData(userId: string): Promise<void> {
     // Get user data
-    this.http.get<any>(`${this.userUrl}/get/${userId}`)
+    await this.http.get<any>(`${this.userUrl}/get/${userId}`)
       .subscribe(data => {
         this.user = data;
       });

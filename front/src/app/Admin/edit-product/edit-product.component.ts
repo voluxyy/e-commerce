@@ -107,7 +107,7 @@ export class EditProductComponent {
 
     this.http.put<any>(this.productApiUrl + "/update/" + dto.id, formData)
       .subscribe(data => {
-        this.router.navigate(['gamesAdmin']);
+        window.location.href = "gamesAdmin";
       }, error => {
         console.log(error);
       });

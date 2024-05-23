@@ -12,6 +12,10 @@ namespace ecommerce.Business.Service
 
         Task<SaleDto> Get(int id);
 
+        Task<List<SaleDto>> GetFromUser(int id);
+
         List<SaleDto> GetAll();
+        
+        Task<Boolean> HasBuy(HasBuy hasBuy);
     }
 }

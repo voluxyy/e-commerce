@@ -152,11 +152,29 @@ namespace ecommerce.Controllers
 
         [HttpGet("get-from-product/{id}")]
         public ActionResult<List<ReviewDto>> GetFromProduct(int id) {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
             try {
-                Console.WriteLine(id);
-                List<ReviewDto> result = this.service.GetFromProduct(id);
-                Console.WriteLine(result.First().Title);
-                return result;
+                return this.service.GetFromProduct(id);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("get-average-rate/{id}")]
+        public ActionResult<RateDto> GetAverageRate(int id) {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try {
+                return this.service.GetAverageRate(id);
             }
             catch (Exception)
             {
