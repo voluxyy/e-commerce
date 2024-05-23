@@ -44,7 +44,6 @@ export class HeaderComponent {
     const container = document.getElementById("searchbar-result-container") as HTMLElement;
 
     container.innerHTML = ''; // Clear previous results
-    container.style.border = '1px solid var(--var-grey)';
 
     this.result.forEach((product: { name: any; price: any; imagePath: any; id: any }) => {
       const productElement = document.createElement('a');
