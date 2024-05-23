@@ -14,6 +14,8 @@ import { AdminLoginComponent } from './Admin/login/login.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { MyProfileComponent } from './User/my-profile/my-profile.component';
 import { UserProfileComponent } from './User/user-profile/user-profile.component';
+import { AddCategoryComponent } from './Admin/add-category/add-category.component';
+import { EditCategoryComponent } from './Admin/edit-category/edit-category.component';
 
 export const routes: Routes = [
     {
@@ -36,6 +38,8 @@ export const routes: Routes = [
     { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent },
     { path: 'add-product', component: AddProductComponent, title: 'Add Product' }, 
     { path: 'edit-product/:id', component: EditProductComponent, title: 'Edit Product' },
+    { path: 'add-category', title: 'Add Category', component: AddCategoryComponent },
+    { path: 'edit-category/:id', title: 'Edit Category', component: EditCategoryComponent},
 
     // User routes
     { path: 'shopping-cart', title: 'Shopping Cart', component: ShoppingCartComponent },

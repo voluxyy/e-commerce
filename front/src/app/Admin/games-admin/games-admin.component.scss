@@ -7,3 +7,11 @@
         object-fit: cover;    
     }
 }
+#categories{
+    background-color: var(--var-black-ease);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+    padding: 1%;
+}

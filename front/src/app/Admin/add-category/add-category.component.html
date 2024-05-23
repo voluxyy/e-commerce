@@ -1,0 +1,11 @@
+<main>
+    <h2>Add Category</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
+
+        <label for="categoryName">Category Name</label>
+        <input type="text" id="categoryName" formControlName="categoryName">
+
+        <button href="/games-admin" type="submit">Submit</button>
+    </form>
+</main>

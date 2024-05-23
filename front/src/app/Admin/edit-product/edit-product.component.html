@@ -1,6 +1,5 @@
 <main>
-    <p>edit-product works!</p>
-<h2>Add Product</h2>
+<h2>Edit Product</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
 
@@ -26,6 +25,6 @@
 
     <input type="text" name="id" id="id" formControlName="id" hidden>
 
-    <button href="/games-admin" type="submit">Envoyer</button>
+    <button href="/games-admin" type="submit">Submit</button>
 </form>
 </main>

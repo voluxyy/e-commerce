@@ -2,6 +2,7 @@
     <div class="pannel__games_admin">
         <h1>List of videos games</h1>
         <a routerLink="/add-product" class="add__btn">Add Game</a>
+        <a routerLink="/add-category" class="add__btn_category">Add Category</a>
         <table>
             <thead>
                 <tr>
@@ -36,4 +37,14 @@
             </tbody>
         </table>
     </div>
+
+    <h2>Categories</h2>
+    <div id="categories" *ngFor="let cat of categories">
+            <p>{{ cat.categoryName }}</p>
+            <div>
+                <a routerLink="/edit-category/{{ cat.id }}" class="edit__btn">Edit</a>
+                <a (click)="deleteCategory(cat.id)" class="delete__btn">Delete</a>
+            </div>
+    </div>
+    
 </main>

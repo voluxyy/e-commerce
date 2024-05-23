@@ -158,25 +158,19 @@ namespace ecommerce.Business.Service
             List<Product> allProducts = productRepository.GetAll();
             List<ProductDto> searchedProducts = new List<ProductDto>();
 
-            List<Category> allCategories = categoryRepository.GetAll();
-
             string searchTermLower = searchItems.ToLower();
-            string searchTermUpper = searchItems.ToUpper();
 
             foreach (Product product in allProducts)
             {
-                if (FuzzyMatch(product.Name.ToLower(), searchTermLower) || FuzzyMatch(product.Name.ToUpper(), searchTermUpper))
+                if (Levenshtein(product.Name.ToLower(), searchTermLower))
                 {
                     searchedProducts.Add(ModelToDto(product));
                 }
                 
             }
-
             return searchedProducts;
         }
-
-        // Using the Levenshtein algorythm to let the user match his search with 2 errors
-        private bool FuzzyMatch(string input, string searchTerm)
+        private bool Levenshtein(string input, string searchTerm)
         {
             int n = input.Length;
             int m = searchTerm.Length;

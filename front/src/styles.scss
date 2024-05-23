@@ -3,6 +3,7 @@
 // Colors
 :root {
     --var-black: #0e0e0e;
+    --var-black-ease: #272727;
     --var-grey: #d4d4d4;
     --var-white: #ffffff;
     --var-primary: #3ef19d;
@@ -11,7 +12,7 @@
     --edit-hover: #6c63ee;
 
     --delete: #f50000;
-    --delete-hover: #ce1a56;
+    --delete-hover: #fd757c;
 
     --add: #00ca00;
     --add-hover: #63d463;
@@ -148,7 +149,6 @@ form {
 
 // Buttons
 button {
-    padding: 8px 0;
     border-radius: 10px;
     transition: 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     background-color: var(--var-black);
@@ -169,8 +169,24 @@ button {
 
 .add__btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 160px;
+    right: 50px;
+    z-index: 1000;
+    background-color: var(--add);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+        background-color: var(--add-hover);
+    }
+}
+.add__btn_category {
+    position: fixed;
+    top: 160px;
+    right: 200px;
     z-index: 1000;
     background-color: var(--add);
     color: white;

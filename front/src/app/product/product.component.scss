@@ -22,15 +22,6 @@
         }
         .product__button {
             margin-top: 30vh;
-            padding: 10px 60px;
-            color: var(--var-primary);
-            background-color: transparent;
-            border: 1px solid var(--var-primary);
-            transition: var(--cubic-bezier) 0.3s;
-            &:hover{
-                background-color: var(--var-primary);
-                color: var(--var-black);
-            }
         }
     }
 }
@@ -39,6 +30,7 @@
     margin: 4% 0;
     
     .reviews_background{
+        background-color: var(--var-black-ease);
         border-radius: 20px;
         border: 1px solid var(--var-primary);
         padding: 2%;
