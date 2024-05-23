@@ -1,10 +1,12 @@
-<div *ngFor="let product of products" style="margin-top: 1em; border: 1px solid white;">
-    <img src="../../assets/{{ product.imagePath }}">
-
-    <p>{{ product.name }}</p>
-    <p>{{ product.price }}</p>
-
-    <div>
-        <button (click)="deleteProduct(product.id)">&cross;</button>
+<main>
+    <div *ngFor="let product of products" style="margin-top: 1em; border: 1px solid white;">
+        <img src="../../assets/{{ product.imagePath }}">
+    
+        <p>{{ product.name }}</p>
+        <p>{{ product.price }}</p>
+    
+        <div>
+            <button (click)="deleteProduct(product.id)">&cross;</button>
+        </div>
     </div>
-</div>
+</main>

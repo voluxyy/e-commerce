@@ -1,37 +1,39 @@
-<div class="pannel__games_admin">
-    <h1>List of videos games</h1>
-    <a routerLink="/add-product" class="add__btn">Add Game</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Image</th>
-                <th>ImagePath</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Category ID</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of products">
-                <td> {{ product.id }} </td>
-                <td>
-                    <div class="product__image">
-                        <img src="../assets/{{ product.imagePath }}" alt="">
-                    </div>
-                </td>
-                <td> {{ product.imagePath }} </td>
-                <td> {{ product.name }} </td>
-                <td> {{ product.price }} €</td>
-                <td> {{ product.quantity }} </td>
-                <td> {{ product.categoryId }} </td>
-                <td>
-                    <a routerLink="/edit-product/{{ product.id }}" class="edit__btn">Edit</a>
-                    <a (click)="deleteGame(product.id)" class="delete__btn">Delete</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<main>
+    <div class="pannel__games_admin">
+        <h1>List of videos games</h1>
+        <a routerLink="/add-product" class="add__btn">Add Game</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Image</th>
+                    <th>ImagePath</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Category ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td> {{ product.id }} </td>
+                    <td>
+                        <div class="product__image">
+                            <img src="../assets/{{ product.imagePath }}" alt="">
+                        </div>
+                    </td>
+                    <td> {{ product.imagePath }} </td>
+                    <td> {{ product.name }} </td>
+                    <td> {{ product.price }} €</td>
+                    <td> {{ product.quantity }} </td>
+                    <td> {{ product.categoryId }} </td>
+                    <td>
+                        <a routerLink="/edit-product/{{ product.id }}" class="edit__btn">Edit</a>
+                        <a (click)="deleteGame(product.id)" class="delete__btn">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
