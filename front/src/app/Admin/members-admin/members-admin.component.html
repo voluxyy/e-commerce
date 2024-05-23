@@ -8,6 +8,7 @@
             <th>Pseudo</th>
             <th>Email</th>
             <th>Birthdate</th>
+            <th>Money</th>
             <th>Sales</th>
             <th>Actions</th>
         </tr>
@@ -19,10 +20,10 @@
             <td> {{ user.pseudo }} </td>
             <td> {{ user.email }} </td>
             <td> {{ user.birthdate }} </td>
+            <td> {{ user.money }} </td>
             <td> {{ user.sales }} </td>
             <td> 
-                <a class="edit__btn">Edit</a>
-                <a class="delete__btn">Delete</a>
+                <a routerLink="/edit-member/{{ user.id }}" class="edit__btn">Edit</a>
             </td>
         </tr>
     </tbody>

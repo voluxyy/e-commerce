@@ -9,4 +9,8 @@
             <button (click)="deleteProduct(product.id)">&cross;</button>
         </div>
     </div>
+    <div>
+        <p>Vous avez <span>{{ user.money }}</span> crédits.</p>
+        <button id="purchase-btn" (click)="purchase()">Procéder aux paiements</button>
+    </div>
 </main>

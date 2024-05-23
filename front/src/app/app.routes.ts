@@ -16,6 +16,7 @@ import { MyProfileComponent } from './User/my-profile/my-profile.component';
 import { UserProfileComponent } from './User/user-profile/user-profile.component';
 import { AddCategoryComponent } from './Admin/add-category/add-category.component';
 import { EditCategoryComponent } from './Admin/edit-category/edit-category.component';
+import { EditMemberComponent } from './Admin/edit-member/edit-member.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,7 @@ export const routes: Routes = [
     { path: 'edit-product/:id', component: EditProductComponent, title: 'Edit Product' },
     { path: 'add-category', title: 'Add Category', component: AddCategoryComponent },
     { path: 'edit-category/:id', title: 'Edit Category', component: EditCategoryComponent},
+    { path: 'edit-member/:id', title: 'Edit Member', component: EditMemberComponent},
 
     // User routes
     { path: 'shopping-cart', title: 'Shopping Cart', component: ShoppingCartComponent },

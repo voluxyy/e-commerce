@@ -29,28 +29,28 @@ namespace ecommerce.Business.Service
 
             Admin admin = DtoToModel(dto, passwordHash, passwordSalt);
             await adminRepository.Add(admin);
-            AdminDto adminDto = ModelToDto(admin, null);
+            AdminDto adminDto = ModelToDto(admin, null!);
 
             return adminDto;
         }
 
         public async Task<AdminDto> Update(AdminDto dto)
         {
-            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id);
+            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id!);
 
             currentAdmin.Pseudo = dto.Pseudo;
             currentAdmin.Email = dto.Email;
             currentAdmin.Permission = dto.Permission;
 
             await adminRepository.Update(currentAdmin);
-            AdminDto adminDto = ModelToDto(currentAdmin, null);
+            AdminDto adminDto = ModelToDto(currentAdmin, null!);
 
             return adminDto;
         }
 
         public async Task<AdminDto> UpdatePassword(AdminDto dto)
         {
-            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id);
+            Admin currentAdmin = await adminRepository.Get((Guid)dto.Id!);
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(dto.Password, out passwordHash, out passwordSalt);
@@ -59,7 +59,7 @@ namespace ecommerce.Business.Service
             currentAdmin.PasswordSalt = passwordSalt;
 
             await adminRepository.Update(currentAdmin);
-            AdminDto adminDto = ModelToDto(currentAdmin, null);
+            AdminDto adminDto = ModelToDto(currentAdmin, null!);
 
             return adminDto;
         }
@@ -71,7 +71,7 @@ namespace ecommerce.Business.Service
 
         public async Task<AdminDto> Get(Guid id)
         {
-            return ModelToDto(await adminRepository.Get(id), null);
+            return ModelToDto(await adminRepository.Get(id), null!);
         }
 
         public List<AdminDto> GetAll()
@@ -104,7 +104,7 @@ namespace ecommerce.Business.Service
             List<AdminDto> adminsDtos = new List<AdminDto>();
             foreach (Admin admin in admins)
             {
-                adminsDtos.Add(ModelToDto(admin, null));
+                adminsDtos.Add(ModelToDto(admin, null!));
             }
             return adminsDtos;
         }
@@ -127,7 +127,7 @@ namespace ecommerce.Business.Service
         {
             Admin admin = new Admin
             {
-                Id = (Guid)adminDto.Id,
+                Id = (Guid)adminDto.Id!,
                 Pseudo = adminDto.Pseudo,
                 Email = adminDto.Email,
                 PasswordHash = passwordHash,

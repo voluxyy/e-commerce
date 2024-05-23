@@ -65,7 +65,8 @@ namespace ecommerce.Business.Service
                 Id = sale.Id,
                 ActivationCode = sale.ActivationCode,
                 ProductId = sale.ProductId,
-                UserId = sale.UserId
+                UserId = sale.UserId,
+                Date = sale.Date
             };
 
             return saleDto;
@@ -78,7 +79,8 @@ namespace ecommerce.Business.Service
                 Id = saleDto.Id,
                 ActivationCode = saleDto.ActivationCode,
                 ProductId = saleDto.ProductId,
-                UserId = saleDto.UserId
+                UserId = saleDto.UserId,
+                Date = saleDto.Date
             };
 
             return sale;

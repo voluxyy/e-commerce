@@ -55,6 +55,31 @@ namespace ecommerce.Business.Service
             return reviewDtos;
         }
 
+        public RateDto GetAverageRate(int id)
+        {
+            List<Review> reviews = reviewRepository.GetFromProduct(id);
+            
+            if (reviews == null || !reviews.Any())
+            {
+                return new RateDto { Value = 0 };
+            }
+
+            double averageRate = reviews.Average(review => review.Rate);
+
+            string formattedAverageRate = averageRate.ToString("0.00");
+
+            double formattedRate;
+            if (double.TryParse(formattedAverageRate, out formattedRate))
+            {
+                RateDto rateDto = new RateDto { Value = formattedRate };
+                return rateDto;
+            }
+            else
+            {
+                return new RateDto { Value = 0 };
+            }
+        }
+
         private List<ReviewDto> ListModelToDto(List<Review> reviews)
         {
             List<ReviewDto> reviewsDtos = new List<ReviewDto>();

@@ -4,5 +4,6 @@ namespace ecommerce.Business.Dto {
         public required int UserId { get; set; }
         public required int ProductId { get; set; }
         public required string ActivationCode { get; set; }
+        public required DateOnly Date { get; set; }
     }
 }

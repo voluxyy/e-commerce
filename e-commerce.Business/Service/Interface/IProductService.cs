@@ -14,5 +14,7 @@ namespace ecommerce.Business.Service
         Task<ProductDto> Get(int id);
 
         List<ProductDto> GetAll();
+
+        List<ProductDto> SearchBar(string searchItems);
     }
 }

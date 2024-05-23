@@ -33,11 +33,11 @@ namespace ecommerce.Controllers
                 var formCollection = await this.Request.ReadFormAsync();
 
                 var jsonDto = formCollection["dto"];
-                var dto = JsonConvert.DeserializeObject<UserDto>(jsonDto);
+                var dto = JsonConvert.DeserializeObject<UserDto>(jsonDto!);
 
                 Console.WriteLine(dto);
 
-                await this.service.Add(dto);
+                await this.service.Add(dto!);
                 return StatusCode(StatusCodes.Status201Created, dto);
             }
             catch (ArgumentNullException)
@@ -103,7 +103,7 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return this.StatusCode(500, "Internal Server Error");
             }
@@ -135,7 +135,7 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return this.StatusCode(500, "Internal Server Error");
             }

@@ -12,26 +12,28 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>AverageRate</th>
                     <th>Category ID</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let product of products">
-                    <td> {{ product.id }} </td>
+                <tr *ngFor="let value of values">
+                    <td> {{ value.product.id }} </td>
                     <td>
                         <div class="product__image">
-                            <img src="../assets/{{ product.imagePath }}" alt="">
+                            <img src="../assets/{{ value.product.imagePath }}" alt="">
                         </div>
                     </td>
-                    <td> {{ product.imagePath }} </td>
-                    <td> {{ product.name }} </td>
-                    <td> {{ product.price }} €</td>
-                    <td> {{ product.quantity }} </td>
-                    <td> {{ product.categoryId }} </td>
+                    <td> {{ value.product.imagePath }} </td>
+                    <td> {{ value.product.name }} </td>
+                    <td> {{ value.product.price }} €</td>
+                    <td> {{ value.product.quantity }} </td>
+                    <td> {{ value.rate.value }} / 5</td>
+                    <td> {{ value.product.categoryId }} </td>
                     <td>
-                        <a routerLink="/edit-product/{{ product.id }}" class="edit__btn">Edit</a>
-                        <a (click)="deleteGame(product.id)" class="delete__btn">Delete</a>
+                        <a routerLink="/edit-product/{{ value.product.id }}" class="edit__btn">Edit</a>
+                        <a (click)="deleteGame(value.product.id)" class="delete__btn">Delete</a>
                     </td>
                 </tr>
             </tbody>

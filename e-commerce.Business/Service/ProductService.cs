@@ -113,7 +113,7 @@ namespace ecommerce.Business.Service
             Product product = new Product
             {
                 Id = productDto.Id,
-                ImagePath = productDto.ImagePath,
+                ImagePath = productDto.ImagePath!,
                 Name = productDto.Name,
                 Price = productDto.Price,
                 Quantity = productDto.Quantity,
@@ -162,7 +162,12 @@ namespace ecommerce.Business.Service
 
             foreach (Product product in allProducts)
             {
-                if (Levenshtein(product.Name.ToLower(), searchTermLower))
+                string productName = product.Name.ToLower();
+
+                Console.WriteLine(searchTermLower);
+                Console.WriteLine(productName);
+
+                if (productName.Contains(searchTermLower) || Levenshtein(productName, searchTermLower))
                 {
                     searchedProducts.Add(ModelToDto(product));
                 }

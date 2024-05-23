@@ -15,5 +15,7 @@ namespace ecommerce.Business.Service
         List<ReviewDto> GetAll();
 
         List<ReviewDto> GetFromProduct(int id);
+
+        RateDto GetAverageRate(int id);
     }
 }

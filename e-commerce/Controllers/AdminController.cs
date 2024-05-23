@@ -112,7 +112,7 @@ namespace ecommerce.Controllers
             {
                 return this.ValidationProblem();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return this.StatusCode(500, "Internal Server Error");
             }

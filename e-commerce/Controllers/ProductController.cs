@@ -42,9 +42,9 @@ namespace ecommerce.Controllers
                 byte[] imageData = await ReadImageData(imageFile);
 
                 var jsonDto = formCollection["dto"];
-                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto);
+                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto!);
 
-                await this.service.Add(dto, imageData);
+                await this.service.Add(dto!, imageData);
                 return StatusCode(StatusCodes.Status201Created, dto);
             }
             catch (ArgumentNullException)
@@ -108,7 +108,7 @@ namespace ecommerce.Controllers
                 var formCollection = await this.Request.ReadFormAsync();
                 var files = formCollection.Files;
 
-                byte[] imageData = null;
+                byte[] imageData = null!;
                 if (files.Count > 0)
                 {
                     var imageFile = files[0];
@@ -116,9 +116,9 @@ namespace ecommerce.Controllers
                 }
 
                 var jsonDto = formCollection["dto"];
-                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto);
+                var dto = JsonConvert.DeserializeObject<ProductDto>(jsonDto!);
 
-                return await this.service.Update(dto, imageData);
+                return await this.service.Update(dto!, imageData);
             }
             catch (ArgumentNullException)
             {
@@ -184,6 +184,19 @@ namespace ecommerce.Controllers
             {
                 await imageFile.CopyToAsync(memoryStream);
                 return memoryStream.ToArray();
+            }
+        }
+
+        [HttpGet("searchbar/{request}")]
+        public ActionResult<List<ProductDto>> SearchBar(string request) 
+        {
+            try
+            {
+                return this.service.SearchBar(request);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
             }
         }
     }
