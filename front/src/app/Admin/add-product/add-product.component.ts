@@ -62,7 +62,7 @@ export class AddProductComponent {
 
     this.http.post<any>(this.productApiUrl, formData)
       .subscribe(data => {
-        this.router.navigate(['gamesAdmin']);
+        window.location.href = "gamesAdmin";
       }, error => {
         console.log(error);
       });

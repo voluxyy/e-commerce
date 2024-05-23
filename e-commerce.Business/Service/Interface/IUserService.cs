@@ -17,5 +17,7 @@ namespace ecommerce.Business.Service
         List<UserDto> GetAll();
 
         Task<UserDto> CheckConnection(LoginDto dto);
+
+        Task<UserDto> UpdateMoney(MoneyDto dto);
     }
 }

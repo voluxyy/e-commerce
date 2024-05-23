@@ -14,16 +14,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
-            <td> {{ user.id }} </td>
-            <td> {{ user.lastname }} {{ user.firstname }} </td>
-            <td> {{ user.pseudo }} </td>
-            <td> {{ user.email }} </td>
-            <td> {{ user.birthdate }} </td>
-            <td> {{ user.money }} </td>
-            <td> {{ user.sales }} </td>
+        <tr *ngFor="let u of usersFormatted">
+            <td> {{ u.user.id }} </td>
+            <td> {{ u.user.lastname }} {{ u.user.firstname }} </td>
+            <td> {{ u.user.pseudo }} </td>
+            <td> {{ u.user.email }} </td>
+            <td> {{ u.user.birthdate }} </td>
+            <td> {{ u.user.money }} </td>
+            <td>
+                <div *ngFor="let sale of u.sales">
+                    <a style="color: green" routerLink="/sale/{{ sale.value.id }}">Voir l'achat de <strong>{{ sale.product.name }}</strong></a>
+                </div>
+            </td>
             <td> 
-                <a routerLink="/edit-member/{{ user.id }}" class="edit__btn">Edit</a>
+                <a routerLink="/edit-member/{{ u.user.id }}" class="edit__btn">Edit</a>
             </td>
         </tr>
     </tbody>

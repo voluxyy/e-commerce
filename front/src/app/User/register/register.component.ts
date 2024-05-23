@@ -42,7 +42,7 @@ export class RegisterComponent {
 
     this.http.post<any>(this.url, formData)
       .subscribe(data => {
-        this.router.navigate(['login']);
+        window.location.href = "login";
       }, error => {
         console.log(error);
       });

@@ -17,7 +17,7 @@ export class EditCategoryComponent {
   categorie: any;
   
   private routeSub: Subscription = new Subscription;
-  private id: number | undefined;
+  private catId: number | undefined;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.url = "http://localhost:5016/api/Category";
@@ -29,15 +29,15 @@ export class EditCategoryComponent {
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(async params => {
-      this.id = +params['id'];
-      await this.loadProductData(this.id);
+      this.catId = +params['id'];
+      await this.loadProductData(this.catId);
     });
   }
 
-  async loadProductData(productId: number): Promise<void> {
+  async loadProductData(id: number): Promise<void> {
     try {
       // Init the requests
-      const categorieRequest = this.http.get<any>(`${this.url}/get/${productId}`).toPromise();
+      const categorieRequest = this.http.get<any>(`${this.url}/get/${id}`).toPromise();
 
       // Wait the end of the requests
       const [categorie] = await Promise.all([categorieRequest]);
@@ -63,9 +63,9 @@ export class EditCategoryComponent {
     const formData = JSON.stringify(dto);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    this.http.put<any>(`${this.url}/update/${this.id}`, formData, { headers })
+    this.http.put<any>(`${this.url}/update/${this.catId}`, formData, { headers })
       .subscribe(data => {
-        this.router.navigate(['gamesAdmin']);
+        window.location.href = "gamesAdmin";
       }, error => {
         console.log(error);
       });

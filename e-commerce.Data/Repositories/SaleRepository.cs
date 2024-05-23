@@ -1,4 +1,5 @@
 using ecommerce.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ecommerce.Data.Repositories
 {
@@ -46,6 +47,11 @@ namespace ecommerce.Data.Repositories
         public List<Sale> GetAll()
         {
             return _context.Sales.ToList();
+        }
+
+        public async Task<List<Sale>> GetFromUser(int id)
+        {
+            return await _context.Sales.Where(x => x.UserId == id).ToListAsync();
         }
     }
 }

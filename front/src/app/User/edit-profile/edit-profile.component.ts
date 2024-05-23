@@ -1,19 +1,17 @@
-import { NgFor } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-edit-member',
+  selector: 'app-edit-profile',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './edit-member.component.html',
-  styleUrl: './edit-member.component.scss'
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.scss'
 })
-export class EditMemberComponent {
-  categories: any;
+export class EditProfileComponent {
   userUrl: string;
   form: FormGroup;
   user: any;
@@ -21,7 +19,7 @@ export class EditMemberComponent {
   private routeSub: Subscription = new Subscription;
   private id: number | undefined;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private cookie: CookieService) {
     this.userUrl = 'http://localhost:5016/api/User';
     this.form = this.fb.group({
       id: new FormControl<number | null>(null),
@@ -35,10 +33,13 @@ export class EditMemberComponent {
   }
 
   ngOnInit() {
-    this.routeSub = this.route.params.subscribe(async params => {
-      this.id = +params['id'];
-      await this.loadProductData(this.id);
-    });
+    this.id = Number(this.cookie.get("UserId"));
+    if (!this.id) {
+      window.location.href = "";
+      return;
+    }
+
+    this.loadProductData(this.id);
   }
 
   async loadProductData(id: number): Promise<void> {
@@ -72,8 +73,8 @@ export class EditMemberComponent {
       lastname: this.form.value.lastname,
       firstname: this.form.value.firstname,
       pseudo: this.form.value.pseudo,
-      email: this.user.email,
-      birthdate: this.user.birthdate,
+      email: this.form.value.email,
+      birthdate: this.form.value.birthdate,
       money: this.form.value.money,
     };
 
@@ -82,7 +83,7 @@ export class EditMemberComponent {
 
     this.http.put<any>(`${this.userUrl}/update/${this.id}`, formData, { headers })
       .subscribe(data => {
-        window.location.href = "membersAdmin";
+        window.location.href = `my-profile`;
       }, error => {
         console.log(error);
       });

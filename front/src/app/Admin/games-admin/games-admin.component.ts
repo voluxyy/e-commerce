@@ -56,8 +56,6 @@ export class GamesAdminComponent {
           rate: rate,
         }
       )
-      console.log(rate);
-      console.log(product);
     }
 
     const categoryRequest = this.http.get<any>(`${this.categoryUrl}/all`);

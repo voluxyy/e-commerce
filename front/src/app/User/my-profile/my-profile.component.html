@@ -17,7 +17,9 @@
 
     <div>
         <h4>Money</h4>
-        <p><span>Pixels Credits</span> {{ (user.money < 0 ? user.money : "You have 0 credits.. Buy somes videos games!") }}</p>
+        <p><span>Pixels Credits</span> {{ (user.money > 0 ? "You have " + user.money + " credits!" : "You have 0 credits.. You can't buy videos games!") }}</p>
     </div>
 
+    <a class="add__btn_category" routerLink="/edit-profile">Edit profile</a>
+    <a class="add__btn" routerLink="/edit-password">Edit password</a>
 </main>

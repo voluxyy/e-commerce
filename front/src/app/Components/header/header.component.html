@@ -3,14 +3,17 @@
     <input tabIndex="1" type="text" placeholder="Search..." id="searchbar" (keyup)="searchbar()">
     <menu>
         <li tabIndex="1"><a routerLink="/" routerLinkActive="active-link" ariaCurrentWhenActive="page">Home</a></li>
-        <li tabIndex="1"><a routerLink="/register" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="register">Register</a></li>
-        <li tabIndex="1"><a routerLink="/login" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="login">Login</a></li>
-        <li tabIndex="1"><a routerLink="/dashboard" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="Dashboard">Dashboard</a></li>
-        <li tabIndex="1"><a routerLink="/gamesAdmin" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="gamesAdmin">gamesAdmin</a></li>
-        <li tabIndex="1"><a routerLink="/membersAdmin" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="members">members</a></li>
-        <li tabIndex="1"><a routerLink="/shopping-cart" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="shopping-cart">shopping cart</a></li>
-        <!-- Change Route for Profiles -->
-        <li tabIndex="1"><a routerLink="/my-profile/{{ this.id }}" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="my-profile">my-profile</a></li>
+
+        <li *ngIf="this.type == 'Admin'" tabIndex="1"><a routerLink="/dashboard" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="Dashboard">Dashboard</a></li>
+        <li *ngIf="this.type == 'Admin'" tabIndex="1"><a routerLink="/gamesAdmin" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="gamesAdmin">Games</a></li>
+        <li *ngIf="this.type == 'Admin'" tabIndex="1"><a routerLink="/membersAdmin" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="members">Members</a></li>
+
+        <li *ngIf="this.type == 'User'" tabIndex="1"><a routerLink="/shopping-cart" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="shopping-cart">Shopping cart</a></li>
+        <li *ngIf="this.type == 'User'" tabIndex="1"><a routerLink="/my-profile" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="my-profile">Profile</a></li>
+
+        <li *ngIf="!this.connected" tabIndex="1"><a routerLink="/register" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="register">Register</a></li>
+        <li *ngIf="!this.connected"tabIndex="1"><a routerLink="/login" routerLinkActive="active-link" ariaCurrentWhenActive="page" id="login">Login</a></li>
+        <li *ngIf="this.connected" tabIndex="1"><a (click)="deconnection()" id="deconnection">Deconnection</a></li>
     </menu>
 </header>
 <section id="searchbar-result-container">

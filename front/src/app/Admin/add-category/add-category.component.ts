@@ -33,7 +33,7 @@ export class AddCategoryComponent {
 
     this.http.post<any>(this.url, formData, { headers })
       .subscribe(data => {
-        this.router.navigate(['gamesAdmin']);
+        window.location.href = "gamesAdmin";
       }, error => {
         console.log(error);
       });

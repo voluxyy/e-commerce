@@ -76,6 +76,18 @@ namespace ecommerce.Business.Service
             return userDto;
         }
 
+        public async Task<UserDto> UpdateMoney(MoneyDto dto)
+        {
+            User currentUser = await userRepository.Get(dto.UserId);
+
+            currentUser.Money = dto.Money;
+
+            await userRepository.Update(currentUser);
+            UserDto userDto = ModelToDto(currentUser, null!);
+
+            return userDto;
+        }
+
         public async Task<int> Delete(int id)
         {
             return await userRepository.Delete(id);

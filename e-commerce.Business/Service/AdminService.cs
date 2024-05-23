@@ -81,7 +81,7 @@ namespace ecommerce.Business.Service
             return adminsDtos;
         }
 
-        public async Task<Boolean> CheckConnection(LoginDto dto) {
+        public async Task<AdminDto> CheckConnection(LoginDto dto) {
             if (dto.Email == null || dto.Password == null)
                 throw new ArgumentNullException("The email and the password are required."); 
 
@@ -94,9 +94,9 @@ namespace ecommerce.Business.Service
             CreatePasswordHashFromSalt(dto.Password, admin.PasswordSalt, out passwordHash);
 
             if (!admin.PasswordHash.SequenceEqual(passwordHash))
-                return false;
+                throw new InvalidOperationException("The email or the password provided is wrong.");
 
-            return true;
+            return ModelToDto(admin, null!);
         }
 
         private List<AdminDto> ListModelToDto(List<Admin> admins)

@@ -42,7 +42,7 @@ export class LoginComponent {
         if (data != null) {
           this.cookieService.set('Type', 'User');
           this.cookieService.set('UserId', data.id);
-          this.router.navigate(['']);
+          window.location.href = "";
         }
       }, error => {
         console.log(error);

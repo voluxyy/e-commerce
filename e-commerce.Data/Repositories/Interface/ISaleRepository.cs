@@ -13,5 +13,7 @@ namespace ecommerce.Data.Repositories
         Task<Sale> Get(int id);
 
         List<Sale> GetAll();
+
+        Task<List<Sale>> GetFromUser(int id);
     }
 }

@@ -1,14 +1,14 @@
+import { NgIf } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { lastValueFrom } from 'rxjs';
-import { LinkHTMLAttributes } from 'vue';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -16,22 +16,30 @@ export class HeaderComponent {
   url: string;
   result: any;
 
-  id: number | undefined;
+  id: string | undefined;
+  connected: boolean = false;
+  type: string = "User";
 
   constructor(private http: HttpClient, private cookie: CookieService) {
     this.url = 'http://localhost:5016/api/Product';
   }
 
   ngOnInit() {
-    this.id = Number(this.cookie.get("UserId"));
+    this.id = this.cookie.get("UserId");
+    this.type = this.cookie.get("Type");
+    if (this.id)
+      this.connected = true;
   }
 
   async searchbar() {
     const input = document.getElementById("searchbar") as HTMLInputElement;
     let value = input?.value;
 
-    if (value == null || value.trim() === "")
+    if (value == null || value.trim() === "") {
+      const container = document.getElementById("searchbar-result-container") as HTMLElement;
+      container.innerHTML = '';
       return;
+    }
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const request = this.http.get<any>(this.url + '/searchbar/' + value, { headers });
@@ -43,7 +51,7 @@ export class HeaderComponent {
   showResult() {
     const container = document.getElementById("searchbar-result-container") as HTMLElement;
 
-    container.innerHTML = ''; // Clear previous results
+    container.innerHTML = '';
 
     this.result.forEach((product: { name: any; price: any; imagePath: any; id: any }) => {
       const productElement = document.createElement('a');
@@ -76,7 +84,11 @@ export class HeaderComponent {
         <p style="margin:0;padding:0;">${product.price} €</p>
       `;
       container.appendChild(productElement);
-      
     });
+  }
+
+  deconnection() {
+    this.cookie.deleteAll();
+    window.location.href = "";
   }
 }

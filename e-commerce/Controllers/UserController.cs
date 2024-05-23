@@ -141,6 +141,28 @@ namespace ecommerce.Controllers
             }
         }
 
+        [HttpPut("update-money/{id}")]
+        public async Task<ActionResult<UserDto>> UpdateMoney(int id, MoneyDto dto)
+        {
+            if (id <= default(int))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                return await this.service.UpdateMoney(dto);
+            }
+            catch (ArgumentNullException)
+            {
+                return this.ValidationProblem();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
         /// <summary>
         /// Deletes a User based on its identifier.
         /// </summary>

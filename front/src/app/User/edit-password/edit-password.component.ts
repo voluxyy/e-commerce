@@ -1,19 +1,17 @@
-import { NgFor } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-edit-member',
+  selector: 'app-edit-password',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './edit-member.component.html',
-  styleUrl: './edit-member.component.scss'
+  templateUrl: './edit-password.component.html',
+  styleUrl: './edit-password.component.scss'
 })
-export class EditMemberComponent {
-  categories: any;
+export class EditPasswordComponent {
   userUrl: string;
   form: FormGroup;
   user: any;
@@ -21,24 +19,24 @@ export class EditMemberComponent {
   private routeSub: Subscription = new Subscription;
   private id: number | undefined;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private cookie: CookieService) {
     this.userUrl = 'http://localhost:5016/api/User';
     this.form = this.fb.group({
       id: new FormControl<number | null>(null),
-      lastname: new FormControl<string | null>(null),
-      firstname: new FormControl<string | null>(null),
       pseudo: new FormControl<string | null>(null),
       email: new FormControl<string | null>(null),
-      birthdate: new FormControl<string | null>(null),
-      money: new FormControl<number | null>(null),
+      password: new FormControl<string | null>(null),
     });
   }
 
   ngOnInit() {
-    this.routeSub = this.route.params.subscribe(async params => {
-      this.id = +params['id'];
-      await this.loadProductData(this.id);
-    });
+    this.id = Number(this.cookie.get("UserId"));
+    if (!this.id) {
+      window.location.href = "";
+      return;
+    }
+
+    this.loadProductData(this.id);
   }
 
   async loadProductData(id: number): Promise<void> {
@@ -54,12 +52,9 @@ export class EditMemberComponent {
       // Update the form values with the retrieved product data
       this.form.patchValue({
         id: user.id,
-        lastname: user.lastname,
-        firstname: user.firstname,
         pseudo: user.pseudo,
         email: user.email,
-        birthdate: user.birthdate,
-        money: user.money,
+        password: null,
       });
     } catch (error) {
       console.error('An error occurred:', error);
@@ -68,21 +63,27 @@ export class EditMemberComponent {
 
   onSubmit() {
     const dto = {
-      id: this.form.value.id,
-      lastname: this.form.value.lastname,
-      firstname: this.form.value.firstname,
-      pseudo: this.form.value.pseudo,
+      id: this.user.id,
+      pseudo: this.user.pseudo,
       email: this.user.email,
-      birthdate: this.user.birthdate,
-      money: this.form.value.money,
+      password: this.form.value.password
     };
+
+    const passwordConfEl = document.getElementById("password-confirmation") as HTMLInputElement;
+    if (dto.password != passwordConfEl.value) {
+      const el = document.createElement("p");
+      el.innerText = "The passwords are not the same!";
+
+      document.getElementById("errors")?.appendChild(el);
+      return;
+    }
 
     const formData = JSON.stringify(dto);
     const headers = new HttpHeaders().set("Content-Type", "application/json");
 
-    this.http.put<any>(`${this.userUrl}/update/${this.id}`, formData, { headers })
+    this.http.put<any>(`${this.userUrl}/update-password/${this.id}`, formData, { headers })
       .subscribe(data => {
-        window.location.href = "membersAdmin";
+        window.location.href = `my-profile`;
       }, error => {
         console.log(error);
       });
