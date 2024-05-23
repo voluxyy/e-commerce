@@ -47,6 +47,7 @@ classDiagram
         int ProductId
         int UserId
         string ActivationCode
+        dateOnly Date
     }
     class Wish{
         int Id
