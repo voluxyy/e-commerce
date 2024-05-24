@@ -1,5 +1,6 @@
 ﻿using ecommerce.Business.Dto;
 using ecommerce.Business.Service;
+using ecommerce.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecommerce.Controllers
@@ -178,6 +179,32 @@ namespace ecommerce.Controllers
                 };
                 
                 return await this.service.HasBuy(hasBuy);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("get-last-7-days")]
+        public async Task<ActionResult<List<SaleDto>>> GetLast7Days()
+        {
+            try
+            {
+                return await this.service.GetLast7Days();
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("get-total-revenues-from-last-7-Days")]
+        public async Task<ActionResult<float>> GetTotalRevenuesFromLast7Days()
+        {
+            try
+            {
+                return await this.service.GetTotalRevenuesFromLast7Days();
             }
             catch (Exception)
             {

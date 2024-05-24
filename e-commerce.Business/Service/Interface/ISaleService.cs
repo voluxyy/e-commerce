@@ -17,5 +17,9 @@ namespace ecommerce.Business.Service
         List<SaleDto> GetAll();
         
         Task<Boolean> HasBuy(HasBuy hasBuy);
+
+        Task<List<SaleDto>> GetLast7Days();
+
+        Task<float> GetTotalRevenuesFromLast7Days();
     }
 }
