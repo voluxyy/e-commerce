@@ -53,5 +53,11 @@ namespace ecommerce.Data.Repositories
         {
             return await _context.Sales.Where(x => x.UserId == id).ToListAsync();
         }
+
+        public async Task<List<Sale>> GetLast7Days()
+        {
+            var sevenDaysAgo = DateOnly.FromDateTime(DateTime.Now.AddDays(-7));
+            return await _context.Sales.Where(x => x.Date >= sevenDaysAgo).ToListAsync();
+        }
     }
 }

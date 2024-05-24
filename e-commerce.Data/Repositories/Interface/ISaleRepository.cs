@@ -15,5 +15,7 @@ namespace ecommerce.Data.Repositories
         List<Sale> GetAll();
 
         Task<List<Sale>> GetFromUser(int id);
+
+        Task<List<Sale>> GetLast7Days();
     }
 }

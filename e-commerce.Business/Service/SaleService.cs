@@ -9,10 +9,12 @@ namespace ecommerce.Business.Service
     public class SaleService : ISaleService
     {
         private readonly ISaleRepository saleRepository;
+        private readonly IProductRepository productRepository;
 
-        public SaleService(ISaleRepository saleRepository)
+        public SaleService(ISaleRepository saleRepository, IProductRepository productRepository)
         {
             this.saleRepository = saleRepository;
+            this.productRepository = productRepository;
         }
 
         public async Task<SaleDto> Add(SaleDto dto)
@@ -68,6 +70,24 @@ namespace ecommerce.Business.Service
             }
             
             return false;
+        }
+
+        public async Task<List<SaleDto>> GetLast7Days()
+        {
+            return ListModelToDto(await this.saleRepository.GetLast7Days());
+        }
+
+        public async Task<float> GetTotalRevenuesFromLast7Days()
+        {
+            float totalRevenue = 0;
+            List<Sale> sales = await this.saleRepository.GetLast7Days();
+
+            sales.ForEach(async s => {
+                Product product = await this.productRepository.Get(s.ProductId);
+                totalRevenue += product.Price;
+            });
+
+            return totalRevenue;
         }
 
         private List<SaleDto> ListModelToDto(List<Sale> sales)
