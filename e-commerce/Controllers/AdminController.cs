@@ -181,5 +181,26 @@ namespace ecommerce.Controllers
                 return this.StatusCode(500, "Internal Server Error");
             }
         }
+
+        // [HttpPost("check-connection-by-pseudo")]
+        // public async Task<ActionResult<AdminDto>> CheckConnectionByPseudo([FromBody] LoginDto dto)
+        // {
+        //     try 
+        //     {
+        //         return await this.service.CheckConnectionByPseudo(dto);
+        //     }
+        //     catch (InvalidOperationException e)
+        //     {
+        //         return this.NotFound(e.Message);
+        //     }
+        //     catch (ArgumentNullException e)
+        //     {
+        //         return this.BadRequest(e.Message);
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return this.StatusCode(500, "Internal Server Error");
+        //     }
+        // }
     }
 }

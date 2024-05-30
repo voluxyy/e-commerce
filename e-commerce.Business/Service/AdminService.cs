@@ -81,23 +81,59 @@ namespace ecommerce.Business.Service
             return adminsDtos;
         }
 
-        public async Task<AdminDto> CheckConnection(LoginDto dto) {
-            if (dto.Email == null || dto.Password == null)
-                throw new ArgumentNullException("The email and the password are required."); 
+        public async Task<AdminDto> CheckConnection(LoginDto dto)
+        {
+            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
+            {
+                throw new ArgumentNullException("Both email and password are required.");
+            }
 
-            Admin admin = await adminRepository.GetByEmail(dto.Email);
+            // Try to get admin by email or pseudo
+            Admin admin = await adminRepository.GetByEmail(dto.Email)
+                          ?? await adminRepository.GetByPseudo(dto.Email);
 
             if (admin == null)
+            {
                 throw new InvalidOperationException("The email or the password provided is wrong.");
+            }
 
+            // Validate the password
             byte[] passwordHash;
             CreatePasswordHashFromSalt(dto.Password, admin.PasswordSalt, out passwordHash);
 
             if (!admin.PasswordHash.SequenceEqual(passwordHash))
+            {
                 throw new InvalidOperationException("The email or the password provided is wrong.");
+            }
 
-            return ModelToDto(admin, null!);
+            // Convert the admin to AdminDto and return
+            return ModelToDto(admin, null);
         }
+
+        // public async Task<AdminDto> CheckConnectionByPseudo(LoginDto dto) {
+        //      if (dto.Pseudo == null)
+        //         throw new ArgumentNullException("Pseudo can't be null."); 
+        //         Console.WriteLine("Error step 1");
+        //      if (dto.Password == null)
+        //         throw new ArgumentNullException("Password is required.");
+        //         Console.WriteLine("Error step 2");
+
+        //     Admin adminPseudo = await adminRepository.GetByPseudo(dto.Pseudo);
+
+        //     if (adminPseudo == null)
+        //         throw new InvalidOperationException("Pseudo is wrong or inexistant.");
+        //         Console.WriteLine("Error step 3");
+
+        //     byte[] passwordHash;
+        //     CreatePasswordHashFromSalt(dto.Password, adminPseudo.PasswordSalt, out passwordHash);
+        //     Console.WriteLine("Error step 4");
+
+        //     if (!adminPseudo.PasswordHash.SequenceEqual(passwordHash))
+        //         throw new InvalidOperationException("Pseudo provided is wrong.");
+        //         Console.WriteLine("Error step 5");
+
+        //     return ModelToDto(adminPseudo, null!);  
+        // }
 
         private List<AdminDto> ListModelToDto(List<Admin> admins)
         {

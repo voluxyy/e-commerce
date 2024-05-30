@@ -98,7 +98,6 @@ tbody {
 
 // Forms
 form {
-    margin: 0 0 10vh 0;
     select {
         width: 100%;
         padding: 10px;
@@ -108,7 +107,6 @@ form {
         color: var(--var-black);
         border-radius: 5px;
     }
-    margin-top: 10%;
     input[type="text"],
     input[type="email"],
     input[type="password"],

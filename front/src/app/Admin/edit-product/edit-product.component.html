@@ -1,30 +1,35 @@
 <main>
-<h2>Edit Product</h2>
+    <section>
+        <div class="image-container">
+            <img id="current-image">
+        </div>
+        <div class="form">
+            <h2>Edit Product</h2>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
+                <label for="name">Nom</label>
+                <input type="text" id="name" formControlName="name">
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST" enctype="multipart/form-data">
+                <label for="price">Price</label>
+                <input type="number" id="price" formControlName="price">
 
-    <label for="name">Nom</label>
-    <input type="text" id="name" formControlName="name">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" formControlName="quantity">
 
-    <label for="price">Price</label>
-    <input type="number" id="price" formControlName="price">
+                <label for="categoryId">Category</label>
+                <select name="categoryId" id="categoryId" formControlName="categoryId">
+                    <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
+                </select>
 
-    <label for="quantity">Quantity</label>
-    <input type="number" id="quantity" formControlName="quantity">
+                <label for="imageData">Image</label>
+                <input type="file" (change)="onFileSelected($event)">
 
-    <label for="categoryId">Category</label>
-    <select name="categoryId" id="categoryId" formControlName="categoryId">
-        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.categoryName }}</option>
-    </select>
+                <input type="text" name="id" id="id" formControlName="id" hidden>
 
-    <label for="imageData">Image</label>
-    <input type="file" (change)="onFileSelected($event)">
+                <button href="/games-admin" type="submit">Submit</button>
+            </form>
+        </div>
 
-    <p>Current Image</p>
-    <img id="current-image">
+    </section>
 
-    <input type="text" name="id" id="id" formControlName="id" hidden>
 
-    <button href="/games-admin" type="submit">Submit</button>
-</form>
 </main>

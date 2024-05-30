@@ -11,6 +11,24 @@
     padding: 0 1%;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50em;
+    // background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg) no-repeat 50% 50%;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/light/times-circle.svg) no-repeat 50% 50%;
+    background-color: var(--var-primary);
+    background-size: contain;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  input[type="search"]:focus::-webkit-search-cancel-button {
+    opacity: .6;
+    pointer-events: all;
+  }
+
 .search-result-image{
     width: 10%;
     height: 10%;

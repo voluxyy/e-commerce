@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using ecommerce.Business.Dto;
 using ecommerce.Data.Models;
@@ -21,15 +22,25 @@ namespace ecommerce.Business.Service
 
         public async Task<UserDto> Add(UserDto dto)
         {
-            var exist = await userRepository.GetByEmail(dto.Email);
-            
-            if (exist != null)
-                throw new ApplicationException("User with this email already exists");
+            string normalizedEmail = dto.Email.ToLowerInvariant();
+
+            ValidateEmail(normalizedEmail);
+            ValidatePseudo(dto.Pseudo);
+            ValidatePassword(dto.Password);
+
+            var emailExist = await userRepository.GetByEmail(normalizedEmail);
+            if (emailExist != null)
+                throw new ApplicationException($"{dto.Email} already exists");
+
+            var pseudoExist = await userRepository.GetByPseudo(dto.Pseudo);
+            if (pseudoExist != null)
+                throw new ApplicationException($"{dto.Pseudo} already exists");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(dto.Password!, out passwordHash, out passwordSalt);
 
             User user = DtoToModel(dto, passwordHash, passwordSalt);
+            user.Email = normalizedEmail;
             await userRepository.Add(user);
             UserDto userDto = ModelToDto(user, null!);
 
@@ -106,10 +117,11 @@ namespace ecommerce.Business.Service
         }
 
         public async Task<UserDto> CheckConnection(LoginDto dto) {
-            if (dto.Email == null || dto.Password == null)
+            string email = dto.Email.ToLower();
+            if (email == null || dto.Password == null)
                 throw new ArgumentNullException("The email and the password are required."); 
 
-            User user = await userRepository.GetByEmail(dto.Email);
+            User user = await userRepository.GetByEmail(email);
 
             if (user == null)
                 throw new InvalidOperationException("The email or the password provided is wrong.");
@@ -175,6 +187,13 @@ namespace ecommerce.Business.Service
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
+            /*
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+            */
         }
 
         private void CreatePasswordHashFromSalt(string password, byte[] salt, out byte[] hash)
@@ -183,6 +202,27 @@ namespace ecommerce.Business.Service
             {
                 hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
+        }
+
+        private void ValidateEmail(string email)
+        {
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(email, emailPattern))
+                throw new ApplicationException("Invalid email format");
+        }
+
+        private void ValidatePseudo(string pseudo)
+        {
+            string pseudoPattern = @"^[a-zA-Z0-9_-]{3,15}$";
+            if (!Regex.IsMatch(pseudo, pseudoPattern))
+                throw new ApplicationException("Invalid pseudo format. Pseudo must be 3-15 characters long and contain only letters, numbers, underscores, or dashes.");
+        }
+
+        private void ValidatePassword(string password)
+        {
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+            if (!Regex.IsMatch(password, passwordPattern))
+                throw new ApplicationException("Invalid password format. Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.");
         }
     }
 }

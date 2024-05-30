@@ -38,7 +38,7 @@ export const routes: Routes = [
     { path: 'product/:id', title: 'Product', component: ProductComponent },
 
     // Admin routes
-    { path: 'admin-login', title: 'AdminLogin', component: AdminLoginComponent},
+    { path: 'admin', title: 'AdminLogin', component: AdminLoginComponent},
     { path: 'membersAdmin', title: 'Members', component: MembersAdminComponent} ,
     { path: 'gamesAdmin', title: 'GamesAdmin', component: GamesAdminComponent },
     { path: 'add-product', component: AddProductComponent, title: 'Add Product' }, 

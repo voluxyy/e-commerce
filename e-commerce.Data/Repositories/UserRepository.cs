@@ -50,6 +50,11 @@ namespace ecommerce.Data.Repositories
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
+        public async Task<User> GetByPseudo(string pseudo)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Pseudo == pseudo);
+        }
+
         public List<User> GetAll()
         {
             return _context.Users.ToList();

@@ -15,5 +15,7 @@ namespace ecommerce.Data.Repositories
         List<User> GetAll();
 
         Task<User> GetByEmail(string email);
+
+        Task<User> GetByPseudo(string pseudo);
     }
 }

@@ -1,5 +1,5 @@
-.product__image{
-    width: 200px;
+.product_image{
+    width: 16vw;
     height: 200px;
     img{
         width: 100%;
@@ -13,5 +13,55 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid white;
-    padding: 1%;
+    padding: 0 .8%;
+}
+.grid_cards_game_admin{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    .products{
+        border: 1px solid #666;
+        border-radius: 10px;
+        padding: 2%;
+        width: 16vw;
+        margin-top: 15%;
+        .product-name{
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .product_info{
+            padding: 4%;
+            line-height: .4;
+        }
+        .btn-games{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 5%;
+            .edit-game{
+                background-color: var(--var-black-ease);
+                border: 1px solid #666;
+                border-radius: 5px;
+                color: white;
+                padding: 5px 20px;
+                width: 100%;
+                cursor: pointer;
+                &:hover{
+                    background-color: #060e29;
+                }
+                
+            }
+            .delete-game{
+                background-color: var(--var-black-ease);
+                border: 1px solid #666;
+                border-radius: 5px;
+                color: white;
+                padding: 5px 10px;
+                width: 100%;
+                cursor: pointer;
+                &:hover{
+                    background-color: #3b0404;
+                }
+            }
+        }
+    }
 }

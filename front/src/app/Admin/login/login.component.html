@@ -1,10 +1,10 @@
 <main>
     <section>
-        <h1>Admin login</h1>
+        <h1>Login as Administrator</h1>
         <form [formGroup]="form" (ngSubmit)="onSubmit()" method="POST">
             <div class="form-group">
-                <label for="email" hidden>Email</label>
-                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email">
+                <label for="email" hidden>Email or Pseudo</label>
+                <input type="text" formControlName="email" class="form-control" id="email" placeholder="Email or Pseudo">
             </div>
             <div class="form-group">
                 <label for="password" hidden>Password</label>
@@ -12,5 +12,8 @@
             </div>
             <button type="submit">Submit</button>
         </form>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
     </section>
 </main>
